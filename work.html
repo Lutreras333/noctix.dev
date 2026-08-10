@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work — Noctix</title>
+  <meta name="description" content="Case study: an end-to-end billing automation platform processing six figures monthly, unattended, with 105 automated tests in CI.">
+  <link rel="canonical" href="https://noctix.dev/work.html">
+  <meta property="og:title" content="Work — Noctix">
+  <meta property="og:description" content="Case study: an end-to-end billing automation platform processing six figures monthly, unattended.">
+  <meta property="og:url" content="https://noctix.dev/work.html">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0a0d14">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="wordmark" href="/">
+        <svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">
+          <defs><mask id="m-crescent"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
+          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#m-crescent)"/>
+        </svg>
+        NOCTIX
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="/work.html" aria-current="page">Work</a>
+        <a href="/services.html">Services</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Work</p>
+        <h1>Proof, not promises.</h1>
+        <p class="lede">One flagship system in production, trusted with real money every day. More case studies as they ship.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <article class="case-study">
+          <h2 style="margin-top:0">WWCARGO billing platform</h2>
+          <p class="case-meta">End-to-end billing automation · fresh-flower air cargo · South America → Miami</p>
+
+          <div class="stats">
+            <div class="stat"><strong>Six figures</strong><span>invoiced monthly, unattended</span></div>
+            <div class="stat"><strong>105</strong><span>automated tests in CI</span></div>
+            <div class="stat"><strong>2×/day</strong><span>autonomous cycles on a cloud runner</span></div>
+            <div class="stat"><strong>470/470</strong><span>shipments verified to the exact kilogram</span></div>
+          </div>
+
+          <h2>The problem</h2>
+          <p>Billing lived across email, spreadsheets, and QuickBooks. Every flight meant reading shipment manifests and vendor invoices out of inboxes, transcribing them into ledgers with live formulas, and keying transactions in one at a time — hours of daily work, with real money riding on every keystroke.</p>
+
+          <h2>What Noctix built</h2>
+          <p>A production system that runs the entire billing cycle on its own. It detects flights through the logistics platform's API, ingests shipment manifests and vendor PDFs, writes formatted ledgers with live formulas, and generates customer invoices and vendor bills in QuickBooks — end to end, with no operator at the keyboard.</p>
+          <p>Because the system moves real money, verification comes first: every write is re-checked against source documents before it executes. If the numbers don't reconcile, the transaction halts and a human is alerted. A deterministic core does the work; an AI exception-handler is summoned only when something looks wrong.</p>
+          <ul>
+            <li>Autonomous cycles twice a day on a self-administered VPS, with tiered email alerts (ok / check / problems)</li>
+            <li>Verification gates that re-check every write against source documents</li>
+            <li>Billing weights the vendor API doesn't expose, reconstructed exact to the kilogram — 470 of 470 shipments</li>
+            <li>Six ledgers across two country pipelines, written and reconciled automatically</li>
+            <li>Machine-gated financial controls in place of manual approval</li>
+            <li>One-script migration to a new machine</li>
+          </ul>
+
+          <div class="stack-line">Python · Google Sheets &amp; Gmail APIs · QuickBooks Online API · GitHub Actions CI · Windows Server VPS</div>
+
+          <p><a class="btn btn-primary" href="https://github.com/Lutreras333/wwcargo-billing-platform" rel="noopener">View the public showcase on GitHub</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="band">
+          <h2>Want something like this for your operation?</h2>
+          <p>Every business has a billing cycle, a reporting ritual, or a data-entry grind that software could own. Tell us about yours.</p>
+          <a class="btn btn-ghost" href="/contact.html">Start a conversation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© 2026 Noctix. Software that runs itself.</span>
+      <div class="footer-links">
+        <a href="mailto:hello@noctix.dev">hello@noctix.dev</a>
+        <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
