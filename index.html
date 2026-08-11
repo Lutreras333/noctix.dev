@@ -42,14 +42,28 @@
   <main id="main">
 
     <section class="hero">
+      <div class="contours" aria-hidden="true">
+        <svg viewBox="0 0 1400 900" preserveAspectRatio="none">
+          <path d="M-80 150C220 40 520 250 860 130S1320 210 1560 90"/>
+          <path d="M-80 250C220 140 520 350 860 230S1320 310 1560 190"/>
+          <path d="M-80 360C240 250 540 470 880 340S1340 420 1560 300"/>
+          <path d="M-80 480C260 370 560 600 900 460S1360 540 1560 420"/>
+          <path d="M-80 610C260 500 580 730 920 590S1380 670 1560 550"/>
+          <path d="M-80 750C280 640 600 860 940 720S1400 800 1560 680"/>
+        </svg>
+      </div>
       <div class="shell hero-grid">
         <div class="reveal is-in">
           <p class="kicker">Software studio</p>
-          <h1>Software that<br><span class="glow-word">runs itself.</span></h1>
-          <p class="lede">Noctix builds the systems a business hands its operations to — automation, integrations, and custom software that keep working long after everyone has logged off.</p>
+          <h1 class="display" style="margin-top:1.5rem">Software that<br><span class="em">runs itself</span></h1>
+          <p class="lede" style="margin-top:1.75rem">Noctix builds the systems a business hands its operations to — automation, integrations, and custom software that keep working long after everyone has logged off.</p>
           <div class="actions">
             <a class="btn btn-primary" href="/work.html">See the proof <span class="arrow" aria-hidden="true">→</span></a>
             <a class="btn btn-quiet" href="/contact.html">Start a conversation</a>
+          </div>
+          <div class="runcard" style="margin-top:2.5rem">
+            <span class="rc-label">Last unattended run</span>
+            <span class="rc-main"><span class="beacon"></span>02:00 UTC · all checks passed</span>
           </div>
         </div>
 
@@ -111,7 +125,20 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" style="padding-block:clamp(4.5rem,10vw,8.5rem)">
+      <div class="shell">
+        <div class="emblem reveal">
+          <svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true">
+            <defs><mask id="me"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
+            <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#me)"/>
+          </svg>
+          <span>The standard</span>
+        </div>
+        <p class="display manifesto reveal">We build the systems businesses trust with their <span class="em">money</span>, their deadlines, and their <span class="em">nights</span>.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
       <div class="shell">
         <div class="section-head reveal">
           <p class="kicker">What we build</p>
