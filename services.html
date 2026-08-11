@@ -15,8 +15,16 @@
   <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
-  <script>document.documentElement.className += ' has-js';</script>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-serif-italic-latin.woff2" crossorigin>
+  <script>(function(d){var r=d.documentElement;r.className+=' has-js';
+  var bail=function(){r.className+=' js-bailout'};
+  var b=setTimeout(bail,2500);r.__nx=function(){clearTimeout(b)};
+  addEventListener('error',function(e){var t=e.target;
+  if(t&&t.tagName==='SCRIPT')bail()},true);
+  addEventListener('pagereveal',function(e){
+  if(e.viewTransition)r.className+=' vt-nav'})})(document);</script>
   <link rel="stylesheet" href="/assets/style.css">
+  <script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -53,10 +61,13 @@
         </svg>
       </div>
       <div class="shell">
-        <div class="reveal is-in" style="max-width:46rem">
+        <div style="max-width:46rem">
           <p class="kicker">Services</p>
-          <h1 class="display">The software that <span class="em">runs a business</span></h1>
-          <p class="lede">Broad on purpose. Noctix takes on the operational software most businesses actually need — and builds it to a standard you can leave alone.</p>
+          <h1 class="display statement">
+            <span class="line" style="--i:0"><span class="line-i">The software that</span></span>
+            <span class="line" style="--i:1"><span class="line-i"><span class="em">runs a business</span></span></span>
+          </h1>
+          <p class="lede enter" style="--i:3">Broad on purpose. Noctix takes on the operational software most businesses actually need — and builds it to a standard you can leave alone.</p>
         </div>
       </div>
     </section>
@@ -106,7 +117,7 @@
               <h2>Built to hand over, not to hold hostage.</h2>
               <p>A system you can't run without the person who built it isn't finished. Noctix optimises for the day you stop needing us in the room.</p>
             </div>
-            <div class="flow" aria-hidden="true">
+            <div class="flow runs">
               <div class="flow-node"><span class="idx">1</span><span>map the operation as it really runs</span></div>
               <div class="flow-link"></div>
               <div class="flow-node"><span class="idx">2</span><span>automate the narrowest useful slice first</span></div>

@@ -8,8 +8,16 @@
   <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
-  <script>document.documentElement.className += ' has-js';</script>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-serif-italic-latin.woff2" crossorigin>
+  <script>(function(d){var r=d.documentElement;r.className+=' has-js';
+  var bail=function(){r.className+=' js-bailout'};
+  var b=setTimeout(bail,2500);r.__nx=function(){clearTimeout(b)};
+  addEventListener('error',function(e){var t=e.target;
+  if(t&&t.tagName==='SCRIPT')bail()},true);
+  addEventListener('pagereveal',function(e){
+  if(e.viewTransition)r.className+=' vt-nav'})})(document);</script>
   <link rel="stylesheet" href="/assets/style.css">
+  <script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -46,8 +54,11 @@
       </div>
       <div class="shell" style="max-width:44rem">
         <p class="kicker">Error 404</p>
-        <h1 class="display">Lost in <span class="em">the dark</span></h1>
-        <p class="lede">That page doesn't exist — or doesn't exist yet. Everything else is still running.</p>
+        <h1 class="display statement">
+            <span class="line" style="--i:0"><span class="line-i">Lost in</span></span>
+            <span class="line" style="--i:1"><span class="line-i"><span class="em">the dark</span></span></span>
+          </h1>
+        <p class="lede enter" style="--i:3">That page doesn't exist — or doesn't exist yet. Everything else is still running.</p>
         <div class="actions">
           <a class="btn btn-primary" href="/">Back to home <span class="arrow" aria-hidden="true">→</span></a>
           <a class="btn btn-quiet" href="/work.html">See the work</a>

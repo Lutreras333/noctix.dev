@@ -15,8 +15,16 @@
   <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
-  <script>document.documentElement.className += ' has-js';</script>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-serif-italic-latin.woff2" crossorigin>
+  <script>(function(d){var r=d.documentElement;r.className+=' has-js';
+  var bail=function(){r.className+=' js-bailout'};
+  var b=setTimeout(bail,2500);r.__nx=function(){clearTimeout(b)};
+  addEventListener('error',function(e){var t=e.target;
+  if(t&&t.tagName==='SCRIPT')bail()},true);
+  addEventListener('pagereveal',function(e){
+  if(e.viewTransition)r.className+=' vt-nav'})})(document);</script>
   <link rel="stylesheet" href="/assets/style.css">
+  <script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -53,10 +61,13 @@
         </svg>
       </div>
       <div class="shell">
-        <div class="reveal is-in" style="max-width:46rem">
+        <div style="max-width:46rem">
           <p class="kicker">Work</p>
-          <h1 class="display">Proof, not <span class="em">promises</span></h1>
-          <p class="lede">One flagship system in production, trusted with real money every day. More case studies as they ship.</p>
+          <h1 class="display statement">
+            <span class="line" style="--i:0"><span class="line-i">Proof, not</span></span>
+            <span class="line" style="--i:1"><span class="line-i"><span class="em">promises</span></span></span>
+          </h1>
+          <p class="lede enter" style="--i:3">One flagship system in production, trusted with real money every day. More case studies as they ship.</p>
         </div>
       </div>
     </section>
@@ -69,7 +80,7 @@
           <h2>WWCARGO billing platform</h2>
           <p>End-to-end billing automation for a fresh-flower air-cargo operation running South America → Miami.</p>
 
-          <div class="strip" style="margin-top:2rem">
+          <div class="strip" data-lit style="margin-top:2rem">
             <div class="cell">
               <span class="num">Six figures</span>
               <span class="cap">invoiced monthly, unattended</span>
@@ -107,7 +118,7 @@
         <div class="panel reveal" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
           <p class="kicker">The cycle</p>
           <h2>What happens, twice a day, unattended</h2>
-          <div class="flow" style="margin-top:1.75rem;max-width:38rem">
+          <div class="flow runs" style="margin-top:1.75rem;max-width:38rem">
             <div class="flow-node"><span class="idx">1</span><span>flight detected via logistics API</span></div>
             <div class="flow-link"></div>
             <div class="flow-node"><span class="idx">2</span><span>manifests and vendor PDFs ingested from email</span></div>

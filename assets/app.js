@@ -1,151 +1,365 @@
-/* NOCTIX — small, dependency-free behaviour.
-   Everything here is decoration: the site reads and works fine with JS off,
-   and every animation is skipped when the visitor asks for reduced motion. */
+/* NOCTIX — behaviour. Vanilla, no dependencies, no build step.
+ *
+ * Three rules this file must never break:
+ *   1. Nothing here is allowed to be the reason content stays invisible.
+ *      The inline <head> script arms a bailout; the first thing we do is
+ *      cancel it, and every feature is individually isolated so one throw
+ *      cannot take the others down.
+ *   2. The motion preference is read LIVE, never once at load.
+ *   3. Exactly one pointer listener exists on the site (the bus below).
+ *      No feature may add its own, and no handler reads layout mid-move.
+ */
 
 (function () {
   'use strict';
 
-  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Cancel the head script's bailout timer. First executable line, before
+     any feature can throw — if we got here, app.js exists and parsed. */
+  if (document.documentElement.__nx) { document.documentElement.__nx(); }
 
-  /* ── Header hairline appears once you leave the top ───────── */
-
-  var head = document.querySelector('.masthead');
-  if (head) {
-    var onScroll = function () {
-      head.classList.toggle('is-stuck', window.scrollY > 8);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+  /* Isolate each feature: a throw disables that feature alone. */
+  function feature(name, fn) {
+    try { fn(); } catch (e) {
+      if (window.console && console.warn) console.warn('noctix: ' + name + ' disabled', e);
+    }
   }
 
-  /* ── Reveal on scroll ─────────────────────────────────────── */
+  var each = function (list, fn) { Array.prototype.forEach.call(list, fn); };
 
-  var hidden = document.querySelectorAll('.reveal');
-  var showAll = function () {
-    Array.prototype.forEach.call(hidden, function (el) { el.classList.add('is-in'); });
+  /* Live motion preference. Safari <= 13 has no addEventListener on
+     MediaQueryList, so both forms are required. */
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var calm = mq.matches;
+  var calmWatchers = [];
+  var onCalmChange = function (e) {
+    calm = e.matches;
+    calmWatchers.forEach(function (w) { try { w(calm); } catch (err) {} });
   };
+  if (mq.addEventListener) mq.addEventListener('change', onCalmChange);
+  else if (mq.addListener) mq.addListener(onCalmChange);
 
-  if (!hidden.length) {
-    /* nothing to do */
-  } else if (calm || !('IntersectionObserver' in window)) {
-    showAll();
-  } else {
+  /* ── Sticky masthead hairline ───────────────────────────────
+     An IntersectionObserver sentinel, not a scroll handler: no geometry
+     is read, and there is no per-frame work at all. */
+
+  feature('sticky', function () {
+    var head = document.querySelector('.masthead');
+    if (!head) return;
+    var mark = document.createElement('div');
+    mark.setAttribute('aria-hidden', 'true');
+    mark.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:8px;pointer-events:none';
+    document.body.insertBefore(mark, document.body.firstChild);
+    new IntersectionObserver(function (entries) {
+      head.classList.toggle('is-stuck', !entries[0].isIntersecting);
+    }, { threshold: 0 }).observe(mark);
+  });
+
+  /* ── Reveal on scroll ───────────────────────────────────────
+     The CSS hide is equal-specificity and the head script guarantees a
+     bailout, so this is an enhancement, never a gate. */
+
+  feature('reveal', function () {
+    var hidden = document.querySelectorAll('.reveal');
+    if (!hidden.length) return;
+
+    var delivered = false;
+    var showAll = function () {
+      delivered = true;
+      each(hidden, function (el) { el.classList.add('is-in'); });
+    };
+
+    if (calm || !('IntersectionObserver' in window)) { showAll(); return; }
+
+    var seer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        delivered = true;
+        var el = entry.target;
+        var wait = parseInt(el.getAttribute('data-delay') || '0', 10);
+        setTimeout(function () { el.classList.add('is-in'); }, wait);
+        seer.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+    each(hidden, function (el) { seer.observe(el); });
+
+    /* Only fires if the observer never delivered anything at all — so a
+       slow reader no longer has the whole page force-revealed at 3s. */
+    setTimeout(function () { if (!delivered) showAll(); }, 3000);
+
+    calmWatchers.push(function (isCalm) { if (isCalm) showAll(); });
+  });
+
+  /* ── Count-up stats ─────────────────────────────────────────── */
+
+  feature('counters', function () {
+    var counters = document.querySelectorAll('[data-count]');
+    if (!counters.length || calm || !('IntersectionObserver' in window)) return;
+
     var seer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         var el = entry.target;
-        var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
-        setTimeout(function () { el.classList.add('is-in'); }, delay);
         seer.unobserve(el);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
-    Array.prototype.forEach.call(hidden, function (el) { seer.observe(el); });
-
-    /* Safety net: some environments never report intersection. Content
-       must not be permanently invisible because an animation didn't run. */
-    setTimeout(showAll, 3000);
-  }
-
-  /* ── Count-up for numeric stats ───────────────────────────
-     Only touches elements carrying data-count, so text stats
-     ("Six figures") are left exactly as authored. */
-
-  var counters = document.querySelectorAll('[data-count]');
-  if (counters.length && !calm && 'IntersectionObserver' in window) {
-    var counterSeer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        counterSeer.unobserve(el);
 
         var target = parseFloat(el.getAttribute('data-count'));
         var suffix = el.getAttribute('data-suffix') || '';
-        var start = performance.now();
+        var started = 0;
         var dur = 1100;
 
         var tick = function (now) {
-          var t = Math.min((now - start) / dur, 1);
-          var eased = 1 - Math.pow(1 - t, 3);           // ease-out cubic
-          el.textContent = Math.round(target * eased) + suffix;
+          if (!started) started = now;
+          if (calm) { el.textContent = target + suffix; return; }
+          var t = Math.min((now - started) / dur, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3))) + suffix;
           if (t < 1) requestAnimationFrame(tick);
         };
         el.textContent = '0' + suffix;
         requestAnimationFrame(tick);
       });
     }, { threshold: 0.5 });
-    counters.forEach(function (el) { counterSeer.observe(el); });
-  }
+    each(counters, function (el) { seer.observe(el); });
+  });
 
-  /* ── The console: a billing cycle that runs itself ────────
-     Walks each step pending -> active -> done, holds on the
-     finished state, then quietly starts the next run. This is
-     the argument the site is making, so it never stops. */
+  /* ── The console: a scheduled run, not a loop ───────────────
+     Each step declares its own duration, so ingesting 38 files visibly
+     takes longer than detecting a flight. Deterministic, never random:
+     jitter reads as flakiness, which is the opposite of the pitch.
+     The same number drives the CSS progress bar and this scheduler.
+     Holds are a keyed set — every hold must clear before it resumes. */
 
-  var stage = document.querySelector('[data-console]');
-  if (stage) {
+  feature('console', function () {
+    var stage = document.querySelector('[data-console]');
+    if (!stage) return;
+
     var steps = Array.prototype.slice.call(stage.querySelectorAll('.step'));
+    if (!steps.length) return;
+    var glyphs = steps.map(function (s) { return s.querySelector('.glyph'); });
     var clock = stage.querySelector('[data-clock]');
     var runs = ['02:00', '14:00'];
     var runIdx = 0;
+    var timer = 0;
+    var holds = Object.create(null);
 
-    var paint = function (state) {
-      steps.forEach(function (s) { s.setAttribute('data-state', state); });
+    var paintDone = function () {
+      steps.forEach(function (s, i) {
+        s.setAttribute('data-state', 'done');
+        if (glyphs[i]) glyphs[i].textContent = '✓';
+      });
     };
 
-    if (calm) {
-      /* Reduced motion: show the completed run, no looping. */
-      paint('done');
-      steps.forEach(function (s) { s.querySelector('.glyph').textContent = '✓'; });
-    } else {
-      var cycle = function () {
-        paint('pending');
-        steps.forEach(function (s) { s.querySelector('.glyph').textContent = '·'; });
-        if (clock) clock.textContent = runs[runIdx % runs.length] + ' UTC';
-        runIdx++;
+    if (calm) { paintDone(); return; }
 
-        var i = 0;
-        var advance = function () {
-          if (i > 0) {
-            var prev = steps[i - 1];
-            prev.setAttribute('data-state', 'done');
-            prev.querySelector('.glyph').textContent = '✓';
-          }
-          if (i === steps.length) {
-            setTimeout(cycle, 4200);              // hold the finished run
-            return;
-          }
-          var cur = steps[i];
-          cur.setAttribute('data-state', 'active');
-          cur.querySelector('.glyph').textContent = '◐';
-          i++;
-          setTimeout(advance, 700 + Math.round(Math.random() * 350));
-        };
-        setTimeout(advance, 500);
-      };
-
-      /* Prefer starting when it's actually on screen, but never let a
-         missing intersection callback leave the console frozen. */
-      var started = false;
-      var begin = function () {
-        if (started) return;
-        started = true;
-        cycle();
-      };
-
-      if ('IntersectionObserver' in window) {
-        var once = new IntersectionObserver(function (entries) {
-          if (entries[0].isIntersecting) { once.disconnect(); begin(); }
-        }, { threshold: 0.25 });
-        once.observe(stage);
-        setTimeout(begin, 2000);
-      } else {
-        begin();
+    var i = 0;
+    var tick = function () {
+      timer = 0;
+      if (i > 0) {
+        steps[i - 1].setAttribute('data-state', 'done');
+        if (glyphs[i - 1]) glyphs[i - 1].textContent = '✓';
       }
+      if (i === steps.length) {
+        timer = setTimeout(restart, 4600);
+        return;
+      }
+      var cur = steps[i];
+      var ms = parseInt(cur.getAttribute('data-ms'), 10) || 800;
+      cur.style.setProperty('--dur', ms + 'ms');
+      cur.setAttribute('data-state', 'active');
+      if (glyphs[i]) glyphs[i].textContent = '◐';
+      i++;
+      timer = setTimeout(tick, ms);
+    };
+
+    function restart() {
+      timer = 0;
+      i = 0;
+      steps.forEach(function (s, n) {
+        s.setAttribute('data-state', 'pending');
+        s.style.removeProperty('--dur');
+        if (glyphs[n]) glyphs[n].textContent = '·';
+      });
+      if (clock) clock.textContent = runs[runIdx % runs.length] + ' UTC';
+      runIdx++;
+      timer = setTimeout(tick, 520);
     }
-  }
 
-  /* ── Footer year ──────────────────────────────────────────── */
+    var anyHold = function () {
+      for (var k in holds) { if (holds[k]) return true; }
+      return false;
+    };
 
-  var year = document.querySelector('[data-year]');
-  if (year) year.textContent = new Date().getFullYear();
+    /* A resumed run restarts cleanly from step 0. Background tabs clamp
+       setTimeout, so resuming mid-run would lurch through three steps at
+       once; a fresh run is both honest and better looking. */
+    var hold = function (key, on) {
+      on = !!on;
+      if (!!holds[key] === on) return;
+      holds[key] = on;
+      if (anyHold()) {
+        clearTimeout(timer);
+        timer = 0;
+        stage.setAttribute('data-run', 'held');
+      } else {
+        stage.setAttribute('data-run', 'running');
+        if (!timer) restart();
+      }
+    };
+
+    document.addEventListener('visibilitychange', function () {
+      hold('hidden', document.hidden);
+    });
+
+    var started = false;
+    var begin = function () {
+      if (started) return;
+      started = true;
+      restart();
+    };
+
+    if ('IntersectionObserver' in window) {
+      /* Persistent, not one-shot: off-screen is a real battery win on a
+         phone, where the console sits below the fold for most of a visit. */
+      new IntersectionObserver(function (entries) {
+        var vis = entries[0].isIntersecting;
+        if (vis) begin();
+        if (started) hold('off', !vis);
+      }, { threshold: 0.2 }).observe(stage);
+      setTimeout(begin, 1150);   /* on the beat, after the hero settles */
+    } else {
+      setTimeout(begin, 1150);
+    }
+
+    calmWatchers.push(function (isCalm) {
+      if (!isCalm) return;
+      clearTimeout(timer);
+      timer = 0;
+      paintDone();
+    });
+  });
+
+  /* ── Next scheduled run ─────────────────────────────────────
+     Derived locally from the 02:00/14:00 cadence the page already
+     states — nothing is fabricated and no backend is implied. */
+
+  feature('nextrun', function () {
+    var el = document.querySelector('[data-nextrun]');
+    if (!el) return;
+
+    var render = function () {
+      var now = new Date();
+      var h = now.getUTCHours();
+      var next = new Date(now);
+      if (h < 2) next.setUTCHours(2, 0, 0, 0);
+      else if (h < 14) next.setUTCHours(14, 0, 0, 0);
+      else { next.setUTCDate(next.getUTCDate() + 1); next.setUTCHours(2, 0, 0, 0); }
+
+      var mins = Math.max(0, Math.round((next - now) / 60000));
+      var label = (next.getUTCHours() === 2 ? '02:00' : '14:00') + ' UTC';
+      el.textContent = label + ' · in ' + Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm';
+    };
+
+    render();
+    setInterval(render, 60000);
+  });
+
+  /* ── Copy the address ───────────────────────────────────────── */
+
+  feature('copy', function () {
+    var btn = document.querySelector('[data-copy]');
+    if (!btn || !navigator.clipboard) return;
+    btn.hidden = false;
+
+    var label = btn.querySelector('[data-copy-label]') || btn;
+    var reset = 0;
+
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(function () {
+        label.textContent = 'Copied';
+        btn.setAttribute('data-copied', '');
+        clearTimeout(reset);
+        reset = setTimeout(function () {
+          label.textContent = 'Copy';
+          btn.removeAttribute('data-copied');
+        }, 2200);
+      }, function () {
+        label.textContent = 'Press Ctrl+C';
+      });
+    });
+  });
+
+  /* ── The pointer bus ────────────────────────────────────────
+     The ONE pointer listener on the site. Rect is read on enter and on
+     scroll/resize, never inside the move handler, so the steady state
+     is zero forced layout reads and two custom-property writes on a
+     single element per frame. data-lit is the documented extension
+     point: new surfaces opt in by attribute, not by new listeners. */
+
+  feature('pointer-bus', function () {
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var bound = false;
+    var active = null;
+    var rect = null;
+    var queued = false;
+    var last = { x: 0, y: 0 };
+
+    var write = function () {
+      queued = false;
+      if (!active || !rect) return;
+      active.style.setProperty('--px', (last.x - rect.left) + 'px');
+      active.style.setProperty('--py', (last.y - rect.top) + 'px');
+    };
+
+    var onOver = function (e) {
+      var el = e.target.closest ? e.target.closest('[data-lit]') : null;
+      if (!el || el === active) return;
+      if (e.pointerType === 'touch') return;
+      active = el;
+      rect = el.getBoundingClientRect();
+      if (calm) {
+        /* The CSS blanket cannot touch a JS-written custom property, so
+           reduced motion is enforced here: light the centre once, then
+           stop tracking. The affordance survives; the motion does not. */
+        el.style.setProperty('--px', rect.width / 2 + 'px');
+        el.style.setProperty('--py', rect.height / 2 + 'px');
+        active = null;
+      }
+    };
+
+    var onOut = function (e) {
+      if (!active) return;
+      if (e.relatedTarget && active.contains(e.relatedTarget)) return;
+      active = null;
+      rect = null;
+    };
+
+    var onMove = function (e) {
+      if (!active || calm) return;
+      last.x = e.clientX;
+      last.y = e.clientY;
+      if (!queued) { queued = true; requestAnimationFrame(write); }
+    };
+
+    var remeasure = function () { if (active) rect = active.getBoundingClientRect(); };
+
+    var bind = function () {
+      if (bound || !fine.matches) return;
+      if (!document.querySelector('[data-lit]')) return;
+      bound = true;
+      document.addEventListener('pointerover', onOver, { passive: true });
+      document.addEventListener('pointerout', onOut, { passive: true });
+      document.addEventListener('pointermove', onMove, { passive: true });
+      window.addEventListener('scroll', remeasure, { passive: true });
+      window.addEventListener('resize', remeasure, { passive: true });
+    };
+
+    bind();
+    if (fine.addEventListener) fine.addEventListener('change', bind);
+    else if (fine.addListener) fine.addListener(bind);
+  });
+
+  /* ── Footer year ────────────────────────────────────────────── */
+
+  feature('year', function () {
+    var year = document.querySelector('[data-year]');
+    if (year) year.textContent = new Date().getFullYear();
+  });
 })();
