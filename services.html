@@ -4,29 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Services — Noctix</title>
-  <meta name="description" content="Custom software, automation, and integrations — built to production standard by the Noctix software studio.">
+  <meta name="description" content="Custom software, automation, and integrations — built to production standard, documented, and designed to be handed over.">
   <link rel="canonical" href="https://noctix.dev/services.html">
   <meta property="og:title" content="Services — Noctix">
   <meta property="og:description" content="Custom software, automation, and integrations — built to production standard.">
   <meta property="og:url" content="https://noctix.dev/services.html">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0a0d14">
+  <meta property="og:image" content="https://noctix.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
+  <script>document.documentElement.className += ' has-js';</script>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="wordmark" href="/">
-        <svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">
-          <defs><mask id="m-crescent"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
-          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#m-crescent)"/>
+  <header class="masthead">
+    <div class="shell">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 64 64" width="19" height="19" aria-hidden="true">
+          <defs><mask id="mc"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
+          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#mc)"/>
         </svg>
         NOCTIX
       </a>
-      <nav class="site-nav" aria-label="Main">
+      <nav class="nav" aria-label="Main">
         <a href="/work.html">Work</a>
         <a href="/services.html" aria-current="page">Services</a>
         <a href="/about.html">About</a>
@@ -36,67 +40,127 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container">
-        <p class="eyebrow">Services</p>
-        <h1>The software that runs a business.</h1>
-        <p class="lede">Broad on purpose. Noctix takes on the operational software most businesses need — and builds it to a standard you can leave alone.</p>
+
+    <section class="hero" style="padding-bottom:0">
+      <div class="shell">
+        <div class="reveal is-in" style="max-width:46rem">
+          <p class="kicker">Services</p>
+          <h1>The software that<br><span class="glow-word">runs a business.</span></h1>
+          <p class="lede">Broad on purpose. Noctix takes on the operational software most businesses actually need — and builds it to a standard you can leave alone.</p>
+        </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="cards">
-          <div class="card">
+    <section class="section">
+      <div class="shell">
+        <div class="grid-3">
+          <article class="card reveal" data-delay="0">
+            <div class="ico" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
             <h3>Custom software</h3>
-            <p>Web applications, dashboards, and internal tools shaped around how your business actually operates. Built lean, tested, and documented — no platform lock-in, no framework bloat.</p>
-          </div>
-          <div class="card">
+            <p>Web applications, dashboards, and internal tools shaped around how your business actually operates — not the other way around. Built lean, tested, and documented, with no platform lock-in and no framework bloat.</p>
+          </article>
+
+          <article class="card reveal" data-delay="90">
+            <div class="ico" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/>
+              </svg>
+            </div>
             <h3>Automation</h3>
-            <p>Operational pipelines that run without an operator — document processing, billing, reporting, scheduling. Verification gates in front of anything that touches money, alerts when a human is genuinely needed, and AI only where it earns its place.</p>
-          </div>
-          <div class="card">
+            <p>Operational pipelines that run without an operator: document processing, billing, reporting, scheduling. Verification gates guard anything that touches money, alerts fire only when a human is genuinely needed, and AI appears only where it earns its place.</p>
+          </article>
+
+          <article class="card reveal" data-delay="180">
+            <div class="ico" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 3 3v6"/>
+              </svg>
+            </div>
             <h3>Integrations</h3>
-            <p>Your systems, finally talking: accounting platforms, spreadsheets, email, logistics and industry APIs tied into one coherent flow, so data moves without being retyped — and without drifting out of sync.</p>
+            <p>Your systems, finally talking to each other: accounting platforms, spreadsheets, inboxes, logistics and industry APIs tied into one coherent flow — so data moves without being retyped, and without quietly drifting out of sync.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="panel reveal">
+          <div class="panel-split">
+            <div>
+              <p class="kicker">How we work</p>
+              <h2>Built to hand over, not to hold hostage.</h2>
+              <p>A system you can't run without the person who built it isn't finished. Noctix optimises for the day you stop needing us in the room.</p>
+            </div>
+            <div class="flow" aria-hidden="true">
+              <div class="flow-node"><span class="idx">1</span><span>map the operation as it really runs</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node"><span class="idx">2</span><span>automate the narrowest useful slice first</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node gate"><span class="idx">✓</span><span>prove it against real data before trusting it</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node"><span class="idx">3</span><span>widen coverage, keep the gates</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node"><span class="idx">4</span><span>document, alert, hand over</span></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <p class="eyebrow">How we work</p>
-        <h2>Built to hand over, not to hold hostage.</h2>
-        <div class="prose">
-          <ul>
-            <li><strong>Production-grade by default.</strong> Automated tests and CI on everything we ship — the flagship platform runs 105 tests before any release.</li>
-            <li><strong>Plain language.</strong> You'll always know what the system does, what it costs, and why. English or Spanish, whichever fits your team.</li>
-            <li><strong>Yours when it's done.</strong> Documentation, controls, and alerts designed so the system doesn't need us in the room to keep running.</li>
-          </ul>
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="section-head reveal">
+          <p class="kicker">What you can expect</p>
+          <h2>Three commitments.</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card reveal" data-delay="0">
+            <h3>Production-grade by default</h3>
+            <p>Automated tests and CI on everything we ship. The flagship platform runs 105 tests before any release reaches the machine that touches money.</p>
+          </article>
+          <article class="card reveal" data-delay="90">
+            <h3>Plain language</h3>
+            <p>You'll always know what the system does, what it costs, and why it's built that way. English or Spanish, whichever suits your team.</p>
+          </article>
+          <article class="card reveal" data-delay="180">
+            <h3>Yours when it's done</h3>
+            <p>Documentation, controls, and alerting designed so the system keeps running without us — and so someone else could pick it up if they had to.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="band">
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="panel reveal" style="text-align:center">
           <h2>Not sure which of these you need?</h2>
-          <p>Most projects are a mix. Describe the problem in your own words and we'll propose the smallest system that solves it.</p>
-          <a class="btn btn-primary" href="/contact.html">Start a conversation</a>
+          <p style="margin-inline:auto">Most projects are a mix. Describe the problem in your own words and we'll propose the smallest system that actually solves it.</p>
+          <div class="actions" style="justify-content:center">
+            <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
         </div>
       </div>
     </section>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span>© 2026 Noctix. Software that runs itself.</span>
-      <div class="footer-links">
+  <footer class="foot">
+    <div class="shell">
+      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
+      <span class="status"><span class="beacon"></span> systems nominal</span>
+      <div class="foot-links">
         <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
         <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>

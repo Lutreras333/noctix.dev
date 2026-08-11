@@ -4,29 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Work — Noctix</title>
-  <meta name="description" content="Case study: an end-to-end billing automation platform processing six figures monthly, unattended, with 105 automated tests in CI.">
+  <meta name="description" content="Case study: an end-to-end billing platform that invoices six figures a month unattended, with 105 automated tests and a verification gate in front of every dollar.">
   <link rel="canonical" href="https://noctix.dev/work.html">
   <meta property="og:title" content="Work — Noctix">
-  <meta property="og:description" content="Case study: an end-to-end billing automation platform processing six figures monthly, unattended.">
+  <meta property="og:description" content="An end-to-end billing platform that invoices six figures a month, unattended.">
   <meta property="og:url" content="https://noctix.dev/work.html">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0a0d14">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://noctix.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
+  <script>document.documentElement.className += ' has-js';</script>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="wordmark" href="/">
-        <svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">
-          <defs><mask id="m-crescent"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
-          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#m-crescent)"/>
+  <header class="masthead">
+    <div class="shell">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 64 64" width="19" height="19" aria-hidden="true">
+          <defs><mask id="mc"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
+          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#mc)"/>
         </svg>
         NOCTIX
       </a>
-      <nav class="site-nav" aria-label="Main">
+      <nav class="nav" aria-label="Main">
         <a href="/work.html" aria-current="page">Work</a>
         <a href="/services.html">Services</a>
         <a href="/about.html">About</a>
@@ -36,69 +40,132 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container">
-        <p class="eyebrow">Work</p>
-        <h1>Proof, not promises.</h1>
-        <p class="lede">One flagship system in production, trusted with real money every day. More case studies as they ship.</p>
-      </div>
-    </section>
 
-    <section>
-      <div class="container">
-        <article class="case-study">
-          <h2 style="margin-top:0">WWCARGO billing platform</h2>
-          <p class="case-meta">End-to-end billing automation · fresh-flower air cargo · South America → Miami</p>
-
-          <div class="stats">
-            <div class="stat"><strong>Six figures</strong><span>invoiced monthly, unattended</span></div>
-            <div class="stat"><strong>105</strong><span>automated tests in CI</span></div>
-            <div class="stat"><strong>2×/day</strong><span>autonomous cycles on a cloud runner</span></div>
-            <div class="stat"><strong>470/470</strong><span>shipments verified to the exact kilogram</span></div>
-          </div>
-
-          <h2>The problem</h2>
-          <p>Billing lived across email, spreadsheets, and QuickBooks. Every flight meant reading shipment manifests and vendor invoices out of inboxes, transcribing them into ledgers with live formulas, and keying transactions in one at a time — hours of daily work, with real money riding on every keystroke.</p>
-
-          <h2>What Noctix built</h2>
-          <p>A production system that runs the entire billing cycle on its own. It detects flights through the logistics platform's API, ingests shipment manifests and vendor PDFs, writes formatted ledgers with live formulas, and generates customer invoices and vendor bills in QuickBooks — end to end, with no operator at the keyboard.</p>
-          <p>Because the system moves real money, verification comes first: every write is re-checked against source documents before it executes. If the numbers don't reconcile, the transaction halts and a human is alerted. A deterministic core does the work; an AI exception-handler is summoned only when something looks wrong.</p>
-          <ul>
-            <li>Autonomous cycles twice a day on a self-administered VPS, with tiered email alerts (ok / check / problems)</li>
-            <li>Verification gates that re-check every write against source documents</li>
-            <li>Billing weights the vendor API doesn't expose, reconstructed exact to the kilogram — 470 of 470 shipments</li>
-            <li>Six ledgers across two country pipelines, written and reconciled automatically</li>
-            <li>Machine-gated financial controls in place of manual approval</li>
-            <li>One-script migration to a new machine</li>
-          </ul>
-
-          <div class="stack-line">Python · Google Sheets &amp; Gmail APIs · QuickBooks Online API · GitHub Actions CI · Windows Server VPS</div>
-
-          <p><a class="btn btn-primary" href="https://github.com/Lutreras333/wwcargo-billing-platform" rel="noopener">View the public showcase on GitHub</a></p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="band">
-          <h2>Want something like this for your operation?</h2>
-          <p>Every business has a billing cycle, a reporting ritual, or a data-entry grind that software could own. Tell us about yours.</p>
-          <a class="btn btn-ghost" href="/contact.html">Start a conversation</a>
+    <section class="hero" style="padding-bottom:0">
+      <div class="shell">
+        <div class="reveal is-in" style="max-width:46rem">
+          <p class="kicker">Work</p>
+          <h1>Proof, not<br><span class="glow-word">promises.</span></h1>
+          <p class="lede">One flagship system in production, trusted with real money every day. More case studies as they ship.</p>
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <div class="shell">
+
+        <div class="panel reveal">
+          <p class="kicker">Case study</p>
+          <h2>WWCARGO billing platform</h2>
+          <p>End-to-end billing automation for a fresh-flower air-cargo operation running South America → Miami.</p>
+
+          <div class="strip" style="margin-top:2rem">
+            <div class="cell">
+              <span class="num">Six figures</span>
+              <span class="cap">invoiced monthly, unattended</span>
+            </div>
+            <div class="cell">
+              <span class="num" data-count="105">105</span>
+              <span class="cap">automated tests in CI</span>
+            </div>
+            <div class="cell">
+              <span class="num" data-count="470" data-suffix="/470">470/470</span>
+              <span class="cap">shipments verified to the kilogram</span>
+            </div>
+            <div class="cell">
+              <span class="num">2×/day</span>
+              <span class="cap">autonomous cycles on a cloud runner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose reveal" style="margin-top:clamp(3rem,6vw,4.5rem)">
+          <p class="kicker">The problem</p>
+          <h2 style="margin-top:0.9rem">Hours a day, with money riding on every keystroke</h2>
+          <p>Billing lived in three places at once: manifests and vendor invoices arriving by email, ledgers maintained by hand in spreadsheets, and transactions keyed into QuickBooks one at a time. Every flight meant repeating the whole ritual.</p>
+          <p>The cost wasn't only the hours. Manual transcription across three systems means the numbers can silently disagree, and nobody finds out until a customer does.</p>
+        </div>
+
+        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
+          <p class="kicker">What Noctix built</p>
+          <h2 style="margin-top:0.9rem">A system that closes the loop on its own</h2>
+          <p>The platform runs the entire billing cycle without an operator. It detects the flight through the logistics platform's API, ingests shipment manifests and vendor PDFs, writes formatted ledgers with live formulas, and generates customer invoices and vendor bills in QuickBooks.</p>
+          <p class="pull">Because the system moves real money, nothing is written on trust. Every value is re-checked against its source document before it executes — and if the numbers don't reconcile, the transaction halts and a human is called.</p>
+          <p>That ordering matters. A deterministic core does all of the real work, and an AI exception-handler is summoned only when the deterministic layer flags something it can't account for. The clever part stays on a short leash; the boring part is what you trust with the money.</p>
+        </div>
+
+        <div class="panel reveal" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
+          <p class="kicker">The cycle</p>
+          <h2>What happens, twice a day, unattended</h2>
+          <div class="flow" style="margin-top:1.75rem;max-width:38rem">
+            <div class="flow-node"><span class="idx">1</span><span>flight detected via logistics API</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">2</span><span>manifests and vendor PDFs ingested from email</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">3</span><span>billing weights reconstructed from incomplete API data</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">4</span><span>six ledgers written across two country pipelines</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node gate"><span class="idx">✓</span><span>every write re-checked against source — or the run halts</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">5</span><span>invoices and vendor bills issued in QuickBooks</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">6</span><span>tiered email alert: ok / check / problems</span></div>
+          </div>
+        </div>
+
+        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
+          <p class="kicker">Details worth noting</p>
+          <h2 style="margin-top:0.9rem">The unglamorous parts that make it trustworthy</h2>
+          <ul>
+            <li><strong>Weights the vendor API doesn't expose.</strong> Billing weight had to be reconstructed from incomplete data — verified exact to the kilogram across 470 of 470 shipments.</li>
+            <li><strong>Machine-gated financial controls.</strong> Approval isn't a person remembering to look; it's a check that must pass before anything is written.</li>
+            <li><strong>Alerting with three volumes.</strong> Silence when it's fine, a nudge when something needs eyes, an alarm when it doesn't add up.</li>
+            <li><strong>105 tests in CI.</strong> Nothing reaches the runner without passing first.</li>
+            <li><strong>One-script migration.</strong> Moving the whole system to a new machine is a single command, not a weekend.</li>
+          </ul>
+          <div class="chips" style="margin-top:1.75rem">
+            <span class="chip">Python</span>
+            <span class="chip">Google Sheets API</span>
+            <span class="chip">Gmail API</span>
+            <span class="chip">QuickBooks Online API</span>
+            <span class="chip">GitHub Actions CI</span>
+            <span class="chip">Windows Server VPS</span>
+          </div>
+          <div class="actions" style="margin-top:2rem">
+            <a class="btn btn-primary" href="https://github.com/Lutreras333/wwcargo-billing-platform" rel="noopener">View the public showcase <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="panel reveal" style="text-align:center">
+          <h2>Want something like this for your operation?</h2>
+          <p style="margin-inline:auto">Every business has a billing cycle, a reporting ritual, or a data-entry grind that software could own outright.</p>
+          <div class="actions" style="justify-content:center">
+            <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span>© 2026 Noctix. Software that runs itself.</span>
-      <div class="footer-links">
+  <footer class="foot">
+    <div class="shell">
+      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
+      <span class="status"><span class="beacon"></span> systems nominal</span>
+      <div class="foot-links">
         <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
         <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>

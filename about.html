@@ -9,24 +9,28 @@
   <meta property="og:title" content="About — Noctix">
   <meta property="og:description" content="The software studio of Lucas Utreras Acevedo — production systems that run business operations autonomously.">
   <meta property="og:url" content="https://noctix.dev/about.html">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0a0d14">
+  <meta property="og:type" content="profile">
+  <meta property="og:image" content="https://noctix.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
+  <script>document.documentElement.className += ' has-js';</script>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="wordmark" href="/">
-        <svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">
-          <defs><mask id="m-crescent"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
-          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#m-crescent)"/>
+  <header class="masthead">
+    <div class="shell">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 64 64" width="19" height="19" aria-hidden="true">
+          <defs><mask id="mc"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
+          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#mc)"/>
         </svg>
         NOCTIX
       </a>
-      <nav class="site-nav" aria-label="Main">
+      <nav class="nav" aria-label="Main">
         <a href="/work.html">Work</a>
         <a href="/services.html">Services</a>
         <a href="/about.html" aria-current="page">About</a>
@@ -36,47 +40,86 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container">
-        <p class="eyebrow">About</p>
-        <h1>Named for the night shift.</h1>
+
+    <section class="hero" style="padding-bottom:0">
+      <div class="shell">
+        <div class="reveal is-in" style="max-width:46rem">
+          <p class="kicker">About</p>
+          <h1>Named for the<br><span class="glow-word">night shift.</span></h1>
+        </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="prose">
-          <p>Noctix is the software studio of <strong>Lucas Utreras Acevedo</strong>, a software engineer who builds production systems that run business operations autonomously — most recently a billing platform trusted with six figures a month, invoicing on its own twice a day.</p>
-          <p>The name comes from <em>nox</em> — Latin for night. The real test of operational software is what happens while nobody's watching: it should keep working, verify its own output, and only wake a human when something genuinely needs one. That's the standard every Noctix system is built to.</p>
+    <section class="section">
+      <div class="shell">
+        <div class="prose reveal">
+          <p class="lede" style="color:var(--ink)">Noctix is the software studio of <strong>Lucas Utreras Acevedo</strong> — a software engineer who builds production systems that run business operations autonomously.</p>
+
+          <p>Most recently that meant a billing platform trusted with six figures a month: it detects flights, reads manifests, reconciles weights, writes ledgers, and issues invoices twice a day without anyone at the keyboard. Designed, built, and operated end to end.</p>
+
+          <p class="pull">The name comes from <em>nox</em> — Latin for night. The real test of operational software is what happens while nobody is watching.</p>
+
+          <p>Good operational software should keep working after hours, verify its own output before it commits anything, and wake a human only when something genuinely needs one. Anything less isn't automation — it's a task you now have to supervise. That standard is the whole reason this studio exists, and it's the bar every Noctix system is built to.</p>
+
           <p>Lucas works in <strong>English and Spanish</strong>, with clients and their teams in both.</p>
-          <div class="cta-row">
-            <a class="btn btn-ghost" href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
-            <a class="btn btn-ghost" href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
+
+          <div class="actions" style="margin-top:2rem">
+            <a class="btn btn-quiet" href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-quiet" href="https://github.com/Lutreras333" rel="noopener">GitHub <span class="arrow" aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="band">
-          <h2>Working on something that shouldn't need you every day?</h2>
-          <p>That's the kind of problem Noctix exists for.</p>
-          <a class="btn btn-primary" href="/contact.html">Get in touch</a>
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="section-head reveal">
+          <p class="kicker">How Noctix thinks</p>
+          <h2>Three opinions that shape the work.</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card reveal" data-delay="0">
+            <h3>Deterministic core, AI at the edges</h3>
+            <p>The boring, predictable layer does the work you trust with money. AI is summoned for exceptions the deterministic core has already flagged — never as the thing holding the pen.</p>
+          </article>
+          <article class="card reveal" data-delay="90">
+            <h3>Verify before you commit</h3>
+            <p>Anything that writes to a ledger, an invoice, or a customer record re-checks itself against the source first. Halting is always better than being confidently wrong.</p>
+          </article>
+          <article class="card reveal" data-delay="180">
+            <h3>Silence is the goal</h3>
+            <p>A healthy system should be quiet. Alerting is tiered so that noise means something, and a message in your inbox is a real signal rather than background hum.</p>
+          </article>
         </div>
       </div>
     </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="panel reveal" style="text-align:center">
+          <h2>Working on something that shouldn't need you every day?</h2>
+          <p style="margin-inline:auto">That's precisely the kind of problem Noctix exists for.</p>
+          <div class="actions" style="justify-content:center">
+            <a class="btn btn-primary" href="/contact.html">Get in touch <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span>© 2026 Noctix. Software that runs itself.</span>
-      <div class="footer-links">
+  <footer class="foot">
+    <div class="shell">
+      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
+      <span class="status"><span class="beacon"></span> systems nominal</span>
+      <div class="foot-links">
         <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
         <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>

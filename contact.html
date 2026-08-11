@@ -10,23 +10,27 @@
   <meta property="og:description" content="Start a conversation with Noctix — lucas@noctix.dev. English or Spanish.">
   <meta property="og:url" content="https://noctix.dev/contact.html">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0a0d14">
+  <meta property="og:image" content="https://noctix.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
+  <script>document.documentElement.className += ' has-js';</script>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="wordmark" href="/">
-        <svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">
-          <defs><mask id="m-crescent"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
-          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#m-crescent)"/>
+  <header class="masthead">
+    <div class="shell">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 64 64" width="19" height="19" aria-hidden="true">
+          <defs><mask id="mc"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
+          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#mc)"/>
         </svg>
         NOCTIX
       </a>
-      <nav class="site-nav" aria-label="Main">
+      <nav class="nav" aria-label="Main">
         <a href="/work.html">Work</a>
         <a href="/services.html">Services</a>
         <a href="/about.html">About</a>
@@ -36,39 +40,70 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
-      <div class="container">
-        <p class="eyebrow">Contact</p>
-        <h1>Start a conversation.</h1>
-        <p class="lede">Tell us what your operation looks like and which part of it should run itself. You'll get an honest read on whether software can do it — and what it would take.</p>
-      </div>
-    </section>
 
-    <section>
-      <div class="container">
-        <div class="prose">
-          <a class="contact-email" href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
-          <p>A useful first email covers three things:</p>
-          <ul>
-            <li>What the work looks like today — the systems, spreadsheets, and inboxes involved</li>
-            <li>How often it happens, and roughly how long it takes</li>
-            <li>What "solved" would look like for you</li>
-          </ul>
-          <p class="muted-note">English or Spanish, whichever is easier. You can also reach Lucas on <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>.</p>
+    <section class="hero" style="padding-bottom:0">
+      <div class="shell">
+        <div class="reveal is-in" style="max-width:46rem">
+          <p class="kicker">Contact</p>
+          <h1>Start a<br><span class="glow-word">conversation.</span></h1>
+          <p class="lede">Tell us what your operation looks like today and which part of it should be running itself. You'll get an honest read on whether software can do it — and what it would take.</p>
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="panel reveal">
+          <div class="panel-split">
+            <div>
+              <p class="kicker">Email</p>
+              <a class="mailto" href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
+              <p style="color:var(--ink-2);margin-top:1.25rem">Replies usually land within a day. English or Spanish, whichever is easier — and you can also reach Lucas on <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>.</p>
+            </div>
+            <div>
+              <p class="kicker">A useful first email</p>
+              <div class="flow" style="margin-top:1.25rem">
+                <div class="flow-node"><span class="idx">1</span><span>what the work looks like today</span></div>
+                <div class="flow-link"></div>
+                <div class="flow-node"><span class="idx">2</span><span>how often it happens, and how long it takes</span></div>
+                <div class="flow-link"></div>
+                <div class="flow-node"><span class="idx">3</span><span>what "solved" would look like for you</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:1.1rem">
+          <article class="card reveal" data-delay="0">
+            <h3>No obligation</h3>
+            <p>If software isn't the right answer, you'll be told that plainly rather than sold a project.</p>
+          </article>
+          <article class="card reveal" data-delay="90">
+            <h3>Small first</h3>
+            <p>The best starting point is usually the narrowest slice that proves the idea against your real data.</p>
+          </article>
+          <article class="card reveal" data-delay="180">
+            <h3>Two languages</h3>
+            <p>Work happens in English or Spanish, including with your team and your vendors.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span>© 2026 Noctix. Software that runs itself.</span>
-      <div class="footer-links">
+  <footer class="foot">
+    <div class="shell">
+      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
+      <span class="status"><span class="beacon"></span> systems nominal</span>
+      <div class="foot-links">
         <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
         <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>

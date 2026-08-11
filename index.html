@@ -4,29 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Noctix — Software that runs itself</title>
-  <meta name="description" content="Noctix is a software studio building automation, integrations, and custom software that businesses trust with their operations.">
+  <meta name="description" content="Noctix is a software studio building automation, integrations, and custom software that businesses trust to run their operations unattended.">
   <link rel="canonical" href="https://noctix.dev/">
   <meta property="og:title" content="Noctix — Software that runs itself">
-  <meta property="og:description" content="A software studio building automation, integrations, and custom software that businesses trust with their operations.">
+  <meta property="og:description" content="A software studio building automation, integrations, and custom software that businesses trust to run their operations unattended.">
   <meta property="og:url" content="https://noctix.dev/">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0a0d14">
+  <meta property="og:image" content="https://noctix.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#06080d">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
+  <script>document.documentElement.className += ' has-js';</script>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="wordmark" href="/">
-        <svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">
-          <defs><mask id="m-crescent"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
-          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#m-crescent)"/>
+  <header class="masthead">
+    <div class="shell">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 64 64" width="19" height="19" aria-hidden="true">
+          <defs><mask id="mc"><rect width="64" height="64" fill="#fff"/><circle cx="39.5" cy="24.5" r="15" fill="#000"/></mask></defs>
+          <circle cx="32" cy="32" r="17" fill="currentColor" mask="url(#mc)"/>
         </svg>
         NOCTIX
       </a>
-      <nav class="site-nav" aria-label="Main">
+      <nav class="nav" aria-label="Main">
         <a href="/work.html">Work</a>
         <a href="/services.html">Services</a>
         <a href="/about.html">About</a>
@@ -36,78 +40,176 @@
   </header>
 
   <main id="main">
+
     <section class="hero">
-      <div class="container">
-        <p class="eyebrow">Noctix · Software Studio</p>
-        <h1>Software that runs itself.</h1>
-        <p class="lede">Noctix builds the systems businesses hand their operations to — automation, integrations, and custom software that keep working after everyone logs off.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="/work.html">See the work</a>
-          <a class="btn btn-ghost" href="/contact.html">Get in touch</a>
+      <div class="shell hero-grid">
+        <div class="reveal is-in">
+          <p class="kicker">Software studio</p>
+          <h1>Software that<br><span class="glow-word">runs itself.</span></h1>
+          <p class="lede">Noctix builds the systems a business hands its operations to — automation, integrations, and custom software that keep working long after everyone has logged off.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/work.html">See the proof <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-quiet" href="/contact.html">Start a conversation</a>
+          </div>
         </div>
-        <div class="stats">
-          <div class="stat"><strong>Six figures</strong><span>in monthly billing processed unattended by a Noctix-built platform</span></div>
-          <div class="stat"><strong>105</strong><span>automated tests in CI behind every release</span></div>
-          <div class="stat"><strong>0</strong><span>manual steps per production billing cycle</span></div>
+
+        <!-- A real billing cycle, running unattended, on loop.
+             Decorative: the same facts appear as text below. -->
+        <div class="console reveal is-in" data-console aria-hidden="true">
+          <div class="console-bar">
+            <span class="beacon"></span>
+            <span class="name">noctix · billing runner</span>
+            <span class="clock" data-clock>02:00 UTC</span>
+          </div>
+          <div class="console-body">
+            <div class="step" data-state="pending">
+              <span class="glyph">·</span><span>detect flight</span><span class="val">AV0421</span>
+            </div>
+            <div class="step" data-state="pending">
+              <span class="glyph">·</span><span>ingest manifests</span><span class="val">38 files</span>
+            </div>
+            <div class="step" data-state="pending">
+              <span class="glyph">·</span><span>reconstruct weights</span><span class="val">12,480 kg</span>
+            </div>
+            <div class="step" data-state="pending">
+              <span class="glyph">·</span><span>write ledgers</span><span class="val">6 sheets</span>
+            </div>
+            <div class="step" data-state="pending">
+              <span class="glyph">·</span><span>verify against source</span><span class="val">passed</span>
+            </div>
+            <div class="step" data-state="pending">
+              <span class="glyph">·</span><span>issue invoices</span><span class="val">QuickBooks</span>
+            </div>
+          </div>
+          <div class="console-foot">
+            <span><span class="ok">●</span> 105 tests green</span>
+            <span>0 manual steps</span>
+            <span>runs 2×/day</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="shell">
+        <div class="strip reveal">
+          <div class="cell">
+            <span class="num">Six figures</span>
+            <span class="cap">in monthly billing, processed unattended</span>
+          </div>
+          <div class="cell">
+            <span class="num" data-count="105">105</span>
+            <span class="cap">automated tests gating every release</span>
+          </div>
+          <div class="cell">
+            <span class="num" data-count="470" data-suffix="/470">470/470</span>
+            <span class="cap">shipments reconciled to the exact kilogram</span>
+          </div>
+          <div class="cell">
+            <span class="num" data-count="0">0</span>
+            <span class="cap">manual steps per billing cycle</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <p class="eyebrow">What we build</p>
-        <h2>Broad on purpose. Built to production standard.</h2>
-        <div class="cards">
-          <div class="card">
+    <section class="section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <p class="kicker">What we build</p>
+          <h2>Broad on purpose. Built to production standard.</h2>
+          <p>Most businesses don't need a specialist — they need someone who can take a messy operation end to end and return something dependable.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card reveal" data-delay="0">
+            <div class="ico" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
             <h3>Custom software</h3>
-            <p>Web applications, dashboards, and internal tools shaped around how your business actually operates — not the other way around.</p>
-            <a class="card-link" href="/services.html">Learn more →</a>
-          </div>
-          <div class="card">
+            <p>Web applications, dashboards, and internal tools shaped around how your business actually operates — lean, tested, documented, and free of platform lock-in.</p>
+            <a class="more" href="/services.html">Learn more <span class="arrow" aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="card reveal" data-delay="90">
+            <div class="ico" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/>
+              </svg>
+            </div>
             <h3>Automation</h3>
-            <p>Pipelines that do the work themselves — documents, billing, reporting — with verification gates in front of anything that matters.</p>
-            <a class="card-link" href="/services.html">Learn more →</a>
-          </div>
-          <div class="card">
+            <p>Pipelines that do the work themselves — documents, billing, reporting — with verification gates in front of anything that touches money, and alerts only when a human is genuinely needed.</p>
+            <a class="more" href="/services.html">Learn more <span class="arrow" aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="card reveal" data-delay="180">
+            <div class="ico" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 3 3v6"/>
+              </svg>
+            </div>
             <h3>Integrations</h3>
-            <p>Accounting, spreadsheets, email, and industry APIs tied into one coherent flow, so data moves without being retyped.</p>
-            <a class="card-link" href="/services.html">Learn more →</a>
+            <p>Accounting platforms, spreadsheets, inboxes, and industry APIs tied into one coherent flow — so data moves without being retyped, and without drifting out of sync.</p>
+            <a class="more" href="/services.html">Learn more <span class="arrow" aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="panel reveal">
+          <div class="panel-split">
+            <div>
+              <p class="kicker">Featured work</p>
+              <h2>Billing that runs itself</h2>
+              <p>A production platform that invoices six figures a month for an air-cargo operation. It detects the flight, reads the manifests, writes the ledgers, and issues the invoices — with a verification gate in front of every dollar and no operator at the keyboard.</p>
+              <div class="actions">
+                <a class="btn btn-primary" href="/work.html">Read the case study <span class="arrow" aria-hidden="true">→</span></a>
+              </div>
+            </div>
+            <div class="flow" aria-hidden="true">
+              <div class="flow-node"><span class="idx">1</span><span>flight detected via API</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node"><span class="idx">2</span><span>manifests &amp; vendor PDFs ingested</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node"><span class="idx">3</span><span>ledgers written with live formulas</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node gate"><span class="idx">✓</span><span>verified against source — or it halts</span></div>
+              <div class="flow-link"></div>
+              <div class="flow-node"><span class="idx">4</span><span>invoices &amp; bills issued</span></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="band">
-          <p class="eyebrow">Featured work</p>
-          <h2>Billing that runs itself</h2>
-          <p>A production platform that invoices six figures a month for an air-cargo operation — flight detection, manifest ingestion, ledgers, and QuickBooks invoicing, with a verification gate in front of every dollar and zero manual steps per flight.</p>
-          <a class="btn btn-primary" href="/work.html">Read the case study</a>
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="panel reveal" style="text-align:center">
+          <h2>Have an operation that should run itself?</h2>
+          <p style="margin-inline:auto">Tell us what it looks like today. You'll get an honest read on what software can take off your plate — and what it would take.</p>
+          <div class="actions" style="justify-content:center">
+            <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <h2>Have an operation that should run itself?</h2>
-        <p class="lede">Tell us what it looks like today. We'll give you an honest read on what software can take off your plate.</p>
-        <div class="cta-row">
-          <a class="btn btn-ghost" href="/contact.html">Start a conversation</a>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span>© 2026 Noctix. Software that runs itself.</span>
-      <div class="footer-links">
+  <footer class="foot">
+    <div class="shell">
+      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
+      <span class="status"><span class="beacon"></span> systems nominal</span>
+      <div class="foot-links">
         <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
         <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>
