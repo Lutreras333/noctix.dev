@@ -135,7 +135,7 @@
     if (!steps.length) return;
     var glyphs = steps.map(function (s) { return s.querySelector('.glyph'); });
     var clock = stage.querySelector('[data-clock]');
-    var runs = ['02:00', '14:00'];
+    var runs = ['09:00', '21:00'];   /* ET, matching the real cadence */
     var runIdx = 0;
     var timer = 0;
     var holds = Object.create(null);
@@ -187,7 +187,7 @@
       timer = 0;
       i = 0;
       arm();
-      if (clock) clock.textContent = runs[runIdx % runs.length] + ' UTC';
+      if (clock) clock.textContent = runs[runIdx % runs.length] + ' ET';
       runIdx++;
       timer = setTimeout(tick, 520);
     }
@@ -244,16 +244,16 @@
        not that mechanism - so the console gets a real control. It lives
        outside the aria-hidden subtree so it is reachable and announced.
 
-       KNOWN ISSUE, UNRESOLVED: the button renders, is focusable and sits
-       outside the aria-hidden subtree, but this listener is not firing.
-       A probe listener attached to the same node from the console DOES
-       fire on the same click, and app.js is served with this code inside
-       feature('console') which demonstrably runs (steps carry
-       data-state). So the click path is fine and the feature runs; the
-       registration is what fails. Next step: log inside feature('console')
-       immediately before this block to confirm it is reached, and check
-       whether an early return above it is being taken. Until it fires,
-       2.2.2 is NOT satisfied. */
+       The "this listener never fires" report against this block was a
+       STALE ASSET, not a defect. python -m http.server sends
+       Last-Modified with no Cache-Control, so Chrome applied heuristic
+       freshness and kept executing an app.js from before this block
+       existed: getEntriesByType('resource') showed deliveryType 'cache'
+       and transferSize 0, while a no-store fetch of the same URL
+       returned 26 more lines. Verified working against a cache-busted
+       copy - Hold freezes the run, Resume restarts it from step 0. Serve
+       the preview with no-store (see serve.py) before believing anything
+       measured about this file. */
     var holdBtn = document.querySelector('[data-hold]');
     if (holdBtn) {
       holdBtn.addEventListener('click', function () {
@@ -273,8 +273,41 @@
   });
 
   /* ── Next scheduled run ─────────────────────────────────────
-     Derived locally from the 02:00/14:00 cadence the page already
-     states — nothing is fabricated and no backend is implied. */
+     The verified cadence is 09:00 and 21:00 America/New_York. This
+     shipped as a fixed 02:00/14:00 UTC, which is only the EST
+     conversion - an hour wrong for the eight months the zone is on EDT,
+     and wrong on screen the whole time the site has been live. The
+     offset is now resolved from the zone itself on every render. Still
+     derived locally: no backend implied, nothing fabricated. */
+
+  var ET = 'America/New_York';
+  var RUN_HOURS = [9, 21];
+
+  var etHourOf = (function () {
+    var fmt;
+    try {
+      fmt = new Intl.DateTimeFormat('en-US', {
+        timeZone: ET, hour12: false, hour: '2-digit'
+      });
+    } catch (e) { fmt = null; }
+    return function (d) {
+      if (!fmt) return d.getUTCHours();          /* no ICU: degrade quietly */
+      return parseInt(fmt.format(d), 10) % 24;
+    };
+  })();
+
+  /* Step forward from the top of the hour and take the first instant whose
+     ET wall clock is a run hour. Needs no offset table and is correct
+     across both DST transitions. */
+  var nextRunFrom = function (from) {
+    var top = new Date(from.getTime());
+    top.setUTCMinutes(0, 0, 0);
+    for (var i = 0; i <= 26; i++) {
+      var t = new Date(top.getTime() + i * 3600000);
+      if (t > from && RUN_HOURS.indexOf(etHourOf(t)) !== -1) return t;
+    }
+    return null;
+  };
 
   feature('nextrun', function () {
     var el = document.querySelector('[data-nextrun]');
@@ -282,15 +315,12 @@
 
     var render = function () {
       var now = new Date();
-      var h = now.getUTCHours();
-      var next = new Date(now);
-      if (h < 2) next.setUTCHours(2, 0, 0, 0);
-      else if (h < 14) next.setUTCHours(14, 0, 0, 0);
-      else { next.setUTCDate(next.getUTCDate() + 1); next.setUTCHours(2, 0, 0, 0); }
-
+      var next = nextRunFrom(now);
+      if (!next) return;
       var mins = Math.max(0, Math.round((next - now) / 60000));
-      var label = (next.getUTCHours() === 2 ? '02:00' : '14:00') + ' UTC';
-      el.textContent = label + ' · in ' + Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm';
+      var hh = etHourOf(next);
+      el.textContent = (hh < 10 ? '0' + hh : hh) + ':00 ET · in ' +
+        Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm';
     };
 
     render();
