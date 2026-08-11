@@ -196,7 +196,8 @@
           <p style="max-width:42rem">The ledger below carries the real column structure and the real live formulas the platform writes into the books — including the one that decides what a shipment costs. <strong>Every consignee, waybill, weight and rate here is invented sample data.</strong> The client's own figures are theirs, not ours.</p>
         </div>
 
-        <div class="ledger-wrap reveal">
+        <div class="ledger-wrap reveal" tabindex="0" role="region"
+             aria-label="Sample ledger, 17 columns — scroll sideways to see all columns">
           <table class="ledger">
 <thead><tr><th>FECHA</th><th>AERO</th><th>AWB</th><th class="cons">CONSIGNEE</th><th>MARK</th><th>PIECES</th><th>FULL BXS</th><th>GROSS</th><th>VOLUM</th><th>AVG GROSS</th><th>AVG VOLUM</th><th class="charg">CHARG</th><th>RATE</th><th>FITO</th><th>T&E</th><th>TOTAL</th><th>INV #</th></tr></thead>
 <tbody>
@@ -214,7 +215,7 @@
         <div class="grid-3 reveal" style="margin-top:2.5rem">
           <div style="grid-column:span 2">
             <p class="kicker">Every release, before it reaches the machine that touches money</p>
-            <pre class="term">........................................................................ [ 68%]
+            <pre class="term" tabindex="0" role="region" aria-label="pytest output: 105 tests passed">........................................................................ [ 68%]
 .................................                                        [100%]
 <span class="pass">105 passed in 1.26s</span></pre>
           </div>

@@ -271,8 +271,11 @@
     if (holdBtn) {
       holdBtn.addEventListener('click', function () {
         var on = holdBtn.getAttribute('aria-pressed') !== 'true';
+        /* aria-pressed is the state; the NAME stays stable. Swapping both
+           at once announces a contradiction - "Resume, pressed" - and the
+           rest of this system carries state by form, not by swapped copy.
+           Sighted users get it from .console-hold[aria-pressed='true']. */
         holdBtn.setAttribute('aria-pressed', String(on));
-        holdBtn.textContent = on ? 'Resume' : 'Hold';
         hold('user', on);
       });
     }

@@ -1186,7 +1186,22 @@ h3 {
   }
 }
 
-@keyframes link-fill { to { transform: scaleY(1); } }
+/* The finished state lives in the base rules, so an inactive or
+   reduced-motion timeline lands on a COMPLETE diagram rather than an
+   empty one. The keyframe declares its own `from`, so the base value is
+   no longer doubling as the implicit start. */
+.flow.runs .flow-node { border-color: var(--line-2); color: var(--ink); }
+.flow.runs .flow-node.gate { border-color: rgba(255, 255, 255, 0.34); color: var(--ink); }
+.flow.runs .flow-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--live);
+  transform: scaleY(1);
+  transform-origin: top;
+}
+
+@keyframes link-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
 /* ── Chapter openings ──────────────────────────────────────
    Every panel and card already carries a hairline along its top edge.
@@ -1205,8 +1220,6 @@ h3 {
       animation-timeline: view();
       animation-range: cover 6% cover 26%;
     }
-    /* the emblem's label underline sweeps a touch later than its panel */
-    .emblem { animation-range: cover 4% cover 22%; }
   }
 }
 @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
@@ -1323,8 +1336,10 @@ h3 {
 }
 .term .pass { color: var(--live); }
 
-@media (max-width: 860px) {
-  .grid-3 > [style*="span 2"] { grid-column: auto !important; }
+/* auto-fit generates explicit tracks, so 1 / -1 resolves at 1, 2 and 3
+   columns. The capture wants the whole row, not one track. */
+@media (max-width: 905px) {
+  .grid-3 > [style*="span 2"] { grid-column: 1 / -1 !important; }
 }
 
 /* ── Prose ─────────────────────────────────────────────────── */
@@ -1349,12 +1364,14 @@ h3 {
 /* The brief: the metadata a buyer scans before reading a word of prose. */
 .brief {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem 2rem;
   margin-top: 2rem;
   padding-top: 1.75rem;
   border-top: 1px solid var(--line);
 }
+@media (min-width: 700px) { .brief { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
 .brief-k {
   display: block;
   font-family: var(--mono);
@@ -1528,6 +1545,14 @@ h3 {
   .step[data-state='done'] .glyph { background: CanvasText; color: Canvas; }
   .step[data-state='active'] .glyph { border-color: CanvasText; color: CanvasText; }
   .beacon { background: Highlight; }
+  /* Canvas is the disc's foreground here, so the check reads as a true
+     knockout. background-color is forced but background-image is not -
+     the asymmetry the gradient-nulling above relies on - so anything
+     drawn with background-color needs a system colour restated. */
+  .step[data-state='done'] .glyph::before { border-color: Canvas; }
+  .console-foot .ok { background: CanvasText; }
+  .arrow::before, .arrow::after { border-color: CanvasText; background: CanvasText; }
+  .kicker::before { background: CanvasText; }
   :focus-visible { outline-color: Highlight; }
 }
 
