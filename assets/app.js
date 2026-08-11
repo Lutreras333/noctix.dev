@@ -238,6 +238,32 @@
       setTimeout(begin, 1150);
     }
 
+    /* WCAG 2.2.2 (Level A): motion that starts on its own, runs longer
+       than five seconds and sits beside other content needs a mechanism
+       to pause, stop or hide it. prefers-reduced-motion is a preference,
+       not that mechanism - so the console gets a real control. It lives
+       outside the aria-hidden subtree so it is reachable and announced.
+
+       KNOWN ISSUE, UNRESOLVED: the button renders, is focusable and sits
+       outside the aria-hidden subtree, but this listener is not firing.
+       A probe listener attached to the same node from the console DOES
+       fire on the same click, and app.js is served with this code inside
+       feature('console') which demonstrably runs (steps carry
+       data-state). So the click path is fine and the feature runs; the
+       registration is what fails. Next step: log inside feature('console')
+       immediately before this block to confirm it is reached, and check
+       whether an early return above it is being taken. Until it fires,
+       2.2.2 is NOT satisfied. */
+    var holdBtn = document.querySelector('[data-hold]');
+    if (holdBtn) {
+      holdBtn.addEventListener('click', function () {
+        var on = holdBtn.getAttribute('aria-pressed') !== 'true';
+        holdBtn.setAttribute('aria-pressed', String(on));
+        holdBtn.textContent = on ? 'Resume' : 'Hold';
+        hold('user', on);
+      });
+    }
+
     calmWatchers.push(function (isCalm) {
       if (!isCalm) return;
       clearTimeout(timer);

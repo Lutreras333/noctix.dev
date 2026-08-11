@@ -116,7 +116,11 @@
   --t-drift: 2400ms;  /* ambient loops */
 
   --e-out: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --e-entrance: cubic-bezier(0.16, 1, 0.30, 1);
+  /* 88% of travel is done by 88% of the duration. The previous
+     cubic-bezier(.16,1,.30,1) finished 99% of its travel at 62%, leaving
+     38% of every entrance as invisible drift - a stated duration that
+     was mostly a lie. */
+  --e-entrance: cubic-bezier(0, 0, 0.30, 1);
   --e-exit: cubic-bezier(0.40, 0, 1, 1);
   --e-machine: linear;              /* any motion a system performs */
 
@@ -141,7 +145,6 @@ body {
   font-family: var(--sans);
   font-size: 1.0625rem;
   line-height: 1.7;
-  font-feature-settings: 'cv05' 1, 'ss03' 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
@@ -194,6 +197,12 @@ body::after {
   pointer-events: none;
   opacity: 0.16;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  /* Dither. Near-black gradients band because 8-bit sRGB has too few
+     codes across a long dark ramp - measured at one step every ~81px on
+     the deep-space layer. soft-light is symmetric about mid-grey, so it
+     breaks the step edges without shifting mean luminance, which the
+     contrast budget depends on. */
+  background-blend-mode: soft-light;
 }
 
 /* ── The sky changes as you travel ─────────────────────────
@@ -889,7 +898,31 @@ h3 {
 
 /* The console implies live data. It is an accurate illustration of the
    real cycle, not a recording — so the caption says exactly that. */
+.console-tools {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+.console-hold {
+  flex: none;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color var(--t-tap) var(--e-out), border-color var(--t-tap) var(--e-out);
+}
+.console-hold:hover { color: var(--ink); border-color: var(--line-2); }
+
 .console-cap {
+  flex: 1;
   margin-top: 0.85rem;
   font-family: var(--mono);
   font-size: 0.72rem;
