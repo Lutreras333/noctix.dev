@@ -187,6 +187,47 @@
       </div>
     </section>
 
+
+    <section class="section" style="padding-top:0">
+      <div class="shell">
+        <div class="prose reveal" style="max-width:none">
+          <p class="kicker">The evidence</p>
+          <h2 style="margin-top:0.9rem">What the system actually writes</h2>
+          <p style="max-width:42rem">The ledger below carries the real column structure and the real live formulas the platform writes into the books — including the one that decides what a shipment costs. <strong>Every consignee, waybill, weight and rate here is invented sample data.</strong> The client's own figures are theirs, not ours.</p>
+        </div>
+
+        <div class="ledger-wrap reveal">
+          <table class="ledger">
+<thead><tr><th>FECHA</th><th>AERO</th><th>AWB</th><th class="cons">CONSIGNEE</th><th>MARK</th><th>PIECES</th><th>FULL BXS</th><th>GROSS</th><th>VOLUM</th><th>AVG GROSS</th><th>AVG VOLUM</th><th class="charg">CHARG</th><th>RATE</th><th>FITO</th><th>T&E</th><th>TOTAL</th><th>INV #</th></tr></thead>
+<tbody>
+<tr><td>04-Aug-26</td><td>SAMPLE AIR</td><td>145-0000 0001</td><td class="cons">NORTHWIND BLOOMS</td><td>NB-01</td><td>40</td><td>20.00</td><td>720</td><td>800</td><td>36.00</td><td>40.00</td><td class="charg">800.00</td><td>$2.40</td><td>$2.00</td><td>-</td><td>$1,922.00</td><td>1000</td></tr>
+<tr><td>04-Aug-26</td><td>SAMPLE AIR</td><td>145-0000 0001</td><td class="cons">ACME FLORAL CO</td><td>ACME LD</td><td>2</td><td>1.00</td><td>25</td><td>22</td><td>25.00</td><td>22.00</td><td class="charg">25.00</td><td>$2.40</td><td>-</td><td>-</td><td>$60.00</td><td>1001</td></tr>
+<tr><td>04-Aug-26</td><td>SAMPLE AIR</td><td>145-0000 0001</td><td class="cons">EXAMPLE GARDENS</td><td>-</td><td>20</td><td>5.00</td><td>100</td><td>125</td><td>20.00</td><td>25.00</td><td class="charg">125.00</td><td>$2.25</td><td>-</td><td>-</td><td>$281.25</td><td>1002</td></tr>
+<tr><td>05-Aug-26</td><td>SAMPLE AIR</td><td>145-0000 0002</td><td class="cons">NORTHWIND BLOOMS</td><td>NB-02</td><td>15</td><td>7.50</td><td>250</td><td>240</td><td>33.33</td><td>32.00</td><td class="charg">250.00</td><td>$2.40</td><td>$2.00</td><td>$15.00</td><td>$617.00</td><td>1003</td></tr>
+<tr><td>05-Aug-26</td><td>SAMPLE AIR</td><td>145-0000 0002</td><td class="cons">SAMPLE ROSES LLC</td><td>SR-11</td><td>5</td><td>2.00</td><td>60</td><td>70</td><td>30.00</td><td>35.00</td><td class="charg">70.00</td><td>$2.60</td><td>-</td><td>-</td><td>$182.00</td><td>1004</td></tr>
+<tr><td>06-Aug-26</td><td>SAMPLE AIR</td><td>145-0000 0003</td><td class="cons">PLACEHOLDER FLOWERS</td><td>PF-07</td><td>30</td><td>15.00</td><td>550</td><td>600</td><td>36.67</td><td>40.00</td><td class="charg">600.00</td><td>$2.30</td><td>$2.00</td><td>-</td><td>$1,382.00</td><td>1005</td></tr>
+</tbody>
+</table>
+        </div>
+        <p class="fig reveal">Chargeable weight is <code>MAX(GROSS, VOLUM)</code> — the greater of actual and volumetric — and <code>TOTAL = CHARG × RATE + FITO + T&amp;E</code>. Those formulas go into the sheet live, so the book recalculates rather than storing a number somebody typed.</p>
+
+        <div class="grid-3 reveal" style="margin-top:2.5rem">
+          <div style="grid-column:span 2">
+            <p class="kicker">Every release, before it reaches the machine that touches money</p>
+            <pre class="term">........................................................................ [ 68%]
+.................................                                        [100%]
+<span class="pass">105 passed in 1.26s</span></pre>
+          </div>
+          <div>
+            <p class="kicker">Public showcase</p>
+            <p style="color:var(--ink-2);font-size:0.95rem;margin-top:0.9rem">The sanitised code, with its own continuous integration running the sample pipeline on every push.</p>
+            <p style="margin-top:0.9rem"><img
+              src="https://github.com/Lutreras333/wwcargo-billing-platform/actions/workflows/samples.yml/badge.svg"
+              alt="Showcase pipeline: build status" width="140" height="20" loading="lazy"></p>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="section" style="padding-top:0">
       <div class="shell">
         <div class="panel reveal" style="text-align:center">
