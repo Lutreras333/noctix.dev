@@ -64,10 +64,14 @@
 
   /* silver ink ramp. Every step measured against the LIGHTEST surface it
      can sit on, not just against the page black:
-       ink 14.99:1   ink-2 7.33:1   ink-3 4.88:1  (all pass 4.5:1) */
+       ink 14.99:1   ink-2 7.33:1   ink-3 5.22:1
+     ink-3 is measured against the ACTIVE CONSOLE ROW (#252a36, a 7%
+     white wash over the console top) where it is 4.58:1 — not just
+     against the page black. The previous #858d98 scored 4.28:1 there
+     and failed AA on the exact row a visitor watches. */
   --ink: #f4f5f7;
   --ink-2: #a8aeb8;
-  --ink-3: #858d98;
+  --ink-3: #8b929e;
 
   /* RED — the brand voice, editorial use only. 5.62:1 on the page and
      4.61:1 on the lightest surface, so it is legible even at body size.
@@ -79,6 +83,10 @@
   /* MACHINE TRUTH — carried by luminance, never by hue, so the console
      can never be mistaken for an error state. */
   --live: #ffffff;
+  /* A small struck disc. No hard terminator: a value break inside a
+     15px coin reads as a printing fault, not as metal. */
+  --plate-sm: linear-gradient(180deg, #ffffff 0%, #dfe3ea 46%,
+    #a7adb8 54%, #cfcdc7 100%);
   --metal: linear-gradient(180deg, #ffffff 0%, #cfd4db 45%, #8f97a2 100%);
 
   --shell: 1160px;
@@ -649,7 +657,7 @@ h3 {
   background: inherit;
   opacity: 0.55;
   transform: scale(1);
-  animation: beacon var(--t-drift) var(--e-out) infinite;
+  animation: beacon var(--t-drift) var(--e-machine) infinite;
   will-change: transform, opacity;
 }
 @keyframes beacon {
@@ -716,11 +724,49 @@ h3 {
    spinning glyph is the most toy-like pixel available. Progress is
    already stated honestly by the step's own bar, which is driven by the
    same number as the scheduler. */
-.step[data-state='active'] .glyph { color: var(--live); }
+/* ── Machine state carried by FORM, not colour ─────────────
+   pending  = a bare dim character, no disc
+   running  = a hollow ring
+   verified = a solid struck silver disc with the check knocked out
+
+   Stroke versus fill is the oldest legible state distinction there is,
+   and here it is thematically exact: a system whose whole claim is that
+   it verifies its own output should visibly STAMP each line it has
+   checked. It also survives greyscale, monochrome print, forced-colors
+   and every kind of colour blindness — none of which a tick colour does.
+   And because it is achromatic, red stays free to mean brand and only
+   brand. */
+
+.step .glyph {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  margin-inline: auto;
+  border-radius: 99px;
+  font-size: 0.66rem;
+  line-height: 1;
+  transition: color var(--t-tick) var(--e-machine),
+              border-color var(--t-tick) var(--e-machine);
+}
+
+/* running: hollow. No rotation — a fixed spin rate under a variable
+   step duration would misreport the rate. The step bar states it. */
+.step[data-state='active'] .glyph {
+  color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-top-color: var(--live);
+}
+
+/* verified: struck. The check is knocked out of the metal. */
+.step[data-state='done'] .glyph {
+  color: var(--bg);
+  background: var(--plate-sm);
+  font-weight: 700;
+}
 .step[data-state='done'] { color: var(--ink-2); }
-.step[data-state='done'] .glyph { color: var(--live); }
 .step[data-state='done'] .val,
-.step[data-state='active'] .val { opacity: 1; transform: none; }
+.step[data-state='active'] .val { opacity: 1; transform: none; color: var(--ink-2); }
 .step[data-state='done'] .val { color: var(--ink-2); }
 
 
@@ -1206,6 +1252,8 @@ h3 {
     border-color: ButtonBorder;
   }
   .console::before, .panel::before, .card::before, .rule { background: CanvasText; }
+  .step[data-state='done'] .glyph { background: CanvasText; color: Canvas; }
+  .step[data-state='active'] .glyph { border-color: CanvasText; color: CanvasText; }
   .beacon { background: Highlight; }
   :focus-visible { outline-color: Highlight; }
 }
