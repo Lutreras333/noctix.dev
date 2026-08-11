@@ -141,15 +141,31 @@ body {
 
 /* Aurora + grain: two fixed layers that give the page depth without
    costing a single image request. */
+/* The depth field. Six background layers on ONE fixed element — a single
+   element can carry many layers, they rasterise once, and they never
+   animate. Static gradients are cheap; it is animating gradients, blurs
+   and shadows that costs frames, so all the richness lives here and all
+   the motion lives in transforms elsewhere.
+
+   The lattice is deliberate: a measured grid reads as instrumentation,
+   which is what this studio sells. A starfield would read as a template. */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(820px 560px at 12% -10%, rgba(255, 255, 255, 0.055), transparent 68%),
-    radial-gradient(680px 460px at 88% 2%, rgba(255, 59, 48, 0.045), transparent 62%),
-    radial-gradient(1000px 760px at 50% 110%, rgba(255, 255, 255, 0.035), transparent 72%);
+    /* vignette — pulls the eye to the centre column */
+    radial-gradient(135% 100% at 50% 38%, transparent 42%, rgba(0, 0, 0, 0.62) 100%),
+    /* the brand's single warm light, top right */
+    radial-gradient(700px 480px at 90% -4%, rgba(255, 59, 48, 0.075), transparent 60%),
+    /* silver key light, top left */
+    radial-gradient(920px 640px at 8% -12%, rgba(255, 255, 255, 0.065), transparent 66%),
+    /* cool fill rising from the foot */
+    radial-gradient(1100px 820px at 50% 112%, rgba(255, 255, 255, 0.04), transparent 70%),
+    /* instrument lattice */
+    linear-gradient(rgba(255, 255, 255, 0.019) 1px, transparent 1px) 0 0 / 76px 76px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.019) 1px, transparent 1px) 0 0 / 76px 76px;
 }
 body::after {
   content: '';
@@ -955,6 +971,59 @@ h3 {
 }
 
 @keyframes link-fill { to { transform: scaleY(1); } }
+
+/* ── Chapter openings ──────────────────────────────────────
+   Every panel and card already carries a hairline along its top edge.
+   Instead of it simply being there, it DRAWS as the block enters — so
+   scrolling the page reads as one chapter opening after another.
+
+   No markup change, transform only, and the 0% keyframe is a zero-width
+   line rather than hidden content, so nothing can ever be lost to it. */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .panel::before,
+    .section-head .kicker::before {
+      transform-origin: left;
+      animation: rule-draw var(--e-machine) both;
+      animation-timeline: view();
+      animation-range: cover 6% cover 26%;
+    }
+    /* the emblem's label underline sweeps a touch later than its panel */
+    .emblem { animation-range: cover 4% cover 22%; }
+  }
+}
+@keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ── Link underline draw ───────────────────────────────────
+   Wipes in from the left, out to the right — it reads as directional
+   rather than as a blink. Keyboard focus gets it too. */
+
+.foot-links a,
+.prose a,
+.muted-note a { position: relative; }
+.foot-links a::after,
+.prose a::after,
+.muted-note a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--t-shift) var(--e-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .foot-links a:hover::after,
+  .prose a:hover::after,
+  .muted-note a:hover::after { transform: scaleX(1); transform-origin: left; }
+}
+.foot-links a:focus-visible::after,
+.prose a:focus-visible::after,
+.muted-note a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 @keyframes node-arm {
   0%, 49%   { border-color: var(--line); color: var(--ink-2); }
   50%, 100% { border-color: var(--line-2); color: var(--ink); }
