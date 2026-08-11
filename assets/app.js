@@ -149,6 +149,20 @@
 
     if (calm) { paintDone(); return; }
 
+    /* The markup ships the console COMPLETED, so a visitor without JS sees
+       a finished run with all its values rather than six empty rows. When
+       JS is present we re-arm to pending immediately — app.js is deferred
+       and CSS is render-blocking, so this lands before first paint and
+       there is no visible ✓ → · flash. */
+    var arm = function () {
+      steps.forEach(function (s, n) {
+        s.setAttribute('data-state', 'pending');
+        s.style.removeProperty('--dur');
+        if (glyphs[n]) glyphs[n].textContent = '·';
+      });
+    };
+    arm();
+
     var i = 0;
     var tick = function () {
       timer = 0;
@@ -164,7 +178,7 @@
       var ms = parseInt(cur.getAttribute('data-ms'), 10) || 800;
       cur.style.setProperty('--dur', ms + 'ms');
       cur.setAttribute('data-state', 'active');
-      if (glyphs[i]) glyphs[i].textContent = '◐';
+      if (glyphs[i]) glyphs[i].textContent = '▸';
       i++;
       timer = setTimeout(tick, ms);
     };
@@ -172,11 +186,7 @@
     function restart() {
       timer = 0;
       i = 0;
-      steps.forEach(function (s, n) {
-        s.setAttribute('data-state', 'pending');
-        s.style.removeProperty('--dur');
-        if (glyphs[n]) glyphs[n].textContent = '·';
-      });
+      arm();
       if (clock) clock.textContent = runs[runIdx % runs.length] + ' UTC';
       runIdx++;
       timer = setTimeout(tick, 520);

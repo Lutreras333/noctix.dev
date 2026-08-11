@@ -695,14 +695,18 @@ h3 {
   color: var(--ink);
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.07), transparent 70%);
 }
-.step[data-state='active'] .glyph { color: var(--live); animation: spin 1s linear infinite; }
+/* No spinner. A fixed 1s rotation sitting under steps that run anywhere
+   from 520ms to 1300ms reports a rate that is not the real one, and a
+   spinning glyph is the most toy-like pixel available. Progress is
+   already stated honestly by the step's own bar, which is driven by the
+   same number as the scheduler. */
+.step[data-state='active'] .glyph { color: var(--live); }
 .step[data-state='done'] { color: var(--ink-2); }
 .step[data-state='done'] .glyph { color: var(--live); }
 .step[data-state='done'] .val,
 .step[data-state='active'] .val { opacity: 1; transform: none; }
 .step[data-state='done'] .val { color: var(--ink-2); }
 
-@keyframes spin { to { transform: rotate(360deg); } }
 
 .console-foot {
   display: flex;
