@@ -987,6 +987,17 @@ h3 {
   background: rgba(255, 255, 255, 0.05);
   color: var(--ink);
 }
+.gate-tick { position: relative; }
+.gate-tick::before {
+  content: '';
+  position: absolute;
+  top: 46%; left: 50%;
+  width: 0.26em; height: 0.5em;
+  margin: -0.3em 0 0 -0.13em;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: rotate(42deg);
+}
 .flow-node.gate .idx {
   color: var(--live);
   background: rgba(255, 255, 255, 0.12);
@@ -1307,6 +1318,65 @@ h3 {
   .step[data-state='active'] .glyph { border-color: CanvasText; color: CanvasText; }
   .beacon { background: Highlight; }
   :focus-visible { outline-color: Highlight; }
+}
+
+
+/* ── Glyphs the subset does not contain ────────────────────
+   Verified with fontTools against the shipped woff2: the Inter latin
+   subset has no U+2192, U+2713 or U+25CF, so the arrow, the check and
+   the status dot were all rendering in whatever fallback the OS
+   provided - wrong weight, wrong metrics, different on every platform.
+   Drawn in CSS instead, so they inherit colour and scale with the type
+   and cannot fall back to anything. */
+
+.arrow {
+  display: inline-block;
+  position: relative;
+  width: 0.7em;
+  height: 0.7em;
+  vertical-align: -0.06em;
+}
+.arrow::before {                /* shaft */
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 4%;
+  right: 12%;
+  height: 1px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+.arrow::after {                 /* head */
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  width: 0.3em;
+  height: 0.3em;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* The struck disc's check, knocked out of the metal. */
+.step[data-state='done'] .glyph::before {
+  content: '';
+  width: 0.28em;
+  height: 0.52em;
+  margin-top: -0.12em;
+  border-right: 1.7px solid var(--bg);
+  border-bottom: 1.7px solid var(--bg);
+  transform: rotate(42deg);
+}
+/* pending keeps a real middot (it IS in the subset); running is the ring */
+
+.console-foot .ok {
+  display: inline-block;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 99px;
+  background: var(--live);
+  vertical-align: 0.02em;
 }
 
 /* ── Responsive ────────────────────────────────────────────── */

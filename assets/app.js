@@ -143,7 +143,7 @@
     var paintDone = function () {
       steps.forEach(function (s, i) {
         s.setAttribute('data-state', 'done');
-        if (glyphs[i]) glyphs[i].textContent = '✓';
+        if (glyphs[i]) glyphs[i].textContent = '';
       });
     };
 
@@ -168,7 +168,7 @@
       timer = 0;
       if (i > 0) {
         steps[i - 1].setAttribute('data-state', 'done');
-        if (glyphs[i - 1]) glyphs[i - 1].textContent = '✓';
+        if (glyphs[i - 1]) glyphs[i - 1].textContent = '';
       }
       if (i === steps.length) {
         timer = setTimeout(restart, 4600);
@@ -178,7 +178,7 @@
       var ms = parseInt(cur.getAttribute('data-ms'), 10) || 800;
       cur.style.setProperty('--dur', ms + 'ms');
       cur.setAttribute('data-state', 'active');
-      if (glyphs[i]) glyphs[i].textContent = '▸';
+      if (glyphs[i]) glyphs[i].textContent = '';
       i++;
       timer = setTimeout(tick, ms);
     };
