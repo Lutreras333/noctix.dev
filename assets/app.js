@@ -147,7 +147,14 @@
       });
     };
 
-    if (calm) { paintDone(); return; }
+    /* Looked up BEFORE the calm return: under reduced motion, and with JS
+       blocked, there is no motion to pause, and a visible cursor:pointer
+       control that does nothing is worse than no control. It ships hidden
+       and is revealed only when a run is actually going to happen. */
+    var holdBtn = document.querySelector('[data-hold]');
+    var showHold = function (on) { if (holdBtn) holdBtn.hidden = !on; };
+
+    if (calm) { paintDone(); showHold(false); return; }
 
     /* The markup ships the console COMPLETED, so a visitor without JS sees
        a finished run with all its values rather than six empty rows. When
@@ -217,11 +224,17 @@
     document.addEventListener('visibilitychange', function () {
       hold('hidden', document.hidden);
     });
+    /* The initial value, not just the transitions. A page opened in a
+       background tab - new-tab click, restored session - never fires
+       visibilitychange, so the run would otherwise start and lurch through
+       steps under clamped timers before anyone saw it. */
+    hold('hidden', document.hidden);
 
     var started = false;
     var begin = function () {
       if (started) return;
       started = true;
+      if (anyHold()) { stage.setAttribute('data-run', 'held'); return; }
       restart();
     };
 
@@ -254,7 +267,7 @@
        copy - Hold freezes the run, Resume restarts it from step 0. Serve
        the preview with no-store (see serve.py) before believing anything
        measured about this file. */
-    var holdBtn = document.querySelector('[data-hold]');
+    showHold(true);
     if (holdBtn) {
       holdBtn.addEventListener('click', function () {
         var on = holdBtn.getAttribute('aria-pressed') !== 'true';
@@ -268,7 +281,9 @@
       if (!isCalm) return;
       clearTimeout(timer);
       timer = 0;
+      holds.user = false;
       paintDone();
+      showHold(false);
     });
   });
 

@@ -858,6 +858,36 @@ h3 {
 .step[data-state='done'] { color: var(--ink-2); }
 .step[data-state='done'] .val,
 .step[data-state='active'] .val { opacity: 1; transform: none; color: var(--ink-2); }
+
+/* Below ~400px the single row cannot hold label + value: the value column
+   takes its intrinsic width first and crushes the label, so "verify
+   against source" wrapped to three lines and the row carrying 470/470 -
+   the most important line in the hero - broke on every common phone.
+   Restacking gives every step an identical two-line box, so the rhythm
+   stays uniform. .step::after is absolutely positioned to the row, so the
+   progress rule still spans correctly. */
+@media (max-width: 400px) {
+  .step {
+    grid-template-columns: 1.4rem minmax(0, 1fr);
+    align-items: start;
+    row-gap: 0.1rem;
+    padding-block: 0.55rem;
+  }
+  .step .val { grid-column: 2; }
+}
+
+/* At 320px the title bar's children need ~250px in 244px and both wrapped.
+   min-width:0 is load-bearing: without it a flex item will not shrink
+   below min-content and the ellipsis never engages. */
+@media (max-width: 380px) {
+  .console-bar .name {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .console-bar .clock { flex: none; white-space: nowrap; }
+}
 .step[data-state='done'] .val { color: var(--ink-2); }
 
 
@@ -920,6 +950,14 @@ h3 {
   transition: color var(--t-tap) var(--e-out), border-color var(--t-tap) var(--e-out);
 }
 .console-hold:hover { color: var(--ink); border-color: var(--line-2); }
+.console-hold[aria-pressed='true'] { color: var(--ink); border-color: var(--line-2); }
+
+/* Held has to be visible in the CSS too: clearTimeout stops the scheduler,
+   not the step's own progress bar, so without this the console kept
+   moving after the visitor asked it to stop. The live ring also loses its
+   bright arc, so a held run cannot be mistaken for a running one. */
+.console[data-run='held'] .step[data-state='active']::after { animation-play-state: paused; }
+.console[data-run='held'] .step[data-state='active'] .glyph { border-top-color: rgba(255, 255, 255, 0.30); }
 
 .console-cap {
   flex: 1;
@@ -935,7 +973,10 @@ h3 {
 
 .strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* An even ladder, never auto-fit: both strips hold exactly four cells,
+     and a 3-column resolution orphaned the fourth into a pale void
+     because the hairline background shows through vacated tracks. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   margin-top: clamp(2.5rem, 5vw, 4rem);
   background: var(--line);
@@ -943,6 +984,9 @@ h3 {
   border-radius: var(--radius);
   overflow: hidden;
 }
+@media (max-width: 430px) { .strip { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 900px)  { .strip { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
 .strip .cell {
   background: var(--surface);
   padding: 1.5rem 1.4rem;
@@ -1557,7 +1601,15 @@ h3 {
   body { font-size: 1rem; }
   .masthead .shell { min-height: 60px; gap: 0.75rem; }
   .nav { gap: 0.9rem; font-size: 0.88rem; }
-  .mark span { display: none; }
+  /* the wordmark hides, so grow the hit area without moving the glyph:
+     the negative inline-start margin keeps it optically flush */
+  .mark {
+    min-width: 44px;
+    min-height: 44px;
+    padding-inline: 0.75rem;
+    margin-inline-start: -0.75rem;
+  }
+  .mark .wordmark { display: none; }
   .foot .shell { flex-direction: column; align-items: flex-start; }
 }
 
