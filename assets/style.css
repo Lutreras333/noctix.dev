@@ -232,15 +232,7 @@ body::after {
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: scroll()) {
-    /* NOT ENABLED YET. scroll(root) resolves to an INACTIVE timeline
-       here because body carries overflow-x:hidden, which makes body a
-       scroll container. Moving the clip to html did not fix it and let
-       292px of horizontal overflow escape, so the real fix is to find
-       and remove the source of that overflow first (a 140%-wide
-       .contours svg is the prime suspect) and only then drop body's
-       overflow. Until that is done the sky stays at opacity 0 and the
-       night scene is what ships. */
-    .sky-enabled {
+    .sky {
       animation: dawn var(--e-machine) both;
       animation-timeline: scroll(root);
       animation-range: 10% 90%;
