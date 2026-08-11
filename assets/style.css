@@ -59,8 +59,8 @@
   --surface-3: #1c2026;
 
   /* hairlines catch light like a machined edge */
-  --line: rgba(255, 255, 255, 0.08);
-  --line-2: rgba(255, 255, 255, 0.17);
+  --line: rgba(206, 216, 232, 0.13);
+  --line-2: rgba(214, 224, 240, 0.26);
 
   /* silver ink ramp. Every step measured against the LIGHTEST surface it
      can sit on, not just against the page black:
@@ -147,40 +147,41 @@ body {
   overflow-x: hidden;
 }
 
-/* Aurora + grain: two fixed layers that give the page depth without
-   costing a single image request. */
-/* The depth field. Six background layers on ONE fixed element — a single
-   element can carry many layers, they rasterise once, and they never
-   animate. Static gradients are cheap; it is animating gradients, blurs
-   and shadows that costs frames, so all the richness lives here and all
-   the motion lives in transforms elsewhere.
+/* ── The view from orbit ───────────────────────────────────
+   Not a pattern, not a texture: a place. A world curves across the foot
+   of the viewport, its limb catching a hard silver rim-light, with its
+   atmosphere bleeding upward into black. Everything is a static
+   gradient on ONE fixed element, so the whole scene rasterises once and
+   costs nothing per frame.
 
-   The lattice is deliberate: a measured grid reads as instrumentation,
-   which is what this studio sells. A starfield would read as a template. */
+   The geometry: an ellipse centred below the fold at 50% 132% with a
+   120% vertical radius, so the rim lands at 1.32H - (0.384 x 1.2H) =
+   0.86H — the lower third of the viewport. Stops run from the centre
+   outward, which means outward = UPWARD here: planet body first, then
+   the rim, then atmosphere, then space. Move the centre and the horizon
+   moves with it; that one number is the whole composition. */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -2;
   background:
-    /* vignette — pulls the eye to the centre column */
-    radial-gradient(135% 100% at 50% 38%, transparent 42%, rgba(0, 0, 0, 0.62) 100%),
-    /* the brand's single warm light, top right */
-    radial-gradient(700px 480px at 90% -4%, rgba(255, 59, 48, 0.075), transparent 60%),
-    /* silver key light, top left */
-    radial-gradient(920px 640px at 8% -12%, rgba(255, 255, 255, 0.065), transparent 66%),
-    /* cool fill rising from the foot */
-    radial-gradient(1100px 820px at 50% 112%, rgba(255, 255, 255, 0.04), transparent 70%),
-    /* orbital rings, struck from a centre off the top-right corner —
-       the sense of something large turning just out of frame */
-    repeating-radial-gradient(circle at 92% -8%,
-      rgba(255, 255, 255, 0.030) 0 1px, transparent 1px 132px),
-    /* a second, tighter ring set for parallax depth */
-    repeating-radial-gradient(circle at 92% -8%,
-      rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 44px),
-    /* instrument lattice */
-    linear-gradient(rgba(255, 255, 255, 0.019) 1px, transparent 1px) 0 0 / 76px 76px,
-    linear-gradient(90deg, rgba(255, 255, 255, 0.019) 1px, transparent 1px) 0 0 / 76px 76px;
+    /* a scatter of distant stars, dimmed almost to nothing */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560'%3E%3Cg fill='%23ffffff'%3E%3Ccircle cx='31' cy='47' r='.9'/%3E%3Ccircle cx='128' cy='19' r='.6'/%3E%3Ccircle cx='201' cy='96' r='1'/%3E%3Ccircle cx='299' cy='38' r='.55'/%3E%3Ccircle cx='352' cy='131' r='.85'/%3E%3Ccircle cx='437' cy='62' r='.6'/%3E%3Ccircle cx='511' cy='118' r='.9'/%3E%3Ccircle cx='74' cy='168' r='.65'/%3E%3Ccircle cx='166' cy='231' r='.9'/%3E%3Ccircle cx='268' cy='198' r='.5'/%3E%3Ccircle cx='389' cy='254' r='.8'/%3E%3Ccircle cx='474' cy='201' r='.55'/%3E%3Ccircle cx='23' cy='299' r='.85'/%3E%3Ccircle cx='143' cy='341' r='.6'/%3E%3Ccircle cx='232' cy='396' r='.95'/%3E%3Ccircle cx='318' cy='312' r='.5'/%3E%3Ccircle cx='412' cy='372' r='.75'/%3E%3Ccircle cx='527' cy='329' r='.6'/%3E%3Ccircle cx='88' cy='452' r='.8'/%3E%3Ccircle cx='192' cy='507' r='.55'/%3E%3Ccircle cx='287' cy='466' r='.9'/%3E%3Ccircle cx='366' cy='534' r='.5'/%3E%3Ccircle cx='459' cy='487' r='.7'/%3E%3Ccircle cx='541' cy='548' r='.6'/%3E%3C/g%3E%3C/svg%3E")
+      0 0 / 560px 560px,
+    /* the brand's one warm light, high and far off */
+    radial-gradient(760px 520px at 88% -6%, rgba(255, 59, 48, 0.085), transparent 62%),
+    /* corona: atmosphere bleeding up off the limb */
+    radial-gradient(150% 128% at 50% 132%, rgba(184, 202, 232, 0.16) 0 41%, transparent 58%),
+    /* the world itself, with a hard silver rim */
+    radial-gradient(140% 120% at 50% 132%,
+      #0c0e12 0 38.4%,
+      rgba(232, 240, 252, 0.92) 38.4% 38.75%,
+      rgba(150, 168, 196, 0.30) 38.75% 39.6%,
+      rgba(120, 140, 172, 0.10) 39.6% 41.5%,
+      transparent 46%),
+    /* deep space */
+    radial-gradient(120% 90% at 50% 20%, #0a0c10, #060709 70%);
 }
 body::after {
   content: '';
@@ -296,6 +297,22 @@ a:hover { color: #ff6a60; }
   font-weight: 700;
   font-size: 0.98rem;
   letter-spacing: 0.16em;
+}
+/* Brushed metal, applied only where the engine can honour it. The
+   solid colour above stays as the fallback, so the wordmark can never
+   render as invisible text. */
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .mark .wordmark {
+    background: linear-gradient(180deg, #ffffff 0%, #e4e9f1 38%,
+      #aeb6c4 62%, #d8dde6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+/* forced-colors strips the gradient; give the text back its colour */
+@media (forced-colors: active) {
+  .mark .wordmark { -webkit-text-fill-color: CanvasText; }
 }
 .mark:hover { color: var(--ink); }
 .mark svg { color: var(--red); flex: none; }
