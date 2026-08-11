@@ -196,6 +196,68 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
+/* ── The sky changes as you travel ─────────────────────────
+   Two scenes, stacked and pre-painted. body::before is NIGHT. .sky is
+   FIRST LIGHT: the world's limb catches a warmer edge, the atmosphere
+   lifts, the dark thins. Scrolling crossfades one into the other.
+
+   It states the thing the studio sells: you arrive in the middle of the
+   night shift and leave at dawn, and the work happened while you read.
+
+   Only OPACITY animates, on a layer painted once. background-image has
+   animation type DISCRETE - gradients never interpolate - so crossfading
+   two finished layers is the only free way to change a scene. Nothing
+   here repaints per frame.
+
+   LUMINANCE BUDGET: silver --ink-3 needs its backdrop under Y 0.0245 to
+   hold 4.5:1. Every wash here is under alpha 0.11 and the bright rim is
+   confined to the bottom of the frame, where no text sits. */
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(150% 128% at 50% 132%, rgba(255, 214, 176, 0.10) 0 41%, transparent 58%),
+    radial-gradient(140% 120% at 50% 132%,
+      #12141a 0 38.4%,
+      rgba(255, 246, 236, 0.96) 38.4% 38.8%,
+      rgba(214, 190, 170, 0.34) 38.8% 39.8%,
+      rgba(150, 140, 150, 0.10) 39.8% 42%,
+      transparent 47%),
+    radial-gradient(120% 90% at 50% 16%, #0d0f14, #07080b 72%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    /* NOT ENABLED YET. scroll(root) resolves to an INACTIVE timeline
+       here because body carries overflow-x:hidden, which makes body a
+       scroll container. Moving the clip to html did not fix it and let
+       292px of horizontal overflow escape, so the real fix is to find
+       and remove the source of that overflow first (a 140%-wide
+       .contours svg is the prime suspect) and only then drop body's
+       overflow. Until that is done the sky stays at opacity 0 and the
+       night scene is what ships. */
+    .sky-enabled {
+      animation: dawn var(--e-machine) both;
+      animation-timeline: scroll(root);
+      animation-range: 10% 90%;
+    }
+  }
+}
+@keyframes dawn { from { opacity: 0; } to { opacity: 1; } }
+
+/* An inactive scroll timeline applies NO effect at all - not the 0%
+   keyframe, not fill:both - so the resting state must live in the base
+   rule above. And the global reduced-motion blanket reverts scroll
+   timelines to the document timeline, where duration:auto is 0s and
+   fill:both would render the 100% frame; kill it explicitly. */
+@media (prefers-reduced-motion: reduce) {
+  .sky { animation: none !important; opacity: 0 !important; }
+}
+
 /* Contour lines: faint topography drifting behind the content. Adds the
    sense of a landscape being surveyed, which suits a studio that watches
    systems overnight. */
@@ -274,15 +336,17 @@ a:hover { color: #ff6a60; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(6, 8, 13, 0.72);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  /* No backdrop-filter. It is free only while its backdrop is static;
+     with a moving sky behind it, it becomes the only per-frame GPU work
+     on an otherwise free page. An opaque plate costs nothing and there
+     was no detail behind it to soften. */
+  background: rgba(8, 9, 11, 0.86);
   border-bottom: 1px solid transparent;
   transition: border-color 250ms var(--ease), background 250ms var(--ease);
 }
 .masthead.is-stuck {
   border-bottom-color: var(--line);
-  background: rgba(6, 8, 13, 0.88);
+  background: rgba(8, 9, 11, 0.96);
 }
 .masthead .shell {
   display: flex;
