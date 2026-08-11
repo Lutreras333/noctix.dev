@@ -171,6 +171,13 @@ body::before {
     radial-gradient(920px 640px at 8% -12%, rgba(255, 255, 255, 0.065), transparent 66%),
     /* cool fill rising from the foot */
     radial-gradient(1100px 820px at 50% 112%, rgba(255, 255, 255, 0.04), transparent 70%),
+    /* orbital rings, struck from a centre off the top-right corner —
+       the sense of something large turning just out of frame */
+    repeating-radial-gradient(circle at 92% -8%,
+      rgba(255, 255, 255, 0.030) 0 1px, transparent 1px 132px),
+    /* a second, tighter ring set for parallax depth */
+    repeating-radial-gradient(circle at 92% -8%,
+      rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 44px),
     /* instrument lattice */
     linear-gradient(rgba(255, 255, 255, 0.019) 1px, transparent 1px) 0 0 / 76px 76px,
     linear-gradient(90deg, rgba(255, 255, 255, 0.019) 1px, transparent 1px) 0 0 / 76px 76px;
@@ -1096,6 +1103,31 @@ h3 {
   color: var(--ink);
   font-size: 1.1rem;
   line-height: 1.6;
+}
+
+/* The brief: the metadata a buyer scans before reading a word of prose. */
+.brief {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.5rem 2rem;
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+.brief-k {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 0.5rem;
+}
+.brief-v {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink-2);
 }
 
 .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
