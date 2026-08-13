@@ -44,8 +44,7 @@
   }
   </script>
 </head>
-<body>
-  <div class="sky" aria-hidden="true"></div>
+<body class="starfield">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -64,39 +63,82 @@
   </header>
 
   <main id="main">
+    <div class="sky" aria-hidden="true"></div>
 
-    <section class="hero">
-      <div class="contours" aria-hidden="true">
-        <svg viewBox="0 0 1400 900" preserveAspectRatio="none">
-          <path d="M-80 150C220 40 520 250 860 130S1320 210 1560 90"/>
-          <path d="M-80 250C220 140 520 350 860 230S1320 310 1560 190"/>
-          <path d="M-80 360C240 250 540 470 880 340S1340 420 1560 300"/>
-          <path d="M-80 480C260 370 560 600 900 460S1360 540 1560 420"/>
-          <path d="M-80 610C260 500 580 730 920 590S1380 670 1560 550"/>
-          <path d="M-80 750C280 640 600 860 940 720S1400 800 1560 680"/>
-        </svg>
-      </div>
-      <div class="shell hero-grid">
-        <div>
-          <h1 class="display statement">
-            <span class="line" style="--i:0"><span class="line-i">Software that</span></span>
-            <span class="line" style="--i:1"><span class="line-i"><span class="em">runs itself</span></span></span>
-          </h1>
-          <p class="lede enter" style="--i:3;margin-top:1.75rem">Noctix builds the systems a business hands its operations to — automation, integrations, and custom software that keep working long after everyone has logged off.</p>
-          <div class="actions enter" style="--i:4">
-            <a class="btn btn-primary" href="/work.html">See the proof <span class="arrow" aria-hidden="true"></span></a>
-            <a class="btn btn-quiet" href="/contact.html">Start a conversation</a>
-          </div>
-          <div class="runcard enter" style="--i:5;margin-top:2.5rem">
-            <span class="rc-label">Next unattended run</span>
-            <span class="rc-main"><span class="beacon"></span><span data-nextrun>09:00 ET</span></span>
+    <!-- SCENE: ORBIT. A machined planet bigger than the frame; the type
+         stack rides the black sky above its limb. Scroll is a camera
+         descent — the settled frame IS the layout for calm and no-JS. -->
+    <section class="orbit">
+      <div class="orbit-track">
+        <div class="orbit-frame">
+          <img class="orbit-plate" src="/assets/plate-disc.webp" alt=""
+            width="2048" height="1152" fetchpriority="high" decoding="async">
+          <div class="orbit-scrim" aria-hidden="true"></div>
+          <div class="orbit-copy">
+            <p class="kicker enter" style="--i:0">Noctix - systems studio</p>
+            <h1 class="display-xl statement">
+              <span class="line" style="--i:0"><span class="line-i">Software that</span></span>
+              <span class="line" style="--i:1"><span class="line-i"><span class="em em-metal">runs itself</span></span></span>
+            </h1>
+            <p class="lede enter" style="--i:3">Noctix builds the systems a business hands its operations to — automation, integrations, and custom software that keep working long after everyone has logged off.</p>
+            <div class="actions enter" style="--i:4">
+              <a class="btn btn-primary" href="/work.html">See the proof <span class="arrow" aria-hidden="true"></span></a>
+              <a class="btn btn-quiet" href="/contact.html">Start a conversation</a>
+            </div>
+            <p class="runline enter" style="--i:5"><span class="beacon" aria-hidden="true"></span> Next unattended run <span data-nextrun>09:00 / 21:00 ET</span></p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Decorative: every fact here also appears as text in the stat
-             strip below, so nothing is lost to assistive technology. -->
-        <div class="console-wrap enter" style="--i:6">
-          <div class="console" data-console aria-hidden="true">
+    <section class="section" id="standard" style="padding-block:var(--space-chapter)">
+      <div class="shell">
+        <p class="chapter reveal">01 / The standard</p>
+        <p class="display manifesto reveal" style="margin-top:clamp(2.75rem,7vw,5rem)">We build the systems businesses trust with their <span class="em">money</span>, their deadlines, and their <span class="em">nights</span>.</p>
+      </div>
+    </section>
+
+    <!-- SCENE: THE RECORD. Evidence at building scale — one verified
+         number as a monument, then the dense mono table. Only the six
+         verified figures live here; nothing is invented. -->
+    <section class="section" id="record" style="padding-top:0;padding-bottom:var(--space-chapter)">
+      <div class="shell">
+        <p class="chapter reveal">02 / The record</p>
+      </div>
+      <div class="monument reveal">
+        <p class="monument-num" data-count="470" data-suffix="/470">470/470</p>
+        <p class="monument-cap">shipments reconciled to the exact kilogram — verified against source, every run</p>
+      </div>
+      <div class="shell">
+        <div class="record">
+          <div class="record-row reveal">
+            <span class="record-num">16/16</span>
+            <span class="record-cap">steps completed on the last unattended cycle</span>
+          </div>
+          <div class="record-row reveal" data-delay="70">
+            <span class="record-num">105</span>
+            <span class="record-cap">automated tests gating every release</span>
+          </div>
+          <div class="record-row reveal" data-delay="140">
+            <span class="record-num">0</span>
+            <span class="record-cap">manual steps on a clean cycle — exceptions are escalated by design</span>
+          </div>
+          <div class="record-row reveal" data-delay="210">
+            <span class="record-num">2x/day</span>
+            <span class="record-cap">unattended runs, at 09:00 and 21:00 ET</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="runner" style="padding-top:0;padding-bottom:var(--space-chapter)">
+      <div class="shell">
+        <p class="chapter reveal">03 / The runner</p>
+      </div>
+      <!-- Decorative: every fact here also appears as text in the record
+           table above, so nothing is lost to assistive technology. -->
+      <div class="console-wrap console-band reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+        <div class="console" data-console aria-hidden="true">
             <div class="console-bar">
               <span class="beacon"></span>
               <span class="name">noctix · billing runner</span>
@@ -128,126 +170,80 @@
               <span>runs 2×/day</span>
             </div>
           </div>
+        <div class="shell">
           <div class="console-tools">
             <button class="console-hold" type="button" data-hold aria-pressed="false" hidden>Hold</button>
             <p class="console-cap">An illustration of the real billing cycle, on loop.</p>
           </div>
         </div>
       </div>
-
-      <div class="shell">
-        <div class="strip reveal" data-lit>
-          <div class="cell">
-            <span class="num" data-count="16" data-suffix="/16">16/16</span>
-            <span class="cap">steps completed on the last unattended cycle</span>
-          </div>
-          <div class="cell">
-            <span class="num" data-count="105">105</span>
-            <span class="cap">automated tests gating every release</span>
-          </div>
-          <div class="cell">
-            <span class="num" data-count="470" data-suffix="/470">470/470</span>
-            <span class="cap">shipments reconciled to the exact kilogram</span>
-          </div>
-          <div class="cell">
-            <span class="num" data-count="0">0</span>
-            <span class="cap">manual steps on a clean cycle — exceptions are escalated by design</span>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <section class="section" style="padding-block:clamp(4.5rem,10vw,8.5rem)">
+    <!-- SCENE: WHAT WE BUILD. A manifest, not a card grid: three rows
+         under hairlines, the deep copy lives on the services page. -->
+    <section class="section" id="build" style="padding-top:0;padding-bottom:var(--space-chapter)">
       <div class="shell">
-        <div class="emblem reveal">
-          <svg width="26" height="26" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><g><path d="M33.87 22.58Q33.16 24.01 33.44 24.74Q33.98 24.18 33.87 22.58Z"/><path d="M37.05 19.8Q35.11 23.4 34.83 25.16Q35.89 23.72 37.05 19.8Z"/><path d="M37.33 24.02Q36.13 25.07 36.11 25.85Q36.83 25.53 37.33 24.02Z"/><path d="M39.98 26.67Q38.47 27.17 38.15 27.89Q38.93 27.87 39.98 26.67Z"/><path d="M44.2 26.95Q40.28 28.11 38.84 29.17Q40.6 28.89 44.2 26.95Z"/><path d="M41.42 30.13Q39.82 30.02 39.26 30.56Q39.99 30.84 41.42 30.13Z"/><path d="M41.42 33.87Q39.99 33.16 39.26 33.44Q39.82 33.98 41.42 33.87Z"/><path d="M44.2 37.05Q40.6 35.11 38.84 34.83Q40.28 35.89 44.2 37.05Z"/><path d="M39.98 37.33Q38.93 36.13 38.15 36.11Q38.47 36.83 39.98 37.33Z"/><path d="M37.33 39.98Q36.83 38.47 36.11 38.15Q36.13 38.93 37.33 39.98Z"/><path d="M37.05 44.2Q35.89 40.28 34.83 38.84Q35.11 40.6 37.05 44.2Z"/><path d="M33.87 41.42Q33.98 39.82 33.44 39.26Q33.16 39.99 33.87 41.42Z"/><path d="M30.13 41.42Q30.84 39.99 30.56 39.26Q30.02 39.82 30.13 41.42Z"/><path d="M26.95 44.2Q28.89 40.6 29.17 38.84Q28.11 40.28 26.95 44.2Z"/><path d="M26.67 39.98Q27.87 38.93 27.89 38.15Q27.17 38.47 26.67 39.98Z"/><path d="M24.02 37.33Q25.53 36.83 25.85 36.11Q25.07 36.13 24.02 37.33Z"/><path d="M19.8 37.05Q23.72 35.89 25.16 34.83Q23.4 35.11 19.8 37.05Z"/><path d="M22.58 33.87Q24.18 33.98 24.74 33.44Q24.01 33.16 22.58 33.87Z"/><path d="M22.58 30.13Q24.01 30.84 24.74 30.56Q24.18 30.02 22.58 30.13Z"/><path d="M19.8 26.95Q23.4 28.89 25.16 29.17Q23.72 28.11 19.8 26.95Z"/><path d="M24.02 26.67Q25.07 27.87 25.85 27.89Q25.53 27.17 24.02 26.67Z"/><path d="M26.67 24.02Q27.17 25.53 27.89 25.85Q27.87 25.07 26.67 24.02Z"/><path d="M26.95 19.8Q28.11 23.72 29.17 25.16Q28.89 23.4 26.95 19.8Z"/><path d="M30.13 22.58Q30.02 24.18 30.56 24.74Q30.84 24.01 30.13 22.58Z"/><path d="M50.03 13.97Q40.8 21.86 37.8 26.2Q42.14 23.2 50.03 13.97Z"/><path d="M50.03 50.03Q42.14 40.8 37.8 37.8Q40.8 42.14 50.03 50.03Z"/><path d="M13.97 50.03Q23.2 42.14 26.2 37.8Q21.86 40.8 13.97 50.03Z"/><path d="M13.97 13.97Q21.86 23.2 26.2 26.2Q23.2 21.86 13.97 13.97Z"/><path d="M32 2Q30.75 16.98 32 23.4Q33.25 16.98 32 2Z"/><path d="M32 9.1L33.56 12.56L32 15.9L30.44 12.56Z"/><path d="M32 4.6L34.04 6.68L32 8.6L29.96 6.68Z"/><path d="M62 32Q47.02 30.75 40.6 32Q47.02 33.25 62 32Z"/><path d="M54.9 32L51.44 33.56L48.1 32L51.44 30.44Z"/><path d="M59.4 32L57.32 34.04L55.4 32L57.32 29.96Z"/><path d="M32 62Q33.25 47.02 32 40.6Q30.75 47.02 32 62Z"/><path d="M32 54.9L30.44 51.44L32 48.1L33.56 51.44Z"/><path d="M32 59.4L29.96 57.32L32 55.4L34.04 57.32Z"/><path d="M2 32Q16.98 33.25 23.4 32Q16.98 30.75 2 32Z"/><path d="M9.1 32L12.56 30.44L15.9 32L12.56 33.56Z"/><path d="M4.6 32L6.68 29.96L8.6 32L6.68 34.04Z"/></g><circle cx="32" cy="32" r="6.4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-          <span>The standard</span>
-        </div>
-        <p class="display manifesto reveal">We build the systems businesses trust with their <span class="em">money</span>, their deadlines, and their <span class="em">nights</span>.</p>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top:0">
-      <div class="shell">
-        <div class="section-head reveal">
-          <p class="kicker">What we build</p>
+        <p class="chapter reveal">04 / What we build</p>
+        <div class="section-head reveal" style="margin-top:clamp(2.5rem,5vw,4rem);margin-bottom:0">
           <h2>Broad on purpose. Built to production standard.</h2>
           <p>Most businesses don't need a specialist — they need someone who can take a messy operation end to end and return something dependable.</p>
         </div>
 
-        <div class="grid-3">
-          <article class="card reveal" data-delay="0">
-            <div class="ico" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-              </svg>
-            </div>
-            <h3>Custom software</h3>
-            <p>Web applications, dashboards, and internal tools shaped around how your business actually operates — lean, tested, documented, and free of platform lock-in.</p>
-            <a class="more" href="/services.html">Learn more<span class="sr-only"> about custom software</span> <span class="arrow" aria-hidden="true"></span></a>
-          </article>
-
-          <article class="card reveal" data-delay="90">
-            <div class="ico" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/>
-              </svg>
-            </div>
-            <h3>Automation</h3>
-            <p>Pipelines that do the work themselves — documents, billing, reporting — with verification gates in front of anything that touches money, and alerts only when a human is genuinely needed.</p>
-            <a class="more" href="/services.html">Learn more<span class="sr-only"> about automation</span> <span class="arrow" aria-hidden="true"></span></a>
-          </article>
-
-          <article class="card reveal" data-delay="180">
-            <div class="ico" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 3 3v6"/>
-              </svg>
-            </div>
-            <h3>Integrations</h3>
-            <p>Accounting platforms, spreadsheets, inboxes, and industry APIs tied into one coherent flow — so data moves without being retyped, and without drifting out of sync.</p>
-            <a class="more" href="/services.html">Learn more<span class="sr-only"> about integrations</span> <span class="arrow" aria-hidden="true"></span></a>
-          </article>
+        <div class="manifest">
+          <a class="mrow reveal" href="/services.html">
+            <span class="mrow-idx" aria-hidden="true">01</span>
+            <h3 class="mrow-title">Custom software</h3>
+            <p class="mrow-desc">Web applications, dashboards, and internal tools shaped around how your business actually operates.</p>
+          </a>
+          <a class="mrow reveal" href="/services.html" data-delay="70">
+            <span class="mrow-idx" aria-hidden="true">02</span>
+            <h3 class="mrow-title">Automation</h3>
+            <p class="mrow-desc">Pipelines that do the work themselves, with verification gates in front of anything that touches money.</p>
+          </a>
+          <a class="mrow reveal" href="/services.html" data-delay="140">
+            <span class="mrow-idx" aria-hidden="true">03</span>
+            <h3 class="mrow-title">Integrations</h3>
+            <p class="mrow-desc">Accounting platforms, spreadsheets, inboxes, and industry APIs tied into one coherent flow.</p>
+          </a>
+          <a class="mrow-all reveal" href="/services.html" data-delay="210">All services <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section" id="proof" style="padding-top:0;padding-bottom:var(--space-chapter)">
       <div class="shell">
-        <div class="panel reveal">
+        <p class="chapter reveal">05 / Proof</p>
+        <div class="panel reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
           <div class="panel-split">
             <div>
-              <p class="kicker">Featured work</p>
               <h2>Billing that runs itself</h2>
               <p>A production platform that runs the entire billing cycle for an air-cargo operation, unattended. It detects the flight, reads the manifests, writes the ledgers, and issues the invoices — with a verification gate in front of every dollar and no operator at the keyboard.</p>
               <div class="actions">
                 <a class="btn btn-primary" href="/work.html">Read the case study <span class="arrow" aria-hidden="true"></span></a>
               </div>
             </div>
-            <div class="flow runs" aria-hidden="true">
-              <div class="flow-node"><span class="idx">1</span><span>flight detected via API</span></div>
+            <div class="flow runs flow-bare" aria-hidden="true">
+              <div class="flow-node"><span class="idx">01</span><span>flight detected via API</span></div>
               <div class="flow-link"></div>
-              <div class="flow-node"><span class="idx">2</span><span>manifests &amp; vendor PDFs ingested</span></div>
+              <div class="flow-node"><span class="idx">02</span><span>manifests &amp; vendor PDFs ingested</span></div>
               <div class="flow-link"></div>
-              <div class="flow-node"><span class="idx">3</span><span>ledgers written with live formulas</span></div>
+              <div class="flow-node"><span class="idx">03</span><span>ledgers written with live formulas</span></div>
               <div class="flow-link"></div>
               <div class="flow-node gate"><span class="idx gate-tick"></span><span>verified against source — or it halts</span></div>
               <div class="flow-link"></div>
-              <div class="flow-node"><span class="idx">4</span><span>invoices &amp; bills issued</span></div>
+              <div class="flow-node"><span class="idx">04</span><span>invoices &amp; bills issued</span></div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
-      <div class="shell">
-        <div class="panel reveal" style="text-align:center">
-          <h2>Have an operation that should run itself?</h2>
-          <p style="margin-inline:auto">Tell us what it looks like today. You'll get an honest read on what software can take off your plate — and what it would take.</p>
-          <div class="actions" style="justify-content:center">
-            <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
-          </div>
+    <section class="section" id="cta" style="padding-block:var(--space-enormous)">
+      <div class="shell" style="text-align:center">
+        <h2 class="reveal">Have an operation that should run itself?</h2>
+        <p class="reveal" style="margin-inline:auto;margin-top:1.25rem;max-width:44rem">Tell us what it looks like today. You'll get an honest read on what software can take off your plate — and what it would take.</p>
+        <div class="actions reveal" style="justify-content:center;margin-top:2.25rem">
+          <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
@@ -255,13 +251,31 @@
   </main>
 
   <footer class="foot">
+    <div class="foot-ticker" aria-hidden="true">
+      <div class="foot-ticker-track">
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+      </div>
+    </div>
     <div class="shell">
-      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
-      <span class="status"><span class="beacon"></span> systems nominal</span>
-      <div class="foot-links">
-        <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
-        <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+      <div class="foot-top">
+        <nav class="foot-nav" aria-label="Footer">
+          <a href="/work.html">Work</a>
+          <a href="/services.html">Services</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+        <div class="foot-links">
+          <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
+          <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="foot-word" aria-hidden="true">NOCTIX</div>
+      <div class="foot-base">
+        <span class="foot-coords">25.7617 N / 80.1918 W - MIA / ET <span data-foottime></span></span>
+        <span class="status"><span class="beacon"></span> systems nominal</span>
+        <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
       </div>
     </div>
   </footer>

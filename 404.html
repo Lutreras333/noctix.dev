@@ -37,8 +37,7 @@
   }
   </script>
 </head>
-<body>
-  <div class="sky" aria-hidden="true"></div>
+<body class="starfield">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -57,47 +56,29 @@
   </header>
 
   <main id="main">
-    <section class="hero">
-      <div class="contours" aria-hidden="true">
-        <svg viewBox="0 0 1400 900" preserveAspectRatio="none">
-          <path d="M-80 150C220 40 520 250 860 130S1320 210 1560 90"/>
-          <path d="M-80 250C220 140 520 350 860 230S1320 310 1560 190"/>
-          <path d="M-80 360C240 250 540 470 880 340S1340 420 1560 300"/>
-          <path d="M-80 480C260 370 560 600 900 460S1360 540 1560 420"/>
-          <path d="M-80 610C260 500 580 730 920 590S1380 670 1560 550"/>
-          <path d="M-80 750C280 640 600 860 940 720S1400 800 1560 680"/>
-        </svg>
-      </div>
-      <div class="shell" style="max-width:44rem">
-        <p class="kicker">Error 404</p>
+    <div class="sky" aria-hidden="true"></div>
+    <!-- SCENE: THE RUN LOG. Art, not evidence: a ringdown is what a
+         stable system does with a disturbance, which is the only
+         honest thing an error page can say. The serif is retired
+         here; the page speaks in the system's dry voice. -->
+    <section class="runlog">
+      <div class="shell">
+        <p class="kicker enter" style="--i:0">Error 404</p>
         <h1 class="display statement">
-            <span class="line" style="--i:0"><span class="line-i">Lost in</span></span>
-            <span class="line" style="--i:1"><span class="line-i"><span class="em">the dark</span></span></span>
-          </h1>
-        <p class="lede enter" style="--i:3">That page doesn't exist — or doesn't exist yet. Everything else is still running.</p>
-        <div class="actions">
+          <span class="line" style="--i:0"><span class="line-i">Route not found</span></span>
+        </h1>
+        <p class="logline enter" style="--i:2">a transient - logged, settled, escalated to the operator. everything else is still running.</p>
+        <img class="runlog-art enter" style="--i:3" src="/assets/transient.webp" alt=""
+             width="1280" height="720" decoding="async">
+        <div class="actions enter" style="--i:4">
           <a class="btn btn-primary" href="/">Back to home <span class="arrow" aria-hidden="true"></span></a>
           <a class="btn btn-quiet" href="/work.html">See the work</a>
         </div>
       </div>
     </section>
-
-    <section class="section" style="padding-top:0">
-      <div class="shell">
-        <!-- Art, not evidence: a ringdown is what a stable system does with
-             a disturbance, which is the only honest thing to say on an
-             error page. mix-blend-mode:lighten sinks its black field into
-             the page background, so the frame has no visible edges. -->
-        <figure class="ringdown reveal">
-          <img src="/assets/transient.webp" width="1280" height="720" loading="lazy" decoding="async"
-               alt="Long-exposure style image of an oscilloscope trace: a flat line takes one sharp transient, rings down, and settles flat again.">
-          <figcaption>One transient, absorbed. The line settles back to flat.</figcaption>
-        </figure>
-      </div>
-    </section>
   </main>
 
-  <footer class="foot">
+  <footer class="foot foot-slim">
     <div class="shell">
       <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
       <span class="status"><span class="beacon"></span> systems nominal</span>

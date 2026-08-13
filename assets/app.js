@@ -359,6 +359,101 @@
     setInterval(render, 60000);
   });
 
+  /* ── The HUD chip ───────────────────────────────────────────
+     Home only — the element only exists there. The run readout leaves
+     the hero and is pinned to the frame itself, bottom-left, like an
+     exposure note on the glass. It ships in-flow with both run times
+     server-rendered, so no-JS and bailed pages keep a printed line;
+     this feature only promotes it. The move happens BEFORE first
+     paint (deferred script), so nothing jumps. Re-parenting restarts
+     CSS animations, so the entrance choreography comes off first.
+     One IntersectionObserver hides the chip while the footer is in
+     view — the curtain owns the ending. The observer watches a
+     sentinel at the END of main, not the footer itself: the curtain
+     footer is sticky at bottom:0 UNDER the opaque main, so its box
+     geometrically intersects the viewport on every frame of the
+     visit — an observer on it would hush the chip forever. The
+     footer only becomes VISIBLE once main's bottom edge rises into
+     the viewport, which is exactly when the sentinel intersects. */
+
+  feature('hud', function () {
+    var line = document.querySelector('.runline');
+    if (!line) return;
+
+    /* Short viewports have no spare glass to etch: at rest the fixed
+       chip sat ON the hero's own buttons (375x667) or its lede (320).
+       Promote only when the settled composition leaves the corner
+       clear — otherwise the line stays printed in-flow at the hero's
+       foot, countdown and all, exactly like the no-JS page. Document-
+       relative, so a reload deep into the page measures the same as a
+       load at the top. One layout read, once, before first paint. */
+    var acts = document.querySelector('.orbit-copy .actions');
+    if (acts && acts.getBoundingClientRect().bottom + window.pageYOffset + 110 >
+        window.innerHeight) return;
+
+    line.classList.remove('enter');
+    line.style.removeProperty('--i');
+    line.classList.add('runline-hud');
+    document.body.appendChild(line);
+
+    var main = document.querySelector('main');
+    if (main && 'IntersectionObserver' in window) {
+      var mark = document.createElement('div');
+      mark.setAttribute('aria-hidden', 'true');
+      /* main is position:relative, so this pins to main's last pixel */
+      mark.style.cssText =
+        'position:absolute;left:0;bottom:0;width:1px;height:1px;pointer-events:none';
+      main.appendChild(mark);
+      new IntersectionObserver(function (entries) {
+        line.classList.toggle('is-hushed', entries[0].isIntersecting);
+      }, { threshold: 0 }).observe(mark);
+    }
+  });
+
+  /* ── The nav flip ───────────────────────────────────────────
+     Work only — the [data-nav-flip] scene exists only there. While
+     the silver ledger scene runs under the masthead, the header
+     flips to print: data-nav-theme='light', black ink on the silver
+     plate. The observer's root is collapsed to the top 8% of the
+     viewport — the masthead's band — so the flip lands as the
+     scene's edge passes the header, a hard swap both ways (the CSS
+     carries no transition; machine confidence). Percentages keep the
+     band proportional on resize with zero listeners. Without JS the
+     attribute never appears and the masthead's own dark plate stays
+     readable over the silver — either state is self-sufficient. */
+
+  feature('navtheme', function () {
+    var scene = document.querySelector('[data-nav-flip]');
+    var head = document.querySelector('.masthead');
+    if (!scene || !head || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) head.setAttribute('data-nav-theme', 'light');
+      else head.removeAttribute('data-nav-theme');
+    }, { rootMargin: '0px 0px -92% 0px', threshold: 0 }).observe(scene);
+  });
+
+  /* ── Footer clock ───────────────────────────────────────────
+     The studio's wall clock, printed after the coordinates line. ET
+     is a whole-hour zone in both halves of the year, so the ET minute
+     IS the UTC minute; only the hour needs the zone lookup. Without
+     ICU the span stays empty — the line reads fine without a time,
+     and a wrong hour under an explicit "ET" label would be a lie. */
+
+  feature('footclock', function () {
+    var el = document.querySelector('[data-foottime]');
+    if (!el) return;
+    try { new Intl.DateTimeFormat('en-US', { timeZone: ET }); }
+    catch (e) { return; }
+
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var render = function () {
+      var now = new Date();
+      el.textContent = '/ ' + pad(etHourOf(now)) + ':' + pad(now.getUTCMinutes());
+    };
+    render();
+    setInterval(render, 30000);
+  });
+
   /* ── Copy the address ───────────────────────────────────────── */
 
   feature('copy', function () {

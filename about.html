@@ -45,7 +45,6 @@
   </script>
 </head>
 <body>
-  <div class="sky" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -64,33 +63,36 @@
   </header>
 
   <main id="main">
+    <div class="sky" aria-hidden="true"></div>
 
-    <section class="hero" style="padding-bottom:0">
-      <div class="contours" aria-hidden="true">
-        <svg viewBox="0 0 1400 900" preserveAspectRatio="none">
-          <path d="M-80 150C220 40 520 250 860 130S1320 210 1560 90"/>
-          <path d="M-80 250C220 140 520 350 860 230S1320 310 1560 190"/>
-          <path d="M-80 360C240 250 540 470 880 340S1340 420 1560 300"/>
-          <path d="M-80 480C260 370 560 600 900 460S1360 540 1560 420"/>
-          <path d="M-80 610C260 500 580 730 920 590S1380 670 1560 550"/>
-          <path d="M-80 750C280 640 600 860 940 720S1400 800 1560 680"/>
-        </svg>
-      </div>
-      <div class="shell">
-        <div style="max-width:46rem">
-          <p class="kicker">About</p>
-          <h1 class="display statement">
-            <span class="line" style="--i:0"><span class="line-i">Named for the</span></span>
-            <span class="line" style="--i:1"><span class="line-i"><span class="em">night shift</span></span></span>
-          </h1>
+    <!-- SCENE: THE OPERATOR. One machined monolith, rim-lit, standing
+         in the dark — and beside it the one paragraph on the site
+         where a human appears. Caps only; the settled frame IS the
+         layout for calm and no-JS. -->
+    <section class="plate-hero plate-hero--operator">
+      <img class="plate-img" src="/assets/plate-monolith.webp" alt=""
+        width="1280" height="720" fetchpriority="high" decoding="async">
+      <div class="plate-scrim" aria-hidden="true"></div>
+      <div class="plate-copy">
+        <p class="kicker enter" style="--i:0">About</p>
+        <h1 class="display-xl statement">
+          <span class="line" style="--i:0"><span class="line-i">Named</span></span>
+          <span class="line" style="--i:1"><span class="line-i">for the</span></span>
+          <span class="line" style="--i:2"><span class="line-i">night shift</span></span>
+        </h1>
+        <p class="lede enter" style="--i:3">Noctix is the software studio of <strong>Lucas Utreras Acevedo</strong> — a software engineer who builds production systems that run business operations autonomously.</p>
+        <div class="actions enter" style="--i:4">
+          <a class="btn btn-quiet" href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn <span class="arrow" aria-hidden="true"></span></a>
+          <a class="btn btn-quiet" href="https://github.com/Lutreras333" rel="noopener">GitHub <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="quiet" style="padding-block:var(--space-chapter)">
       <div class="shell">
-        <div class="prose reveal">
-          <p class="lede" style="color:var(--ink)">Noctix is the software studio of <strong>Lucas Utreras Acevedo</strong> — a software engineer who builds production systems that run business operations autonomously.</p>
+        <p class="chapter reveal">01 / The standard for quiet</p>
+        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+          <p>The studio exists for one kind of work: taking an operation a business runs by hand and making it run itself, provably.</p>
 
           <p>Most recently that meant a billing platform that runs a company's billing cycle end to end: it detects flights, reads manifests, reconciles weights, writes ledgers, and issues invoices twice a day without anyone at the keyboard. Designed, built, and operated end to end.</p>
 
@@ -99,46 +101,48 @@
           <p>Good operational software should keep working after hours, verify its own output before it commits anything, and wake a human only when something genuinely needs one. Anything less isn't automation — it's a task you now have to supervise. That standard is the whole reason this studio exists, and it's the bar every Noctix system is built to.</p>
 
           <p>Lucas works in <strong>English and Spanish</strong>, with clients and their teams in both.</p>
-
-          <div class="actions" style="margin-top:2rem">
-            <a class="btn btn-quiet" href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn <span class="arrow" aria-hidden="true"></span></a>
-            <a class="btn btn-quiet" href="https://github.com/Lutreras333" rel="noopener">GitHub <span class="arrow" aria-hidden="true"></span></a>
-          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section" id="opinions" style="padding-top:0;padding-bottom:var(--space-chapter)">
       <div class="shell">
-        <div class="section-head reveal">
-          <p class="kicker">How Noctix thinks</p>
+        <p class="chapter reveal">02 / How Noctix thinks</p>
+        <div class="section-head reveal" style="margin-top:clamp(2.5rem,5vw,4rem);margin-bottom:0">
           <h2>Three opinions that shape the work.</h2>
         </div>
-        <div class="grid-3">
-          <article class="card reveal" data-delay="0">
+        <div class="note-rows">
+          <div class="nrow reveal">
             <h3>Deterministic core, AI at the edges</h3>
             <p>The boring, predictable layer does the work you trust with money. AI is summoned for exceptions the deterministic core has already flagged — never as the thing holding the pen.</p>
-          </article>
-          <article class="card reveal" data-delay="90">
+          </div>
+          <div class="nrow reveal" data-delay="70">
             <h3>Verify before you commit</h3>
             <p>Anything that writes to a ledger, an invoice, or a customer record re-checks itself against the source first. Halting is always better than being confidently wrong.</p>
-          </article>
-          <article class="card reveal" data-delay="180">
+          </div>
+          <div class="nrow reveal" data-delay="140">
             <h3>Silence is the goal</h3>
             <p>A healthy system should be quiet. Alerting is tiered so that noise means something, and a message in your inbox is a real signal rather than background hum.</p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
-      <div class="shell">
-        <div class="panel reveal" style="text-align:center">
-          <h2>Working on something that shouldn't need you every day?</h2>
-          <p style="margin-inline:auto">That's precisely the kind of problem Noctix exists for.</p>
-          <div class="actions" style="justify-content:center">
-            <a class="btn btn-primary" href="/contact.html">Get in touch <span class="arrow" aria-hidden="true"></span></a>
-          </div>
+    <!-- SCENE: THE TRANSIENT. Purely scenographic — a disturbance,
+         then steady state. No new claims live here. -->
+    <section class="section" id="transient" style="padding-block:0">
+      <figure class="transient-band reveal">
+        <img src="/assets/transient.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+        <figcaption>a disturbance, then steady state - the shape every Noctix system is built to draw</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="cta" style="padding-block:var(--space-enormous)">
+      <div class="shell" style="text-align:center">
+        <h2 class="reveal">Working on something that shouldn't need you every day?</h2>
+        <p class="reveal" style="margin-inline:auto;margin-top:1.25rem;max-width:44rem">That's precisely the kind of problem Noctix exists for.</p>
+        <div class="actions reveal" style="justify-content:center;margin-top:2.25rem">
+          <a class="btn btn-primary" href="/contact.html">Get in touch <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
@@ -146,13 +150,31 @@
   </main>
 
   <footer class="foot">
+    <div class="foot-ticker" aria-hidden="true">
+      <div class="foot-ticker-track">
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+      </div>
+    </div>
     <div class="shell">
-      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
-      <span class="status"><span class="beacon"></span> systems nominal</span>
-      <div class="foot-links">
-        <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
-        <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+      <div class="foot-top">
+        <nav class="foot-nav" aria-label="Footer">
+          <a href="/work.html">Work</a>
+          <a href="/services.html">Services</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+        <div class="foot-links">
+          <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
+          <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="foot-word" aria-hidden="true">NOCTIX</div>
+      <div class="foot-base">
+        <span class="foot-coords">25.7617 N / 80.1918 W - MIA / ET <span data-foottime></span></span>
+        <span class="status"><span class="beacon"></span> systems nominal</span>
+        <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
       </div>
     </div>
   </footer>

@@ -45,7 +45,6 @@
   </script>
 </head>
 <body>
-  <div class="sky" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -64,87 +63,111 @@
   </header>
 
   <main id="main">
+    <div class="sky" aria-hidden="true"></div>
 
-    <section class="hero" style="padding-bottom:0">
-      <div class="contours" aria-hidden="true">
-        <svg viewBox="0 0 1400 900" preserveAspectRatio="none">
-          <path d="M-80 150C220 40 520 250 860 130S1320 210 1560 90"/>
-          <path d="M-80 250C220 140 520 350 860 230S1320 310 1560 190"/>
-          <path d="M-80 360C240 250 540 470 880 340S1340 420 1560 300"/>
-          <path d="M-80 480C260 370 560 600 900 460S1360 540 1560 420"/>
-          <path d="M-80 610C260 500 580 730 920 590S1380 670 1560 550"/>
-          <path d="M-80 750C280 640 600 860 940 720S1400 800 1560 680"/>
-        </svg>
+    <!-- SCENE: THE CUT. The plate mid-operation, a chip curling off its
+         machined face — proof of work in the material itself. The copy
+         stands in the photograph's black lower half; the settled frame
+         IS the layout for calm and no-JS. -->
+    <section class="cut">
+      <img class="cut-plate" src="/assets/plate-chip.webp" alt=""
+        width="2048" height="1152" fetchpriority="high" decoding="async">
+      <div class="cut-scrim" aria-hidden="true"></div>
+      <div class="cut-copy">
+        <p class="kicker enter" style="--i:0">Work</p>
+        <h1 class="display-xl statement">
+          <span class="line" style="--i:0"><span class="line-i">Proof, not</span></span>
+          <span class="line" style="--i:1"><span class="line-i"><span class="em em-metal">promises</span></span></span>
+        </h1>
+        <p class="lede enter" style="--i:3">One flagship system in production, trusted with real money every day. More case studies as they ship.</p>
       </div>
+    </section>
+
+    <section class="section" id="case" style="padding-block:var(--space-chapter)">
       <div class="shell">
-        <div style="max-width:46rem">
-          <p class="kicker">Work</p>
-          <h1 class="display statement">
-            <span class="line" style="--i:0"><span class="line-i">Proof, not</span></span>
-            <span class="line" style="--i:1"><span class="line-i"><span class="em">promises</span></span></span>
-          </h1>
-          <p class="lede enter" style="--i:3">One flagship system in production, trusted with real money every day. More case studies as they ship.</p>
+        <p class="chapter reveal">01 / Case study</p>
+        <h2 class="reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">WWCARGO billing platform</h2>
+        <p class="reveal" style="max-width:46rem;margin-top:1rem">End-to-end billing automation for an air-cargo logistics operation running South America to Miami.</p>
+        <div class="brief reveal">
+          <div><span class="brief-k">Client</span><span class="brief-v">Air-cargo logistics operator<br>South America to Miami</span></div>
+          <div><span class="brief-k">Scope</span><span class="brief-v">Automation · Integrations<br>Custom software · Operations</span></div>
+          <div><span class="brief-k">Outcome</span><span class="brief-v">A billing department that<br>runs without a person in it</span></div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <!-- SCENE: THE RECORD. The evidence at building scale — one verified
+         number as a monument, then the dense mono table. Only the
+         verified figures live here; nothing is invented. -->
+    <section class="section" id="record" style="padding-top:0;padding-bottom:var(--space-chapter)">
       <div class="shell">
-
-        <div class="panel reveal">
-          <p class="kicker">Case study</p>
-          <h2>WWCARGO billing platform</h2>
-          <p>End-to-end billing automation for a fresh-flower air-cargo operation running South America to Miami.</p>
-
-
-          <div class="brief">
-            <div><span class="brief-k">Client</span><span class="brief-v">Air-cargo logistics operator<br>South America to Miami</span></div>
-            <div><span class="brief-k">Scope</span><span class="brief-v">Automation · Integrations<br>Custom software · Operations</span></div>
-            <div><span class="brief-k">Outcome</span><span class="brief-v">A billing department that<br>runs without a person in it</span></div>
+        <p class="chapter reveal">02 / The record</p>
+      </div>
+      <div class="monument reveal">
+        <p class="monument-num" data-count="16" data-suffix="/16">16/16</p>
+        <p class="monument-cap">steps completed, unattended, on the last cycle</p>
+      </div>
+      <div class="shell">
+        <div class="record">
+          <div class="record-row reveal">
+            <span class="record-num">105</span>
+            <span class="record-cap">automated tests gating every release</span>
           </div>
-          <div class="strip" data-lit style="margin-top:2rem">
-            <div class="cell">
-              <span class="num" data-count="16" data-suffix="/16">16/16</span>
-              <span class="cap">steps completed, last unattended cycle</span>
-            </div>
-            <div class="cell">
-              <span class="num" data-count="105">105</span>
-              <span class="cap">automated tests in CI</span>
-            </div>
-            <div class="cell">
-              <span class="num" data-count="470" data-suffix="/470">470/470</span>
-              <span class="cap">shipments verified to the kilogram</span>
-            </div>
-            <div class="cell">
-              <span class="num">2×/day</span>
-              <span class="cap">autonomous cycles on a cloud runner</span>
-            </div>
+          <div class="record-row reveal" data-delay="70">
+            <span class="record-num">470/470</span>
+            <span class="record-cap">shipments reconciled to the exact kilogram — verified against source</span>
+          </div>
+          <div class="record-row reveal" data-delay="140">
+            <span class="record-num">2x/day</span>
+            <span class="record-cap">unattended runs, at 09:00 and 21:00 ET</span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="prose reveal" style="margin-top:clamp(3rem,6vw,4.5rem)">
-          <p class="kicker">The question</p>
-          <h2 style="margin-top:0.9rem">Can a company hand over its billing<br>and trust what comes back?</h2>
+    <section class="section" id="question" style="padding-top:0;padding-bottom:var(--space-chapter)">
+      <div class="shell">
+        <p class="chapter reveal">03 / The question</p>
+        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+          <h2 style="margin-top:0">Can a company hand over its billing and trust what comes back?</h2>
           <p>Every business has a process like this one: expensive, repetitive, and too important to get wrong. Automating it is easy. Automating it in a way the finance team will actually trust is the hard part, and it is the only part that matters.</p>
+        </div>
+      </div>
+    </section>
 
-          <p class="kicker" style="margin-top:2.5rem">The problem</p>
-          <h2 style="margin-top:0.9rem">Hours a day, with money riding on every keystroke</h2>
+    <section class="section" id="problem" style="padding-top:0;padding-bottom:var(--space-chapter)">
+      <div class="shell">
+        <p class="chapter reveal">04 / The problem</p>
+        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+          <h2 style="margin-top:0">Hours a day, with money riding on every keystroke</h2>
           <p>Billing lived in three places at once: manifests and vendor invoices arriving by email, ledgers maintained by hand in spreadsheets, and transactions keyed into QuickBooks one at a time. Every flight meant repeating the whole ritual.</p>
           <p>The cost wasn't only the hours. Manual transcription across three systems means the numbers can silently disagree, and nobody finds out until a customer does.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
-          <p class="kicker">What Noctix built</p>
-          <h2 style="margin-top:0.9rem">A system that closes the loop on its own</h2>
+    <section class="section" id="built" style="padding-top:0;padding-bottom:var(--space-chapter)">
+      <div class="shell">
+        <p class="chapter reveal">05 / What Noctix built</p>
+        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+          <h2 style="margin-top:0">A system that closes the loop on its own</h2>
           <p>The platform runs the entire billing cycle without an operator. It detects the flight through the logistics platform's API, ingests shipment manifests and vendor PDFs, writes formatted ledgers with live formulas, and generates customer invoices and vendor bills in QuickBooks.</p>
           <p class="pull">Because the system moves real money, nothing is written on trust. Every value is re-checked against its source document before it executes — and if the numbers don't reconcile, the transaction halts and a human is called.</p>
           <p>That ordering matters. A deterministic core does all of the real work, and an AI exception-handler is summoned only when the deterministic layer flags something it can't account for. The clever part stays on a short leash; the boring part is what you trust with the money.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="panel reveal" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
-          <p class="kicker">The cycle</p>
+    <section class="section" id="cycle" style="padding-top:0;padding-bottom:var(--space-chapter)">
+      <div class="shell">
+        <p class="chapter reveal">06 / The cycle</p>
+        <div class="section-head reveal" style="margin-top:clamp(2.5rem,5vw,4rem);margin-bottom:0">
           <h2>What happens, twice a day, unattended</h2>
-          <div class="flow runs" style="margin-top:1.75rem;max-width:38rem">
+        </div>
+      </div>
+      <div class="cycle-band reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+        <div class="shell">
+          <div class="flow runs flow-bare cycle-flow">
             <div class="flow-node"><span class="idx">1</span><span>flight detected via logistics API</span></div>
             <div class="flow-link"></div>
             <div class="flow-node"><span class="idx">2</span><span>manifests and vendor PDFs ingested from email</span></div>
@@ -160,40 +183,20 @@
             <div class="flow-node"><span class="idx">6</span><span>tiered email alert: ok / check / problems</span></div>
           </div>
         </div>
-
-        <div class="prose reveal" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
-          <p class="kicker">Details worth noting</p>
-          <h2 style="margin-top:0.9rem">The unglamorous parts that make it trustworthy</h2>
-          <ul>
-            <li><strong>Weights the vendor API doesn't expose.</strong> Billing weight had to be reconstructed from incomplete data — verified exact to the kilogram across 470 of 470 shipments.</li>
-            <li><strong>Machine-gated financial controls.</strong> Approval isn't a person remembering to look; it's a check that must pass before anything is written.</li>
-            <li><strong>Alerting with three volumes.</strong> Silence when it's fine, a nudge when something needs eyes, an alarm when it doesn't add up.</li>
-            <li><strong>105 tests in CI.</strong> Nothing reaches the runner without passing first.</li>
-            <li><strong>One-script migration.</strong> Moving the whole system to a new machine is a single command, not a weekend.</li>
-          </ul>
-          <div class="chips" style="margin-top:1.75rem">
-            <span class="chip">Python</span>
-            <span class="chip">Google Sheets API</span>
-            <span class="chip">Gmail API</span>
-            <span class="chip">QuickBooks Online API</span>
-            <span class="chip">GitHub Actions CI</span>
-            <span class="chip">Windows Server VPS</span>
-          </div>
-          <div class="actions" style="margin-top:2rem">
-            <a class="btn btn-primary" href="https://github.com/Lutreras333/wwcargo-billing-platform" rel="noopener">View the public showcase <span class="arrow" aria-hidden="true"></span></a>
-          </div>
-        </div>
-
       </div>
     </section>
 
-
-    <section class="section" style="padding-top:0">
+    <!-- SCENE: THE LEDGER, IN PRINT — the one contrast inversion on the
+         site: the real ledger, dark ink on a silver sheet, a document
+         under a work lamp. data-nav-flip lets app.js flip the masthead
+         to print while this runs beneath it; without JS the masthead's
+         own dark plate stays readable over the silver. -->
+    <section class="print" id="ledger" data-nav-flip>
       <div class="shell">
-        <div class="prose reveal" style="max-width:none">
-          <p class="kicker">The evidence</p>
-          <h2 style="margin-top:0.9rem">What the system actually writes</h2>
-          <p style="max-width:42rem">The ledger below carries the real column structure and the real live formulas the platform writes into the books — including the one that decides what a shipment costs. <strong>Every consignee, waybill, weight and rate here is invented sample data.</strong> The client's own figures are theirs, not ours.</p>
+        <p class="chapter reveal">07 / The ledger, in print</p>
+        <div class="print-head reveal">
+          <h2>What the system actually writes</h2>
+          <p>The ledger below carries the real column structure and the real live formulas the platform writes into the books — including the one that decides what a shipment costs. <strong>Every consignee, waybill, weight and rate here is invented sample data.</strong> The client's own figures are theirs, not ours.</p>
         </div>
 
         <div class="ledger-wrap reveal" tabindex="0" role="region"
@@ -210,33 +213,65 @@
 </tbody>
 </table>
         </div>
+        <p class="sheet-hint reveal" aria-hidden="true">Slide — the sheet runs 17 columns</p>
         <p class="fig reveal">Chargeable weight is <code>MAX(GROSS, VOLUM)</code> — the greater of actual and volumetric — and <code>TOTAL = CHARG × RATE + FITO + T&amp;E</code>. Those formulas go into the sheet live, so the book recalculates rather than storing a number somebody typed.</p>
 
-        <div class="grid-3 reveal" style="margin-top:2.5rem">
-          <div style="grid-column:span 2">
-            <p class="kicker">Every release, before it reaches the machine that touches money</p>
-            <pre class="term" tabindex="0" role="region" aria-label="pytest output: 105 tests passed">........................................................................ [ 68%]
+        <div class="print-proof reveal">
+          <p class="kicker">Every release, before it reaches the machine that touches money</p>
+          <pre class="term" tabindex="0" role="region" aria-label="pytest output: 105 tests passed">........................................................................ [ 68%]
 .................................                                        [100%]
 <span class="pass">105 passed in 1.26s</span></pre>
-          </div>
-          <div>
-            <p class="kicker">Public showcase</p>
-            <p style="color:var(--ink-2);font-size:0.95rem;margin-top:0.9rem">The sanitised code, with its own continuous integration running the sample pipeline on every push.</p>
-            <p style="margin-top:0.9rem"><img
-              src="https://github.com/Lutreras333/wwcargo-billing-platform/actions/workflows/samples.yml/badge.svg"
-              alt="Showcase pipeline: build status" width="140" height="20" loading="lazy"></p>
-          </div>
         </div>
       </div>
     </section>
-    <section class="section" style="padding-top:0">
+
+    <section class="section" id="details" style="padding-top:var(--space-chapter);padding-bottom:0">
       <div class="shell">
-        <div class="panel reveal" style="text-align:center">
-          <h2>Want something like this for your operation?</h2>
-          <p style="margin-inline:auto">Every business has a billing cycle, a reporting ritual, or a data-entry grind that software could own outright.</p>
-          <div class="actions" style="justify-content:center">
-            <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
+        <p class="chapter reveal">08 / The unglamorous parts</p>
+        <div class="section-head reveal" style="margin-top:clamp(2.5rem,5vw,4rem);margin-bottom:0">
+          <h2>The unglamorous parts that make it trustworthy</h2>
+        </div>
+        <div class="note-rows">
+          <div class="nrow reveal">
+            <h3>Weights the vendor API doesn't expose</h3>
+            <p>Billing weight had to be reconstructed from incomplete data — verified exact to the kilogram across 470 of 470 shipments.</p>
           </div>
+          <div class="nrow reveal" data-delay="70">
+            <h3>Machine-gated financial controls</h3>
+            <p>Approval isn't a person remembering to look; it's a check that must pass before anything is written.</p>
+          </div>
+          <div class="nrow reveal" data-delay="140">
+            <h3>Alerting with three volumes</h3>
+            <p>Silence when it's fine, a nudge when something needs eyes, an alarm when it doesn't add up.</p>
+          </div>
+          <div class="nrow reveal" data-delay="210">
+            <h3>105 tests in CI</h3>
+            <p>Nothing reaches the runner without passing first.</p>
+          </div>
+          <div class="nrow reveal" data-delay="280">
+            <h3>One-script migration</h3>
+            <p>Moving the whole system to a new machine is a single command, not a weekend.</p>
+          </div>
+        </div>
+        <p class="techline reveal">Python / Google Sheets API / Gmail API / QuickBooks Online API / GitHub Actions CI / Windows Server VPS</p>
+        <div class="showcase reveal">
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/Lutreras333/wwcargo-billing-platform" rel="noopener">View the public showcase <span class="arrow" aria-hidden="true"></span></a>
+          </div>
+          <p class="showcase-badge"><img
+              src="https://github.com/Lutreras333/wwcargo-billing-platform/actions/workflows/samples.yml/badge.svg"
+              alt="Showcase pipeline: build status" width="140" height="20" loading="lazy">
+            The sanitised code, with its own continuous integration running the sample pipeline on every push.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta" style="padding-block:var(--space-enormous)">
+      <div class="shell" style="text-align:center">
+        <h2 class="reveal">Want something like this for your operation?</h2>
+        <p class="reveal" style="margin-inline:auto;margin-top:1.25rem;max-width:44rem">Every business has a billing cycle, a reporting ritual, or a data-entry grind that software could own outright.</p>
+        <div class="actions reveal" style="justify-content:center;margin-top:2.25rem">
+          <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
@@ -244,13 +279,31 @@
   </main>
 
   <footer class="foot">
+    <div class="foot-ticker" aria-hidden="true">
+      <div class="foot-ticker-track">
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+      </div>
+    </div>
     <div class="shell">
-      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
-      <span class="status"><span class="beacon"></span> systems nominal</span>
-      <div class="foot-links">
-        <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
-        <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+      <div class="foot-top">
+        <nav class="foot-nav" aria-label="Footer">
+          <a href="/work.html">Work</a>
+          <a href="/services.html">Services</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+        <div class="foot-links">
+          <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
+          <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="foot-word" aria-hidden="true">NOCTIX</div>
+      <div class="foot-base">
+        <span class="foot-coords">25.7617 N / 80.1918 W - MIA / ET <span data-foottime></span></span>
+        <span class="status"><span class="beacon"></span> systems nominal</span>
+        <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
       </div>
     </div>
   </footer>

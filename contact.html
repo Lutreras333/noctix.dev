@@ -45,7 +45,6 @@
   </script>
 </head>
 <body>
-  <div class="sky" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -64,90 +63,103 @@
   </header>
 
   <main id="main">
+    <div class="sky" aria-hidden="true"></div>
 
-    <section class="hero" style="padding-bottom:0">
-      <div class="contours" aria-hidden="true">
-        <svg viewBox="0 0 1400 900" preserveAspectRatio="none">
-          <path d="M-80 150C220 40 520 250 860 130S1320 210 1560 90"/>
-          <path d="M-80 250C220 140 520 350 860 230S1320 310 1560 190"/>
-          <path d="M-80 360C240 250 540 470 880 340S1340 420 1560 300"/>
-          <path d="M-80 480C260 370 560 600 900 460S1360 540 1560 420"/>
-          <path d="M-80 610C260 500 580 730 920 590S1380 670 1560 550"/>
-          <path d="M-80 750C280 640 600 860 940 720S1400 800 1560 680"/>
-        </svg>
+    <!-- SCENE: GROUND. The descent lands — the horizon limb glows in
+         the lower fifth and the copy stands in the sky above it.
+         Caps only; the settled frame IS the layout for calm and
+         no-JS. -->
+    <section class="plate-hero plate-hero--ground">
+      <img class="plate-img" src="/assets/plate-limb.webp" alt=""
+        width="1280" height="720" fetchpriority="high" decoding="async">
+      <div class="plate-scrim" aria-hidden="true"></div>
+      <div class="plate-copy">
+        <p class="kicker enter" style="--i:0">Contact</p>
+        <h1 class="display-xl statement">
+          <span class="line" style="--i:0"><span class="line-i">Start a</span></span>
+          <span class="line" style="--i:1"><span class="line-i">conversation</span></span>
+        </h1>
+        <p class="lede enter" style="--i:3">Tell us which part of your operation should be running itself. You'll get a straight answer on whether software can own it — from the person who would build it, not a salesperson.</p>
       </div>
+    </section>
+
+    <section class="section" id="address" style="padding-block:var(--space-chapter)">
       <div class="shell">
-        <div style="max-width:46rem">
-          <p class="kicker">Contact</p>
-          <h1 class="display statement">
-            <span class="line" style="--i:0"><span class="line-i">Start a</span></span>
-            <span class="line" style="--i:1"><span class="line-i"><span class="em">conversation</span></span></span>
-          </h1>
-          <p class="lede enter" style="--i:3">Tell us which part of your operation should be running itself. You'll get a straight answer on whether software can own it — from the person who would build it, not a salesperson.</p>
+        <p class="chapter reveal">01 / The address</p>
+        <!-- The subject and body pre-fill the three questions printed
+             below, so the structure we ask for is the structure the
+             draft already has. -->
+        <div class="mail-mon reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+          <a class="mailto" href="mailto:lucas@noctix.dev?subject=Noctix%20%E2%80%94%20an%20operation%20that%20should%20run%20itself&amp;body=What%20the%20work%20looks%20like%20today%3A%0A%0A%0AHow%20often%20it%20happens%2C%20and%20how%20long%20it%20takes%3A%0A%0A%0AWhat%20%22solved%22%20would%20look%20like%3A%0A%0A">lucas@noctix.dev</a>
+          <button class="btn btn-quiet btn-sm" type="button" data-copy="lucas@noctix.dev" hidden>
+            <span data-copy-label>Copy</span> address
+          </button>
+        </div>
+        <p class="reveal" style="max-width:44rem;margin-top:1.75rem">Replies usually land within a day, from Lucas — there is no form and no queue in between. English or Spanish, whichever is easier, and you can also reach him on <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>.</p>
+
+        <div class="section-head reveal" style="margin-top:clamp(3rem,6vw,4.5rem);margin-bottom:0">
+          <p class="kicker">A useful first email</p>
+        </div>
+        <!-- Bare rows, and deliberately not .runs: these are questions
+             asked of a person, not steps a machine executes. -->
+        <div class="flow flow-bare reveal" style="margin-top:1.5rem;max-width:36rem">
+          <div class="flow-node"><span class="idx">1</span><span>what the work looks like today</span></div>
+          <div class="flow-link"></div>
+          <div class="flow-node"><span class="idx">2</span><span>how often it happens, and how long it takes</span></div>
+          <div class="flow-link"></div>
+          <div class="flow-node"><span class="idx">3</span><span>what "solved" would look like for you</span></div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="next" style="padding-top:0;padding-bottom:var(--space-enormous)">
       <div class="shell">
-        <div class="panel reveal">
-          <div class="panel-split">
-            <div>
-              <p class="kicker">Email</p>
-              <!-- The subject and body pre-fill the three questions printed
-                   opposite, so the structure we ask for is the structure the
-                   draft already has. -->
-              <a class="mailto" href="mailto:lucas@noctix.dev?subject=Noctix%20%E2%80%94%20an%20operation%20that%20should%20run%20itself&amp;body=What%20the%20work%20looks%20like%20today%3A%0A%0A%0AHow%20often%20it%20happens%2C%20and%20how%20long%20it%20takes%3A%0A%0A%0AWhat%20%22solved%22%20would%20look%20like%3A%0A%0A">lucas@noctix.dev</a>
-              <div class="mail-actions">
-                <button class="btn btn-quiet btn-sm" type="button" data-copy="lucas@noctix.dev" hidden>
-                  <span data-copy-label>Copy</span> address
-                </button>
-              </div>
-              <p style="color:var(--ink-2);margin-top:1.25rem">Replies usually land within a day, from Lucas — there is no form and no queue in between. English or Spanish, whichever is easier, and you can also reach him on <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>.</p>
-            </div>
-            <div>
-              <p class="kicker">A useful first email</p>
-              <div class="flow" style="margin-top:1.25rem">
-                <div class="flow-node"><span class="idx">1</span><span>what the work looks like today</span></div>
-                <div class="flow-link"></div>
-                <div class="flow-node"><span class="idx">2</span><span>how often it happens, and how long it takes</span></div>
-                <div class="flow-link"></div>
-                <div class="flow-node"><span class="idx">3</span><span>what "solved" would look like for you</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-head reveal" style="margin-top:clamp(2.75rem,5vw,4rem)">
-          <p class="kicker">What happens next</p>
-          <h2>After you press send.</h2>
-        </div>
-        <div class="grid-3">
-          <article class="card reveal" data-delay="0">
+        <p class="chapter reveal">02 / After you press send</p>
+        <div class="note-rows" style="margin-top:clamp(2.5rem,5vw,4rem)">
+          <div class="nrow reveal">
             <h3>A reply, not a pitch</h3>
             <p>You'll hear back from Lucas himself. If the honest answer is that software is the wrong tool for this, that is the answer you'll get.</p>
-          </article>
-          <article class="card reveal" data-delay="90">
+          </div>
+          <div class="nrow reveal" data-delay="70">
             <h3>One conversation about the real process</h3>
             <p>How the work runs today, how often, who touches it, and what the exceptions look like. Exceptions are where most of the difficulty lives, so most of the questions will be about those. English or Spanish.</p>
-          </article>
-          <article class="card reveal" data-delay="180">
+          </div>
+          <div class="nrow reveal" data-delay="140">
             <h3>The narrowest first slice</h3>
             <p>If it's worth doing, what comes back is the smallest version that can be proved against your own data — not a project you have to commit to first. Emailing commits you to nothing.</p>
-          </article>
+          </div>
         </div>
+      </div>
     </section>
 
   </main>
 
   <footer class="foot">
+    <div class="foot-ticker" aria-hidden="true">
+      <div class="foot-ticker-track">
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+      </div>
+    </div>
     <div class="shell">
-      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
-      <span class="status"><span class="beacon"></span> systems nominal</span>
-      <div class="foot-links">
-        <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
-        <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+      <div class="foot-top">
+        <nav class="foot-nav" aria-label="Footer">
+          <a href="/work.html">Work</a>
+          <a href="/services.html">Services</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+        <div class="foot-links">
+          <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
+          <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="foot-word" aria-hidden="true">NOCTIX</div>
+      <div class="foot-base">
+        <span class="foot-coords">25.7617 N / 80.1918 W - MIA / ET <span data-foottime></span></span>
+        <span class="status"><span class="beacon"></span> systems nominal</span>
+        <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
       </div>
     </div>
   </footer>

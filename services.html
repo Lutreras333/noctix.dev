@@ -45,7 +45,6 @@
   </script>
 </head>
 <body>
-  <div class="sky" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -64,59 +63,44 @@
   </header>
 
   <main id="main">
+    <div class="sky" aria-hidden="true"></div>
 
-    <section class="hero" style="padding-bottom:0">
-      <div class="contours" aria-hidden="true">
-        <svg viewBox="0 0 1400 900" preserveAspectRatio="none">
-          <path d="M-80 150C220 40 520 250 860 130S1320 210 1560 90"/>
-          <path d="M-80 250C220 140 520 350 860 230S1320 310 1560 190"/>
-          <path d="M-80 360C240 250 540 470 880 340S1340 420 1560 300"/>
-          <path d="M-80 480C260 370 560 600 900 460S1360 540 1560 420"/>
-          <path d="M-80 610C260 500 580 730 920 590S1380 670 1560 550"/>
-          <path d="M-80 750C280 640 600 860 940 720S1400 800 1560 680"/>
-        </svg>
-      </div>
-      <div class="shell">
-        <div style="max-width:46rem">
-          <p class="kicker">Services</p>
-          <h1 class="display statement">
-            <span class="line" style="--i:0"><span class="line-i">The software that</span></span>
-            <span class="line" style="--i:1"><span class="line-i"><span class="em">runs a business</span></span></span>
-          </h1>
-          <p class="lede enter" style="--i:3">Broad on purpose. Noctix takes on the operational software most businesses actually need — and builds it to a standard you can leave alone.</p>
-        </div>
+    <!-- SCENE: THE BENCH. One altitude below the cut: the block on
+         the bench, spot-faced, half in shadow. The copy stands in the
+         photograph's black left half; caps only — the serif closing
+         line is spent on home and work. The settled frame IS the
+         layout for calm and no-JS. -->
+    <section class="plate-hero plate-hero--bench">
+      <img class="plate-img" src="/assets/plate-bench.webp" alt=""
+        width="2048" height="1152" fetchpriority="high" decoding="async">
+      <div class="plate-scrim" aria-hidden="true"></div>
+      <div class="plate-copy">
+        <p class="kicker enter" style="--i:0">Services</p>
+        <h1 class="display-xl statement">
+          <span class="line" style="--i:0"><span class="line-i">The software</span></span>
+          <span class="line" style="--i:1"><span class="line-i">that runs</span></span>
+          <span class="line" style="--i:2"><span class="line-i">a business</span></span>
+        </h1>
+        <p class="lede enter" style="--i:3">Broad on purpose. Noctix takes on the operational software most businesses actually need — and builds it to a standard you can leave alone.</p>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="disciplines" style="padding-block:var(--space-chapter)">
       <div class="shell">
-        <div class="grid-3">
-          <article class="card reveal" data-delay="0">
-            <div class="ico" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-              </svg>
-            </div>
+        <p class="chapter reveal">01-03 / The disciplines</p>
+        <div class="disciplines">
+          <article class="drow reveal">
+            <span class="drow-idx" aria-hidden="true">01</span>
             <h3>Custom software</h3>
             <p>Web applications, dashboards, and internal tools shaped around how your business actually operates — not the other way around. Built lean, tested, and documented, with no platform lock-in and no framework bloat.</p>
           </article>
-
-          <article class="card reveal" data-delay="90">
-            <div class="ico" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/>
-              </svg>
-            </div>
+          <article class="drow reveal" data-delay="70">
+            <span class="drow-idx" aria-hidden="true">02</span>
             <h3>Automation</h3>
             <p>Operational pipelines that run without an operator: document processing, billing, reporting, scheduling. Verification gates guard anything that touches money, alerts fire only when a human is genuinely needed, and AI appears only where it earns its place.</p>
           </article>
-
-          <article class="card reveal" data-delay="180">
-            <div class="ico" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 3 3v6"/>
-              </svg>
-            </div>
+          <article class="drow reveal" data-delay="140">
+            <span class="drow-idx" aria-hidden="true">03</span>
             <h3>Integrations</h3>
             <p>Your systems, finally talking to each other: accounting platforms, spreadsheets, inboxes, logistics and industry APIs tied into one coherent flow — so data moves without being retyped, and without quietly drifting out of sync.</p>
           </article>
@@ -124,62 +108,60 @@
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section" id="method" style="padding-top:0;padding-bottom:var(--space-chapter)">
       <div class="shell">
-        <div class="panel reveal">
-          <div class="panel-split">
-            <div>
-              <p class="kicker">How we work</p>
-              <h2>Built to hand over, not to hold hostage.</h2>
-              <p>A system you can't run without the person who built it isn't finished. Noctix optimises for the day you stop needing us in the room.</p>
-            </div>
-            <div class="flow runs">
-              <div class="flow-node"><span class="idx">1</span><span>map the operation as it really runs</span></div>
-              <div class="flow-link"></div>
-              <div class="flow-node"><span class="idx">2</span><span>automate the narrowest useful slice first</span></div>
-              <div class="flow-link"></div>
-              <div class="flow-node gate"><span class="idx gate-tick"></span><span>prove it against real data before trusting it</span></div>
-              <div class="flow-link"></div>
-              <div class="flow-node"><span class="idx">3</span><span>widen coverage, keep the gates</span></div>
-              <div class="flow-link"></div>
-              <div class="flow-node"><span class="idx">4</span><span>document, alert, hand over</span></div>
-            </div>
+        <p class="chapter reveal">04 / How we work</p>
+        <div class="section-head reveal" style="margin-top:clamp(2.5rem,5vw,4rem);margin-bottom:0">
+          <h2>Built to hand over, not to hold hostage.</h2>
+          <p>A system you can't run without the person who built it isn't finished. Noctix optimises for the day you stop needing us in the room.</p>
+        </div>
+      </div>
+      <div class="cycle-band reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+        <div class="shell">
+          <div class="flow runs flow-bare cycle-flow">
+            <div class="flow-node"><span class="idx">01</span><span>map the operation as it really runs</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">02</span><span>automate the narrowest useful slice first</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node gate"><span class="idx gate-tick"></span><span>prove it against real data before trusting it</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">03</span><span>widen coverage, keep the gates</span></div>
+            <div class="flow-link"></div>
+            <div class="flow-node"><span class="idx">04</span><span>document, alert, hand over</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section" id="commitments" style="padding-top:0;padding-bottom:var(--space-chapter)">
       <div class="shell">
-        <div class="section-head reveal">
-          <p class="kicker">What you can expect</p>
+        <p class="chapter reveal">05 / What you can expect</p>
+        <div class="section-head reveal" style="margin-top:clamp(2.5rem,5vw,4rem);margin-bottom:0">
           <h2>Three commitments.</h2>
         </div>
-        <div class="grid-3">
-          <article class="card reveal" data-delay="0">
+        <div class="note-rows">
+          <div class="nrow reveal">
             <h3>Production-grade by default</h3>
             <p>Automated tests and CI on everything we ship. The flagship platform runs 105 tests before any release reaches the machine that touches money.</p>
-          </article>
-          <article class="card reveal" data-delay="90">
+          </div>
+          <div class="nrow reveal" data-delay="70">
             <h3>Plain language</h3>
             <p>You'll always know what the system does, what it costs, and why it's built that way. English or Spanish, whichever suits your team.</p>
-          </article>
-          <article class="card reveal" data-delay="180">
+          </div>
+          <div class="nrow reveal" data-delay="140">
             <h3>Yours when it's done</h3>
             <p>Documentation, controls, and alerting designed so the system keeps running without us — and so someone else could pick it up if they had to.</p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
-      <div class="shell">
-        <div class="panel reveal" style="text-align:center">
-          <h2>Not sure which of these you need?</h2>
-          <p style="margin-inline:auto">Most projects are a mix. Describe the problem in your own words and we'll propose the smallest system that actually solves it.</p>
-          <div class="actions" style="justify-content:center">
-            <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
-          </div>
+    <section class="section" id="cta" style="padding-block:var(--space-enormous)">
+      <div class="shell" style="text-align:center">
+        <h2 class="reveal">Not sure which of these you need?</h2>
+        <p class="reveal" style="margin-inline:auto;margin-top:1.25rem;max-width:44rem">Most projects are a mix. Describe the problem in your own words and we'll propose the smallest system that actually solves it.</p>
+        <div class="actions reveal" style="justify-content:center;margin-top:2.25rem">
+          <a class="btn btn-primary" href="/contact.html">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
@@ -187,13 +169,31 @@
   </main>
 
   <footer class="foot">
+    <div class="foot-ticker" aria-hidden="true">
+      <div class="foot-ticker-track">
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+        <span>16/16 steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+      </div>
+    </div>
     <div class="shell">
-      <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
-      <span class="status"><span class="beacon"></span> systems nominal</span>
-      <div class="foot-links">
-        <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
-        <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+      <div class="foot-top">
+        <nav class="foot-nav" aria-label="Footer">
+          <a href="/work.html">Work</a>
+          <a href="/services.html">Services</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+        <div class="foot-links">
+          <a href="mailto:lucas@noctix.dev">lucas@noctix.dev</a>
+          <a href="https://github.com/Lutreras333" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/lucas-utreras-acevedo" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="foot-word" aria-hidden="true">NOCTIX</div>
+      <div class="foot-base">
+        <span class="foot-coords">25.7617 N / 80.1918 W - MIA / ET <span data-foottime></span></span>
+        <span class="status"><span class="beacon"></span> systems nominal</span>
+        <span>© <span data-year>2026</span> Noctix — software that runs itself.</span>
       </div>
     </div>
   </footer>
