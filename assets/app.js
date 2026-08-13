@@ -980,14 +980,13 @@
          span for real. Measured on lock, the same budget as the bus's
          own rect read, never mid-move. Cleared when the pass ends. */
       word.style.width = w + 'px';
-      /* The accessible name shield goes on the LINK: naming is valid
-         on <a> and prohibited on a bare <span>, where AT ignores it
-         and reads the churn. */
-      mark.setAttribute('aria-label', full);
+      /* No aria juggling needed: the link carries a permanent
+         aria-label in markup (the wordmark is display:none on phones,
+         which otherwise leaves the link nameless), and aria-label
+         outranks contents — so the churn is never the name. */
       decodePass(word, full, 300, function () {
         running = false;
         word.style.removeProperty('width');
-        mark.removeAttribute('aria-label');
       });
     });
   });
