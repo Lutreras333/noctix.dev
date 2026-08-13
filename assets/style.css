@@ -76,12 +76,13 @@
   --ink-2: #a8aeb8;
   --ink-3: #8b929e;
 
-  /* RED — the brand voice, editorial use only. 5.62:1 on the page and
-     4.61:1 on the lightest surface, so it is legible even at body size.
-     Text ON red must be black (5.62:1); white would be 3.55:1 and fail. */
-  --red: #ff3b30;
-  --red-deep: #c8241b;
-  --red-ink: #08090b;
+  /* SILVER — the brand voice, editorial use only. One material, no second
+     hue: the accent is the same metal as the plate, held at full brightness.
+     14.3:1 on the page, so it is legible even at body size. Text ON silver
+     must be black (14.3:1); white would be 1.4:1 and fail. */
+  --accent: #d6dbe4;
+  --accent-dim: rgba(214, 219, 228, 0.45);
+  --accent-ink: #08090b;
 
   /* MACHINE TRUTH — carried by luminance, never by hue, so the console
      can never be mistaken for an error state. */
@@ -172,11 +173,13 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    /* a scatter of distant stars, dimmed almost to nothing */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560'%3E%3Cg fill='%23ffffff'%3E%3Ccircle cx='31' cy='47' r='.9'/%3E%3Ccircle cx='128' cy='19' r='.6'/%3E%3Ccircle cx='201' cy='96' r='1'/%3E%3Ccircle cx='299' cy='38' r='.55'/%3E%3Ccircle cx='352' cy='131' r='.85'/%3E%3Ccircle cx='437' cy='62' r='.6'/%3E%3Ccircle cx='511' cy='118' r='.9'/%3E%3Ccircle cx='74' cy='168' r='.65'/%3E%3Ccircle cx='166' cy='231' r='.9'/%3E%3Ccircle cx='268' cy='198' r='.5'/%3E%3Ccircle cx='389' cy='254' r='.8'/%3E%3Ccircle cx='474' cy='201' r='.55'/%3E%3Ccircle cx='23' cy='299' r='.85'/%3E%3Ccircle cx='143' cy='341' r='.6'/%3E%3Ccircle cx='232' cy='396' r='.95'/%3E%3Ccircle cx='318' cy='312' r='.5'/%3E%3Ccircle cx='412' cy='372' r='.75'/%3E%3Ccircle cx='527' cy='329' r='.6'/%3E%3Ccircle cx='88' cy='452' r='.8'/%3E%3Ccircle cx='192' cy='507' r='.55'/%3E%3Ccircle cx='287' cy='466' r='.9'/%3E%3Ccircle cx='366' cy='534' r='.5'/%3E%3Ccircle cx='459' cy='487' r='.7'/%3E%3Ccircle cx='541' cy='548' r='.6'/%3E%3C/g%3E%3C/svg%3E")
-      0 0 / 560px 560px,
-    /* the brand's one warm light, high and far off */
-    radial-gradient(760px 520px at 88% -6%, rgba(255, 59, 48, 0.085), transparent 62%),
+    /* a REAL starfield — one long-exposure frame, black-pulled so the
+       lighten blend below contributes only the stars themselves. Tiles
+       at native size: its edges are true black, so the seams cannot
+       exist, and the points stay sharp instead of upscale-blurred. */
+    url('/assets/stars.webp') 0 0 / 1280px 486px,
+    /* the brand's one cold light, high and far off */
+    radial-gradient(760px 520px at 88% -6%, rgba(214, 224, 240, 0.05), transparent 62%),
     /* corona: atmosphere bleeding up off the limb */
     radial-gradient(150% 128% at 50% 132%, rgba(184, 202, 232, 0.16) 0 41%, transparent 58%),
     /* the world itself, with a hard silver rim */
@@ -188,6 +191,7 @@ body::before {
       transparent 46%),
     /* deep space */
     radial-gradient(120% 90% at 50% 20%, #0a0c10, #060709 70%);
+  background-blend-mode: lighten, normal, normal, normal, normal;
 }
 body::after {
   content: '';
@@ -275,7 +279,10 @@ body::after {
 .contours svg { width: 140%; height: 100%; margin-left: -20%; display: block; }
 .contours path { fill: none; stroke: #ffffff; stroke-opacity: 0.07; stroke-width: 1; }
 
-::selection { background: rgba(255, 59, 48, 0.32); color: #fff; }
+/* Near-opaque, or the black ink lies: at 34% alpha over the night
+   background the composite is ~rgb(78,80,84) and #08090b on it is
+   ~2.5:1. At 0.92 the plate is solid enough for its 14.3:1 premise. */
+::selection { background: rgba(214, 219, 228, 0.92); color: var(--accent-ink); }
 
 ::-webkit-scrollbar { width: 11px; height: 11px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -286,11 +293,23 @@ body::after {
 }
 ::-webkit-scrollbar-thumb:hover { background: #2b3138; }
 
-a { color: var(--red); text-decoration: none; }
-a:hover { color: #ff6a60; }
+a { color: var(--ink); text-decoration: none; }
+a:hover { color: #ffffff; }
 
-/* Near-white, not red: the ring must clear contrast against the red
-   field of .btn-primary as well as against the page black. Outline only —
+/* With red gone there is no hue left to mark a link, and silver-on-silver
+   is not a distinction. Links inside running copy carry an underline so
+   they are identifiable without colour (WCAG 1.4.1). Chrome and nav links
+   opt out below — they are unambiguous from position. */
+p a, .prose a, .lede a {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-dim);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+p a:hover, .prose a:hover, .lede a:hover { text-decoration-color: var(--accent); }
+
+/* Near-white: the ring must clear contrast against the bright metal
+   plate of .btn-primary as well as against the page black. Outline only —
    setting border-radius here would change the element's own geometry,
    making buttons visibly snap corners when tabbed to. Modern engines
    follow the existing border-radius automatically. */
@@ -315,8 +334,8 @@ a:hover { color: #ff6a60; }
 .skip-link {
   position: absolute;
   left: -9999px;
-  background: var(--red);
-  color: var(--red-ink);
+  background: var(--accent);
+  color: var(--accent-ink);
   padding: 0.6rem 1.1rem;
   border-radius: 8px;
   font-weight: 600;
@@ -383,8 +402,8 @@ a:hover { color: #ff6a60; }
   .mark .wordmark { -webkit-text-fill-color: CanvasText; }
 }
 .mark:hover { color: var(--ink); }
-.mark svg { color: var(--red); flex: none; }
-.mark:hover svg { color: #ff6a60; }
+.mark svg { color: var(--accent); flex: none; }
+.mark:hover svg { color: #ffffff; }
 
 .nav {
   display: flex;
@@ -406,7 +425,7 @@ a:hover { color: #ff6a60; }
   right: 0;
   bottom: -2px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 /* Per-letter roll on hover. The label is duplicated: the original rolls
@@ -458,7 +477,7 @@ main { flex: 1; }
   content: '';
   width: 22px;
   height: 1px;
-  background: var(--red);
+  background: var(--accent);
   opacity: 0.9;
 }
 
@@ -508,7 +527,7 @@ h3 {
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.005em;
-  color: var(--red);
+  color: var(--accent);
   /* the serif's uppercase runs optically small next to Inter 800 */
   font-size: 1.1em;
   line-height: 0.9;
@@ -583,7 +602,7 @@ h3 {
   gap: 0.7rem;
   margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
 }
-.emblem svg { color: var(--red); }
+.emblem svg { color: var(--accent); }
 .emblem span {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -657,17 +676,19 @@ h3 {
 }
 .btn:hover { color: var(--ink); }   /* colour-only: safe on touch */
 
+/* The primary action is a struck metal plate, not a coloured chip: the
+   same material as the mark, so the page has exactly one accent. */
 .btn-primary {
-  --btn-bg: linear-gradient(180deg, #ff5346, var(--red));
-  color: var(--red-ink);
+  --btn-bg: var(--metal);
+  color: var(--accent-ink);
   border-color: transparent;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28) inset,
-    0 10px 30px -14px rgba(255, 59, 48, 0.7);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 10px 30px -14px rgba(206, 216, 232, 0.42);
 }
 .btn-primary:hover {
-  color: var(--red-ink);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.38) inset,
-    0 16px 40px -16px rgba(255, 59, 48, 0.85);
+  color: var(--accent-ink);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.62) inset,
+    0 16px 40px -16px rgba(206, 216, 232, 0.55);
 }
 .btn .arrow { transition: transform var(--t-tap) var(--e-out); }
 
@@ -825,8 +846,8 @@ h3 {
    it verifies its own output should visibly STAMP each line it has
    checked. It also survives greyscale, monochrome print, forced-colors
    and every kind of colour blindness — none of which a tick colour does.
-   And because it is achromatic, red stays free to mean brand and only
-   brand. */
+   And because it is achromatic, the silver accent stays free to mean
+   brand and only brand. */
 
 .step .glyph {
   display: grid;
@@ -1043,9 +1064,9 @@ h3 {
   height: 38px;
   border-radius: 10px;
   margin-bottom: 1.1rem;
-  color: var(--red);
-  background: rgba(255, 59, 48, 0.10);
-  border: 1px solid rgba(255, 59, 48, 0.22);
+  color: var(--accent);
+  background: rgba(214, 219, 228, 0.08);
+  border: 1px solid rgba(214, 219, 228, 0.20);
 }
 .card .more {
   display: inline-flex;
@@ -1351,10 +1372,10 @@ h3 {
 .prose h2 { margin-top: 2.75rem; }
 .prose ul { padding-left: 1.15rem; color: var(--ink-2); }
 .prose li { margin-top: 0.55rem; }
-.prose li::marker { color: var(--red); }
+.prose li::marker { color: var(--accent); }
 
 .pull {
-  border-left: 2px solid var(--red);
+  border-left: 2px solid var(--accent);
   padding-left: 1.25rem;
   color: var(--ink);
   font-size: 1.1rem;
@@ -1411,10 +1432,10 @@ h3 {
   letter-spacing: -0.02em;
   color: var(--ink);
   padding-bottom: 0.35rem;
-  border-bottom: 2px solid rgba(255, 59, 48, 0.45);
+  border-bottom: 2px solid rgba(214, 219, 228, 0.45);
   transition: border-color 200ms var(--ease), color 200ms var(--ease);
 }
-.mailto:hover { color: #ff6a60; border-bottom-color: var(--red); }
+.mailto:hover { color: #ffffff; border-bottom-color: var(--accent); }
 
 .mail-actions { margin-top: 1.1rem; }
 .btn-sm { padding: 0.5rem 0.9rem; font-size: 0.85rem; }
@@ -1445,6 +1466,321 @@ h3 {
   gap: 0.5rem;
   font-family: var(--mono);
   font-size: 0.78rem;
+}
+
+/* ── Ringdown art (404) ────────────────────────────────────
+   The photograph's field is pure black; lighten sinks it into the page
+   so the image has no rectangle — only the trace exists. The blend also
+   lets the starfield show through, which is the right sky for it. */
+
+.ringdown { margin: 0; max-width: 56rem; margin-inline: auto; }
+.ringdown img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: lighten;
+}
+.ringdown figcaption {
+  margin-top: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  text-align: center;
+}
+@media (forced-colors: active) {
+  /* lighten against a forced Canvas would erase the image entirely */
+  .ringdown img { mix-blend-mode: normal; }
+}
+
+/* ── The instrument cursor ─────────────────────────────────
+   A reticle that trails the native cursor — the cursor itself is
+   never hidden or replaced. JS creates the element and moves the
+   OUTER box (transform only, deliberately no transform transition:
+   the rAF lerp is the easing). The INNER ring carries lock state:
+   acquiring a target is the machine acting — --t-tick, linear — and
+   letting go is handed back to the human clock. Decorative through
+   and through: aria-hidden, no pointer events, and it exists at all
+   only when JS, a fine pointer and full motion are all present. */
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;   /* centre the box on the reported point */
+  pointer-events: none;
+  z-index: 300;              /* above the masthead (100) */
+  opacity: 0;
+  transition: opacity var(--t-shift) var(--e-out);
+}
+.cursor-ring.is-on { opacity: 1; }
+
+.cursor-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0.5;
+  transform: scale(1);
+  transition: transform var(--t-tap) var(--e-out),
+    opacity var(--t-tap) var(--e-out);
+}
+.cursor-ring.is-locked::before {
+  transform: scale(1.7);
+  opacity: 1;
+  /* acquisition is the machine's move: fast, linear, no ceremony */
+  transition-duration: var(--t-tick);
+  transition-timing-function: var(--e-machine);
+}
+
+/* The magnet writes --pull-x/--pull-y custom properties — never the
+   transform itself — and these rules compose the pull with the lift
+   and the press, so hovering a magnetised button keeps every state a
+   button has always had. The element's OWN transition eases the lean
+   and the release. The rose's rotation is smoothed by the rAF lerp
+   instead, so the svg gets an explicit pivot and no transition: outer
+   <svg> elements otherwise leave the transform-box to the UA, and a
+   view-box pivot would spin it around the wrong point. */
+.mark { transition: transform var(--t-tap) var(--e-out); }
+.mark svg {
+  transform-box: border-box;
+  transform-origin: 50% 50%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn, .mark {
+    transform: translate3d(var(--pull-x, 0px), var(--pull-y, 0px), 0);
+  }
+  .btn:hover {
+    transform: translate3d(var(--pull-x, 0px), calc(var(--pull-y, 0px) - 1px), 0);
+  }
+  .btn:active {
+    transform: translate3d(var(--pull-x, 0px), calc(var(--pull-y, 0px) + 1px), 0);
+    transition-duration: var(--t-tick);
+  }
+}
+
+/* High contrast draws its own cursor; a second ring is noise. */
+@media (forced-colors: active) {
+  .cursor-ring { display: none; }
+}
+
+/* ── The entrance ──────────────────────────────────────────
+   A once-per-session brand stinger. The veil is inserted by JS only —
+   it never ships in markup, so a visitor without JS cannot be behind
+   it. The choreography keeps the two clocks: the mark striking on and
+   the rule sweeping are the machine (linear); the letters arriving and
+   the veil lifting are for the human (eased). app.js removes the veil
+   on a hard 1800ms deadline whatever happens; the rules at the end of
+   this section kill it from the CSS side as well. */
+
+.nx-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 400;          /* above the masthead (100) and skip link (200) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+.nx-veil-core {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+/* the mark strikes on: a lamp, not an arrival — linear and fast */
+.nx-veil svg {
+  color: var(--accent);
+  opacity: 0;
+  animation: nx-strike var(--t-tick) var(--e-machine) 100ms both;
+}
+
+/* the rule sweeps at a constant rate; easing a sweep would be a lie
+   about the rate, same law as the console's progress bar */
+.nx-veil-rule {
+  width: min(200px, 44vw);
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: nx-sweep var(--t-settle) var(--e-machine) 160ms both;
+}
+
+/* the letters are read by a person, so they ease. Same weight and
+   case as the masthead wordmark, tracked wide for the occasion. */
+.nx-veil-word {
+  display: flex;
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;   /* tracking pads the last letter; recentre */
+  color: var(--accent);
+}
+.nx-veil-word span {
+  display: inline-block;
+  opacity: 0;
+  animation: nx-track var(--t-settle) var(--e-entrance) both;
+  animation-delay: calc(260ms + var(--k, 0) * 40ms);
+}
+
+@keyframes nx-strike { from { opacity: 0; } to { opacity: 1; } }
+@keyframes nx-sweep  { to { transform: scaleX(1); } }
+@keyframes nx-track  {
+  from { transform: translate3d(0, 0.55em, 0); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+/* the lift: the one exit in the system, so it gets the exit curve.
+   translateY, not clip-path — composited everywhere, no paint.
+   pointer-events dies with the exit: the veil still covers the page
+   for ~half a second on its way out, and a press in that window
+   belongs to the content, not to a ghost. */
+.nx-veil.is-lift { animation: nx-lift var(--t-settle) var(--e-exit) both; }
+@keyframes nx-lift { to { transform: translate3d(0, -100%, 0); } }
+
+/* skipped: a quick eased fade, never a cut */
+.nx-veil.is-skip { animation: nx-out var(--t-tap) var(--e-out) both; }
+@keyframes nx-out { to { opacity: 0; } }
+
+.nx-veil.is-lift,
+.nx-veil.is-skip { pointer-events: none; }
+
+/* JS-only hold: the hero choreography waits behind the veil and plays
+   the moment it lifts. paused freezes the delay phase too, so the
+   stagger survives intact. Only the entrance feature applies this
+   class; its own failsafe removes it, and the bailout below outranks
+   it if app.js dies with the class still on. */
+.nx-hold .statement .line-i,
+.nx-hold .enter { animation-play-state: paused; }
+
+/* Rule-1 backstops. Under .js-bailout the existing !important rules
+   already force animation:none and opacity:1 on these elements, which
+   makes play-state moot — the running here states the intent anyway,
+   and the display:none guarantees no dead veil can sit over a bailed
+   page. Under reduced motion JS never builds the veil and the hero
+   animations (no-preference-gated) do not exist to pause; the
+   display:none is the CSS-side belt for a preference that flips
+   mid-play. */
+.js-bailout .statement .line-i,
+.js-bailout .enter { animation-play-state: running !important; }
+.js-bailout .nx-veil { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-veil { display: none !important; }
+}
+
+@media (forced-colors: active) {
+  /* the rule is drawn with background-color, which forced colours
+     strips to Canvas — restate it. Everything else in the veil is
+     currentColor or a forced background and survives on its own. */
+  .nx-veil-rule { background: CanvasText; }
+}
+
+/* ── The hidden layer ──────────────────────────────────────
+   Three quiet rewards; the behaviour lives in app.js. Nothing here
+   runs unless a person asks for it. */
+
+/* First light: typing "dawn" plays the sky's crossfade as one pass on
+   the document timeline. This rule must outrank the scroll-timeline
+   rule in the @media block (it does: 0,2,1 against 0,1,0 — media
+   queries add no specificity) and must state animation-timeline AFTER
+   the shorthand: the shorthand resets it, but relying on a reset is
+   how regressions start. animation-range is restated for the same
+   reason — engines disagree on whether the shorthand clears it, and a
+   leftover 10%–90% range on a time-driven animation is undefined
+   territory. Machine clock: a sunrise does not ease. The
+   reduced-motion blanket still wins its !important fight with this
+   rule, which is the correct outcome; the trigger is also gated on
+   `calm` in JS, so under reduced motion the word simply does nothing. */
+html.first-light .sky {
+  animation: first-light-pass 9s var(--e-machine) both;
+  animation-timeline: auto;
+  animation-range: normal;
+}
+@keyframes first-light-pass {
+  0%   { opacity: 0; }
+  44%  { opacity: 1; }   /* hold the full dawn for about a second */
+  56%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Beacon readout: the footer status becomes a control. The button
+   keeps the span's exact skin — .foot .status still styles it by
+   class at higher specificity; this rule only strips the UA chrome a
+   <button> brings with it. */
+button.status {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+button.status:hover,
+button.status[aria-expanded='true'] { color: var(--ink); }
+
+.status-wrap { position: relative; display: inline-flex; }
+
+/* A small .panel: same gradient, same top hairline, mono readout.
+   max-width keeps it inside the gutters on a phone; the long verified
+   line is allowed to wrap under its label rather than push the box
+   off-screen. */
+.status-pop {
+  position: absolute;
+  bottom: calc(100% + 0.7rem);
+  left: 0;
+  z-index: 5;
+  width: max-content;
+  max-width: min(21rem, calc(100vw - 2 * var(--gutter)));
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  overflow: hidden;
+}
+.status-pop::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.36), transparent);
+}
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.15rem 1.25rem;
+}
+.status-row + .status-row { margin-top: 0.5rem; }
+.status-key { color: var(--ink-3); }
+.status-val { color: var(--ink); }
+
+/* A person opened it, so it eases in — from below, like everything
+   else. Under reduced motion the global blanket clamps this to 1ms;
+   the control keeps working because it never depended on the motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .status-pop:not([hidden]) {
+    animation: pop-rise var(--t-shift) var(--e-entrance) both;
+  }
+}
+@keyframes pop-rise { from { opacity: 0; transform: translate3d(0, 8px, 0); } }
+
+/* forced-colors nulls the gradients everywhere else; same deal here.
+   `background: Canvas` is the shorthand, so it clears the gradient
+   image as well as the colour. */
+@media (forced-colors: active) {
+  .status-pop { background: Canvas; border-color: CanvasText; }
+  .status-pop::before { background: CanvasText; }
 }
 
 /* ── Reveal on scroll ──────────────────────────────────────
