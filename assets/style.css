@@ -1947,6 +1947,15 @@ h3 {
 .print p { color: var(--accent-ink); }
 .print .kicker { color: var(--accent-ink); }
 .print .kicker::before { background: var(--accent-ink); }
+/* links print in ink on the silver sheet — the global near-white link
+   color is invisible here */
+.print a {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-decoration-color: rgba(8, 9, 11, 0.4);
+  text-underline-offset: 0.18em;
+}
+.print a:hover { text-decoration-color: var(--accent-ink); }
 .print-head { max-width: 46rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
 .print-head p { margin-top: 1rem; }
 
@@ -2361,6 +2370,19 @@ h3 {
   }
 }
 
+/* ── The record (runs.html) ────────────────────────────────
+   The run log prints in the same silver as the sample ledger. Status
+   is carried by the flagged column's weight, never by hue. Partial
+   step counts print heavy — the record does not whisper its bad
+   nights, that is the point of having one. */
+.ledger.record { min-width: 100%; }
+.ledger.record td, .ledger.record th { text-align: left; }
+.ledger.record .rs { font-weight: 700; }
+.ledger.record .rs.part { text-decoration: underline; text-underline-offset: 0.2em; }
+.ledger.record .rf { color: rgba(8, 9, 11, 0.76); }
+.ledger.record .rw { color: rgba(8, 9, 11, 0.55); }
+.ledger.record tr[data-status='ok'] .rf { color: rgba(8, 9, 11, 0.4); }
+
 /* ── Ringdown art (404) ────────────────────────────────────
    The photograph's field is pure black; lighten sinks it into the page
    so the image has no rectangle — only the trace exists. The blend also
@@ -2741,6 +2763,16 @@ button.status[aria-expanded='true'] { color: var(--ink); }
   }
 }
 @keyframes pop-rise { from { opacity: 0; transform: translate3d(0, 8px, 0); } }
+
+.status-more {
+  display: inline-block;
+  margin-top: 0.65rem;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-dim);
+  text-underline-offset: 0.18em;
+}
+.status-more:hover { text-decoration-color: var(--accent); }
 
 /* forced-colors nulls the gradients everywhere else; same deal here.
    `background: Canvas` is the shorthand, so it clears the gradient

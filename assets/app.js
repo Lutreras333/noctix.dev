@@ -1280,6 +1280,11 @@
     var vNow = hasTZ ? row('time, ET') : null;
     var vNext = hasTZ ? row('next run') : null;
     var vProof = row('verified');
+    var more = document.createElement('a');
+    more.className = 'status-more';
+    more.href = '/runs.html';
+    more.textContent = 'the full record';
+    pop.appendChild(more);
 
     var pad = function (n) { return (n < 10 ? '0' : '') + n; };
 
@@ -1295,7 +1300,7 @@
         vNext.textContent = pad(etHourOf(next)) + ':00 · in ' +
           Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm';
       }
-      vProof.textContent = '16/16 steps · 105 tests · 470/470 verified';
+      vProof.textContent = '105 tests · 470/470 shipments verified';
     };
 
     /* The document listener exists only while the popover is open —
