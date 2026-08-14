@@ -2304,20 +2304,37 @@ h3 {
   padding-block: 1rem 1.5rem;
   user-select: none;
 }
+/* Each letter is flat ink at rest — the metal lives on a twin drawn
+   by ::before and crossfaded in on hover. Painting the gradient under
+   an opaque fill looked economical but the clip let it ghost through
+   at glyph edges, and its near-black ramp banded across the strokes:
+   the twin keeps the two fills from ever sharing pixels. */
 .foot-word span {
+  position: relative;
   display: inline-block;
   color: var(--surface-3);
+}
+.foot-word span::before {
+  content: attr(data-l);
+  position: absolute;
+  inset: 0;
   background: var(--metal);
   -webkit-background-clip: text;
   background-clip: text;
-  transition: color var(--t-shift) var(--e-out),
-    transform var(--t-shift) var(--e-out);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transition: opacity var(--t-shift) var(--e-out);
+  pointer-events: none;
 }
+/* Ignition only — no lift. A cursor brushing the word left letters
+   mid-bob at different heights, which read as a crooked baseline.
+   The metal is the event; the baseline is bedrock. */
 @media (hover: hover) and (pointer: fine) {
-  .foot-word span:hover {
-    color: transparent;
-    transform: translateY(-4px);
-  }
+  .foot-word span:hover::before { opacity: 1; }
+}
+@media (forced-colors: active) {
+  .foot-word span::before { display: none; }
 }
 
 .foot-base {
