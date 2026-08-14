@@ -2268,6 +2268,24 @@ h3 {
 .foot-nav a:hover { color: var(--ink); }
 
 /* the wordmark as a machined outline — struck solid under the pointer */
+/* The ornate compass presides over the closing wordmark — the one
+   place on the site with room for the display mark at full detail. */
+.foot-emblem {
+  display: block;
+  margin-inline: auto;
+  margin-bottom: 0.5rem;
+  width: clamp(88px, 10vw, 132px);
+  height: auto;
+  opacity: 0.9;
+}
+
+/* Engraved, not outlined: text-stroke draws every internal contour
+   join of the glyphs — the N's diagonal grew visible seams — so the
+   letters carry a quiet solid fill instead. Each letter is its own
+   span and ignites to the metal plate alone under the pointer: the
+   gradient is always painted underneath, clipped to the glyph, and
+   the opaque fill simply gets out of the way (color is animatable;
+   background-clip is not). */
 .foot-word {
   font-weight: 800;
   font-size: clamp(4rem, 11vw, 11rem);
@@ -2275,19 +2293,21 @@ h3 {
   letter-spacing: 0.02em;
   text-align: center;
   padding-block: 1rem 1.5rem;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--line-2);
   user-select: none;
 }
-@supports not (-webkit-text-stroke: 1px #fff) {
-  .foot-word { color: var(--surface-3); }
+.foot-word span {
+  display: inline-block;
+  color: var(--surface-3);
+  background: var(--metal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: color var(--t-shift) var(--e-out),
+    transform var(--t-shift) var(--e-out);
 }
-@supports (-webkit-background-clip: text) or (background-clip: text) {
-  .foot-word:hover {
-    background: var(--metal);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-stroke-color: transparent;
+@media (hover: hover) and (pointer: fine) {
+  .foot-word span:hover {
+    color: transparent;
+    transform: translateY(-4px);
   }
 }
 
@@ -2331,9 +2351,13 @@ h3 {
 }
 
 @media (forced-colors: active) {
-  .foot-word {
-    -webkit-text-stroke: 0;
+  /* forced colors strips the clipped gradient; give the letters a plain
+     forced fill so they never render transparent */
+  .foot-word span {
     color: CanvasText;
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
   }
 }
 
@@ -2537,7 +2561,8 @@ h3 {
 }
 
 /* the mark strikes on: a lamp, not an arrival — linear and fast */
-.nx-veil svg {
+.nx-veil svg,
+.nx-veil img {
   color: var(--accent);
   opacity: 0;
   animation: nx-strike var(--t-tick) var(--e-machine) 100ms both;

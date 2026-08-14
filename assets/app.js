@@ -1032,8 +1032,16 @@
           performance.getEntriesByType('paint').length) return;
     } catch (e) {}
 
-    var srcMark = document.querySelector('.mark svg');
-    if (!srcMark) return;
+    /* The ornate display mark, not the tiny nav rose: the veil is the
+       one moment the brand gets the whole screen. If the PNG has not
+       arrived by strike time the animation simply plays on an empty
+       box and the failsafe clears everything as usual. */
+    var srcMark = document.createElement('img');
+    srcMark.src = '/assets/logo-dark.png';
+    srcMark.width = 150;
+    srcMark.height = 126;
+    srcMark.alt = '';
+    srcMark.decoding = 'async';
 
     /* Failsafe FIRST, before anything is built or held: a throw
        below still gets cleaned up by this timer (and feature()'s
@@ -1054,10 +1062,7 @@
     var core = document.createElement('div');
     core.className = 'nx-veil-core';
 
-    var mark = srcMark.cloneNode(true);
-    mark.setAttribute('width', '40');
-    mark.setAttribute('height', '40');
-    core.appendChild(mark);
+    core.appendChild(srcMark);
 
     var rule = document.createElement('div');
     rule.className = 'nx-veil-rule';
