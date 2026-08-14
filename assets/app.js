@@ -26,6 +26,30 @@
 
   var each = function (list, fn) { Array.prototype.forEach.call(list, fn); };
 
+  /* ── Field notes ───────────────────────────────────────────────
+     Five of the six concealed instruments mark themselves found the
+     first time a visitor actually triggers them; the sixth, the
+     console signature, keeps its own counsel. Session-scoped — the
+     hunt resets with the visit, like any good survey. */
+  var FOUND_KEYS = ['dawn', 'readout', 'compass', 'plate', 'hold'];
+  var foundPaint = function () {
+    var n = 0;
+    try {
+      FOUND_KEYS.forEach(function (k) { if (sessionStorage.getItem('nx-found-' + k)) n++; });
+    } catch (e) { return; }
+    var el = document.querySelector('[data-found]');
+    if (!el || !n) return;
+    el.textContent = ' ' + n + ' located.';
+    el.hidden = false;
+  };
+  var found = function (key) {
+    try {
+      if (sessionStorage.getItem('nx-found-' + key)) return;
+      sessionStorage.setItem('nx-found-' + key, '1');
+    } catch (e) { return; }
+    foundPaint();
+  };
+
   /* Live motion preference. Safari <= 13 has no addEventListener on
      MediaQueryList, so both forms are required. */
   var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -37,6 +61,8 @@
   };
   if (mq.addEventListener) mq.addEventListener('change', onCalmChange);
   else if (mq.addListener) mq.addListener(onCalmChange);
+
+  feature('field-notes', foundPaint);
 
   /* ── Sticky masthead hairline ───────────────────────────────
      An IntersectionObserver sentinel, not a scroll handler: no geometry
@@ -290,6 +316,7 @@
            Sighted users get it from .console-hold[aria-pressed='true']. */
         holdBtn.setAttribute('aria-pressed', String(on));
         hold('user', on);
+        found('hold');
       });
     }
 
@@ -507,7 +534,7 @@
     var lockWatchers = [];
     var measureWatchers = [];
 
-    var LOCKABLE = 'a, button, [data-lit], summary';
+    var LOCKABLE = 'a, button, [data-lit], summary, .foot-word span';
 
     var write = function () {
       queued = false;
@@ -696,6 +723,15 @@
      itself and it eases home to upright, so the logo is upright while
      it is actually being looked at. All geometry is cached on lock and
      on scroll/resize — never mid-move, the bus's core rule. */
+
+  /* ── The plate, located ───────────────────────────────── */
+
+  feature('plate-notes', function () {
+    if (!bus) return;
+    bus.onLock(function (el) {
+      if (el && el.closest && el.closest('.foot-word')) found('plate');
+    });
+  });
 
   feature('compass', function () {
     if (!bus) return;
@@ -975,6 +1011,7 @@
       var w = word.offsetWidth;
       if (!w) return;
       running = true;
+      found('compass');
       /* Inter is proportional and churned capitals can be WIDER than
          NOCTIX (W for C, D for I), so width — not min-width — pins the
          span for real. Measured on lock, the same budget as the bus's
@@ -1198,6 +1235,16 @@
        forced the sky dark; this puts the title and the class back. */
     calmWatchers.push(function (isCalm) { if (isCalm) end(); });
 
+    var ignite = function () {
+      if (running) return;
+      running = true;
+      was = document.title;
+      document.title = was + ' — first light';
+      document.documentElement.classList.add('first-light');
+      failsafe = setTimeout(end, 10000);
+      found('dawn');
+    };
+
     document.addEventListener('keydown', function (e) {
       if (calm || running) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
@@ -1211,12 +1258,12 @@
       buf = (buf + e.key.toLowerCase()).slice(-4);
       if (buf !== 'dawn') return;
       buf = '';
-      running = true;
-      was = document.title;
-      document.title = was + ' — first light';
-      document.documentElement.classList.add('first-light');
-      failsafe = setTimeout(end, 10000);
+      ignite();
     });
+
+    /* #dawn travels: a link anyone can send. The typed word stays for
+       the patient; the hash is for the shared link. */
+    if (!calm && location.hash === '#dawn') setTimeout(ignite, 700);
   });
 
   /* ── Beacon readout ─────────────────────────────────────────
@@ -1313,7 +1360,8 @@
     };
     var openUp = function () {
       pop.hidden = false;
-      render();   /* after unhiding, so role=status announces the values;
+      render();
+      found('readout');   /* after unhiding, so role=status announces the values;
                      computed per open, never on a timer — a live region
                      that re-announces every minute is spam, not status */
       btn.setAttribute('aria-expanded', 'true');
