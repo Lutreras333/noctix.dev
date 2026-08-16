@@ -2774,6 +2774,13 @@ button.status {
   color: inherit;
   cursor: pointer;
   text-align: left;
+  /* The line sits at 21px on its own leading, and this is a standalone
+     control, not a link inside a sentence — so it owes the 24px touch
+     target the inline-link exception does not cover. Height only: the
+     skin, baseline and alignment stay exactly as the span's. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
 }
 button.status:hover,
 button.status[aria-expanded='true'] { color: var(--ink); }
