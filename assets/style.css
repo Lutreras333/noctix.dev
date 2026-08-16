@@ -2094,7 +2094,14 @@ h3 {
   font-size: 0.9rem;
   color: var(--ink-3);
 }
-.showcase-badge img { flex: none; }
+/* GitHub renders the passing badge in its own green (#28a745). The claim
+   is real and live, so it stays — but the palette is black, white and
+   silver, and no exception is worth making for a third party's brand
+   color. Desaturate and lift it to plate tone. */
+.showcase-badge img {
+  flex: none;
+  filter: grayscale(1) brightness(1.35) contrast(0.9);
+}
 
 @media (forced-colors: active) {
   .pull::before,
