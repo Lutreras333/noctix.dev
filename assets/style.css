@@ -61,6 +61,15 @@
   --surface-2: #14171b;
   --surface-3: #1c2026;
 
+  /* The footer wordmark's resting fill. It used --surface-3, which put
+     it at 1.25:1 against the ground — measured, the glyph edges were
+     landing in a single device pixel, so the letters were perfectly
+     sharp and simply too dark to resolve as letters. This reads as a
+     deliberate monument at roughly 2.4:1 and still sits below body
+     copy on the luminosity ladder. A surface token was the wrong tool:
+     this is ink, and now it says so. */
+  --wordmark: #464c57;
+
   /* hairlines catch light like a machined edge */
   --line: rgba(206, 216, 232, 0.13);
   --line-2: rgba(214, 224, 240, 0.26);
@@ -2003,6 +2012,36 @@ h3 {
   border-bottom: 1px solid rgba(8, 9, 11, 0.2);
 }
 .print .ledger tbody tr:nth-child(even) td { background: transparent; }
+
+/* Row inversion: the evidence tables had no pointer response at all,
+   which left the site's most load-bearing surfaces feeling like
+   printouts rather than instruments. The row asserts itself under the
+   pointer and claims nothing new — a reading aid, not a state change.
+   Machine work, so it flips at --t-tick linear and, deliberately, has
+   no exit transition: instruments snap both ways. */
+@media (hover: hover) and (pointer: fine) {
+  .print .ledger tbody tr:hover td {
+    background: var(--accent-ink);
+    color: #e6e9ee;
+    border-bottom-color: var(--accent-ink);
+    transition: background var(--t-tick) var(--e-machine),
+                color var(--t-tick) var(--e-machine);
+  }
+  /* the columns that carry their own colour have to be re-stated, or
+     they stay dark ink on dark ink */
+  .print .ledger tbody tr:hover .cons,
+  .print .ledger tbody tr:hover .charg,
+  .print .ledger tbody tr:hover .rs,
+  .print .ledger tbody tr:hover .rf,
+  .print .ledger tbody tr:hover .rw { color: #e6e9ee; }
+  .print .ledger tbody tr:hover .rd::before {
+    content: '\275A';  /* a bearing mark in the margin, like a rule read */
+    position: absolute;
+    margin-left: -1.05ch;
+    opacity: 0.65;
+  }
+  .print .ledger tbody tr .rd { position: relative; }
+}
 .print .ledger .cons { color: var(--accent-ink); }
 /* the computed column carried machine white on black; in print it is
    carried by weight instead */
@@ -2320,7 +2359,7 @@ h3 {
 .foot-word span {
   position: relative;
   display: inline-block;
-  color: var(--surface-3);
+  color: var(--wordmark);
 }
 .foot-word span::before {
   content: attr(data-l);
@@ -2341,6 +2380,9 @@ h3 {
 @media (hover: hover) and (pointer: fine) {
   .foot-word span:hover::before { opacity: 1; }
 }
+/* the same ignition a press reaches — see the touch-parity note in
+   app.js: without it this instrument does not exist on a phone */
+.foot-word span.is-lit::before { opacity: 1; }
 @media (forced-colors: active) {
   .foot-word span::before { display: none; }
 }
@@ -2430,6 +2472,134 @@ h3 {
   text-transform: uppercase;
   color: var(--ink-3);
   opacity: 0.75;
+}
+
+/* ── The survey rail ───────────────────────────────────────
+   A level rod down the right edge of the long case study: hairline
+   ticks, one per chapter, the current one extended and named. Built
+   by app.js only above 1100px, but the query stays here too so a
+   resize hides it rather than leaving it stranded over the copy. */
+
+.survey-rail {
+  position: fixed;
+  right: clamp(1rem, 2.2vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  pointer-events: none;   /* the ticks take it back; the gap never blocks */
+}
+.survey-rail ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.85rem;
+}
+.survey-rail a {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  min-height: 24px;       /* a real target, not just a hairline */
+  text-decoration: none;
+  border: 0;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+/* the tick itself: 12px at rest, 28px when its chapter is being read */
+.survey-rail i {
+  display: block;
+  width: 12px;
+  height: 1px;
+  background: var(--line-2);
+  /* Reading position is machine work — the rail reports, it does not
+     perform. Linear, at the tick duration, like every other readout. */
+  transition: width var(--t-tick) var(--e-machine),
+              background var(--t-tick) var(--e-machine);
+}
+/* the label is held back until its own chapter is current, so the rail
+   reads as an instrument at rest rather than a table of contents */
+.survey-rail span {
+  opacity: 0;
+  transform: translate3d(4px, 0, 0);
+  transition: opacity var(--t-tick) var(--e-machine),
+              transform var(--t-tick) var(--e-machine);
+}
+.survey-rail [aria-current='true'] i { width: 28px; background: var(--accent); }
+.survey-rail [aria-current='true'] span { opacity: 1; transform: none; }
+.survey-rail [aria-current='true'] { color: var(--accent); }
+
+@media (hover: hover) and (pointer: fine) {
+  .survey-rail a:hover i { width: 28px; background: var(--accent); }
+  .survey-rail a:hover span { opacity: 1; transform: none; }
+  .survey-rail a:hover { color: var(--ink); }
+}
+.survey-rail a:focus-visible span { opacity: 1; transform: none; }
+
+/* over the silver print scene the rod inverts, like the masthead does */
+.survey-rail[data-rail-theme='light'] a { color: rgba(8, 9, 11, 0.55); }
+.survey-rail[data-rail-theme='light'] i { background: rgba(8, 9, 11, 0.3); }
+.survey-rail[data-rail-theme='light'] [aria-current='true'] i,
+.survey-rail[data-rail-theme='light'] a:hover i { background: var(--accent-ink); }
+.survey-rail[data-rail-theme='light'] [aria-current='true'],
+.survey-rail[data-rail-theme='light'] a:hover { color: var(--accent-ink); }
+
+/* withdrawn over the footer — the same hush the run-line chip performs */
+.survey-rail.is-hushed {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--t-shift) var(--e-out), visibility 0s var(--t-shift);
+}
+.survey-rail {
+  transition: opacity var(--t-shift) var(--e-out), visibility 0s;
+}
+
+@media (max-width: 1099px) {
+  .survey-rail { display: none; }
+}
+
+/* The whisper: the footer counter is the record of the hunt, but it is
+   never on screen at the moment a find happens, so the hunt could not
+   teach itself. This acknowledges the find where the eye already is,
+   then gets out of the way. Corner grammar borrowed from the HUD chip;
+   aria-hidden because the footer line is the accessible copy and a
+   live region would interrupt a screen reader mid-sentence. */
+.field-whisper {
+  position: fixed;
+  left: 1.25rem;            /* the HUD chip's gutter — one corner grammar */
+  bottom: var(--whisper-bottom, 1.25rem);
+  z-index: 119;             /* under the HUD chip (120), never over it */
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--line);
+  background: rgba(8, 9, 11, 0.86);
+  backdrop-filter: blur(6px);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+  transition: opacity var(--t-shift) var(--e-exit),
+              transform var(--t-shift) var(--e-exit);
+}
+/* Arriving is the machine reporting a find: linear, no flourish.
+   Leaving uses the exit curve, like every other dismissal. */
+.field-whisper.is-up {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--t-shift) var(--e-machine),
+              transform var(--t-shift) var(--e-machine);
+}
+@media (prefers-reduced-motion: reduce) {
+  .field-whisper { display: none; }
 }
 
 /* ── The record (runs.html) ────────────────────────────────

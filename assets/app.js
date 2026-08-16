@@ -32,22 +32,79 @@
      console signature, keeps its own counsel. Session-scoped — the
      hunt resets with the visit, like any good survey. */
   var FOUND_KEYS = ['dawn', 'readout', 'compass', 'plate', 'hold'];
+  var foundCount = function () {
+    var n = 0;
+    FOUND_KEYS.forEach(function (k) {
+      if (sessionStorage.getItem('nx-found-' + k)) n++;
+    });
+    return n;
+  };
   var foundPaint = function () {
     var n = 0;
-    try {
-      FOUND_KEYS.forEach(function (k) { if (sessionStorage.getItem('nx-found-' + k)) n++; });
-    } catch (e) { return; }
+    try { n = foundCount(); } catch (e) { return; }
     var el = document.querySelector('[data-found]');
     if (!el || !n) return;
-    el.textContent = ' ' + n + ' located.';
+    /* At five the tracked survey is done. Saying so closes the loop —
+       a hunt that ends in silence reads as a hunt that was never
+       there — and points at the sixth without giving it away. */
+    el.textContent = n === FOUND_KEYS.length
+      ? ' survey complete — the sixth keeps its own counsel.'
+      : ' ' + n + ' located.';
     el.hidden = false;
   };
+
+  /* The whisper. The counter lives in the footer, which is nowhere near
+     the eye at the moment an instrument actually fires, so the first
+     find taught the visitor nothing and the hunt could not teach
+     itself. This says it where they are looking, once, briefly. */
+  var whisper = function (n) {
+    if (calm) return;
+    var note = document.querySelector('.field-whisper');
+    if (!note) {
+      note = document.createElement('div');
+      note.className = 'field-whisper';
+      note.setAttribute('aria-hidden', 'true');  /* the footer line is the accessible copy */
+      document.body.appendChild(note);
+    }
+    note.textContent = n === FOUND_KEYS.length
+      ? 'field note — survey complete'
+      : 'field note — ' + n + ' of ' + FOUND_KEYS.length + ' located';
+    /* The run line owns this corner, in either of its two forms: the
+       promoted fixed chip, or — on viewports too short to promote —
+       the in-flow line at the hero's foot, which lands in the same
+       corner at rest. Ask geometry rather than class, so both stack
+       and neither overlaps. Measured at show time: a find is rare, and
+       nothing here is static enough to encode in CSS. */
+    var clear = 1.25;
+    var line = document.querySelector('.runline');
+    if (line && !line.classList.contains('is-hushed')) {
+      var box = line.getBoundingClientRect();
+      var occupiesCorner = box.height &&
+        box.bottom > window.innerHeight - 160 &&
+        box.top < window.innerHeight &&
+        box.left < window.innerWidth * 0.6;
+      if (occupiesCorner) {
+        clear = (window.innerHeight - box.top + 8) / 16;
+      }
+    }
+    note.style.setProperty('--whisper-bottom', clear + 'rem');
+    /* restart the animation even if a second find lands mid-whisper */
+    note.classList.remove('is-up');
+    void note.offsetWidth;
+    note.classList.add('is-up');
+    clearTimeout(whisper._t);
+    whisper._t = setTimeout(function () { note.classList.remove('is-up'); }, 2400);
+  };
+
   var found = function (key) {
+    var n;
     try {
       if (sessionStorage.getItem('nx-found-' + key)) return;
       sessionStorage.setItem('nx-found-' + key, '1');
+      n = foundCount();
     } catch (e) { return; }
     foundPaint();
+    try { whisper(n); } catch (e) {}
   };
 
   /* Live motion preference. Safari <= 13 has no addEventListener on
@@ -735,10 +792,34 @@
   /* ── The plate, located ───────────────────────────────── */
 
   feature('plate-notes', function () {
-    if (!bus) return;
-    bus.onLock(function (el) {
-      if (el && el.closest && el.closest('.foot-word')) found('plate');
-    });
+    if (bus) {
+      bus.onLock(function (el) {
+        if (el && el.closest && el.closest('.foot-word')) found('plate');
+      });
+    }
+
+    /* Touch parity. The plate lit only under a fine pointer, so on a
+       phone this instrument did not exist — while the footer went on
+       promising six. A press lights the letter the same way a hover
+       does and releases with the finger; the letters are inside no
+       link, so nothing is hijacked. */
+    var word = document.querySelector('.foot-word');
+    if (!word || !window.PointerEvent) return;
+    var lit = null;
+    var douse = function () {
+      if (lit) { lit.classList.remove('is-lit'); lit = null; }
+    };
+    word.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+      var span = e.target.closest ? e.target.closest('span[data-l]') : null;
+      if (!span) return;
+      douse();
+      lit = span;
+      span.classList.add('is-lit');
+      found('plate');
+    }, { passive: true });
+    word.addEventListener('pointerup', douse, { passive: true });
+    word.addEventListener('pointercancel', douse, { passive: true });
   });
 
   feature('compass', function () {
@@ -1395,6 +1476,116 @@
       if (pop.hidden) return;
       if (e.relatedTarget && wrap.contains(e.relatedTarget)) return;
       shut();
+    });
+  });
+
+  /* ── The survey rail ────────────────────────────────────────
+     A level rod down the right edge of the long case study: one tick
+     per chapter, the current one extended and named. Nine thousand
+     pixels of scroll with no way to see the shape of the document was
+     the one structural gap on that page.
+
+     Built here rather than in markup so a page without JS never shows
+     a control that cannot move, and read from the chapters themselves
+     so it can never disagree with the document it indexes. */
+
+  feature('survey-rail', function () {
+    var chapters = document.querySelectorAll('main section[id] .chapter');
+    /* Two ticks is a list, not a rail; and the rail is a desktop
+       affordance — the media query hides it, but there is no reason to
+       build DOM a phone will never show. */
+    if (chapters.length < 3 || !('IntersectionObserver' in window)) return;
+    if (!window.matchMedia('(min-width: 1100px)').matches) return;
+
+    var rail = document.createElement('nav');
+    rail.className = 'survey-rail';
+    rail.setAttribute('aria-label', 'Chapters');
+    var list = document.createElement('ol');
+    var ticks = [];
+
+    each(chapters, function (chapter) {
+      var section = chapter.closest('section[id]');
+      if (!section) return;
+      /* The chapter heading is "07 / The ledger, in print" plus a
+         sub-label span; the span is commentary, not the name. */
+      var sub = chapter.querySelector('.chapter-sub');
+      var label = chapter.textContent;
+      if (sub) label = label.replace(sub.textContent, '');
+      label = label.replace(/\s+/g, ' ').trim();
+      if (!label) return;
+
+      var item = document.createElement('li');
+      var link = document.createElement('a');
+      link.href = '#' + section.id;
+      link.innerHTML = '<i aria-hidden="true"></i><span>' + label + '</span>';
+      item.appendChild(link);
+      list.appendChild(item);
+      ticks.push({ link: link, section: section });
+    });
+    if (ticks.length < 3) return;
+    rail.appendChild(list);
+    document.body.appendChild(rail);
+
+    /* Which chapter is being read: the last one whose top has passed
+       the reading line. A plain observer marks every intersecting
+       section, and tall sections overlap — this keeps exactly one. */
+    var mark = function (index) {
+      ticks.forEach(function (t, i) {
+        if (i === index) t.link.setAttribute('aria-current', 'true');
+        else t.link.removeAttribute('aria-current');
+      });
+    };
+    var visible = [];
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var i = ticks.findIndex(function (t) { return t.section === entry.target; });
+        if (i < 0) return;
+        var at = visible.indexOf(i);
+        if (entry.isIntersecting && at < 0) visible.push(i);
+        else if (!entry.isIntersecting && at >= 0) visible.splice(at, 1);
+      });
+      if (visible.length) mark(Math.min.apply(Math, visible));
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+    ticks.forEach(function (t) { observer.observe(t.section); });
+
+    /* Over the print scene the rail is dark-on-silver, the same flip
+       the masthead already performs. */
+    var scene = document.querySelector('[data-nav-flip]');
+    if (scene) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) rail.setAttribute('data-rail-theme', 'light');
+        else rail.removeAttribute('data-rail-theme');
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 }).observe(scene);
+    }
+
+    /* At the page foot the footer is the last chapter and the rail has
+       nothing left to index, so it withdraws — the same sentinel the
+       run-line chip uses, for the same reason. */
+    var main = document.querySelector('main');
+    if (main) {
+      var edge = document.createElement('div');
+      edge.setAttribute('aria-hidden', 'true');
+      edge.style.cssText =
+        'position:absolute;left:0;bottom:0;width:1px;height:1px;pointer-events:none';
+      main.appendChild(edge);
+      new IntersectionObserver(function (entries) {
+        rail.classList.toggle('is-hushed', entries[0].isIntersecting);
+      }, { threshold: 0 }).observe(edge);
+    }
+
+    /* Jumping is human-initiated, so it eases; the browser's own
+       smooth scroll respects the calm preference for us. */
+    rail.addEventListener('click', function (e) {
+      var link = e.target.closest ? e.target.closest('a') : null;
+      if (!link) return;
+      var target = document.getElementById(link.getAttribute('href').slice(1));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+      /* Move the reading position too, or the next Tab lands back at
+         the top of the document. */
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
     });
   });
 
