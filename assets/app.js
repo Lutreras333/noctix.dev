@@ -501,7 +501,15 @@
           btn.removeAttribute('data-copied');
         }, 2200);
       }, function () {
-        label.textContent = 'Press Ctrl+C';
+        /* The button reads "<label> address", so the failure wording has
+           to work in that frame too — "Press Ctrl+C address" does not.
+           Same 2.2s reset as success: a button stuck mid-sentence until
+           reload is worse than the failure it reports. */
+        label.textContent = 'Select and copy';
+        clearTimeout(reset);
+        reset = setTimeout(function () {
+          label.textContent = 'Copy';
+        }, 2200);
       });
     });
   });

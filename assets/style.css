@@ -1174,7 +1174,6 @@ h3 {
   width: 1.4rem;
   text-align: center;
   color: var(--ink-3);
-  transition: color 300ms var(--ease);
 }
 .step .val {
   color: var(--ink-3);
@@ -1282,9 +1281,9 @@ h3 {
 .console-foot .ok { color: var(--live); }
 
 /* The verification step is the claim the whole case study rests on, so
-   it gets the one mint ring in the hero when it passes. We dramatise
-   the gate PASSING, never a failure: a prospect should not watch this
-   studio's flagship billing system halt on the homepage. */
+   it gets the one ring in the hero when it passes. We dramatise the gate
+   PASSING, never a failure: a prospect should not watch this studio's
+   flagship billing system halt on the homepage. */
 .step[data-gate] .glyph { position: relative; }
 .step[data-gate] .glyph::after {
   content: '';
@@ -1297,7 +1296,9 @@ h3 {
 }
 /* transform + opacity, same reason as the beacon */
 .step[data-gate][data-state='done'] .glyph::after {
-  animation: gate-pass 900ms var(--e-out) 1;
+  /* A gate passing is machine work, so it reports in machine time —
+     the same law that made the counters linear. */
+  animation: gate-pass 900ms var(--e-machine) 1;
 }
 @keyframes gate-pass {
   0%   { opacity: 0.8; transform: scale(0.6); }
