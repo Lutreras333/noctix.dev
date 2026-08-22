@@ -470,7 +470,14 @@
        clear — otherwise the line stays printed in-flow at the hero's
        foot, countdown and all, exactly like the no-JS page. Document-
        relative, so a reload deep into the page measures the same as a
-       load at the top. One layout read, once, before first paint. */
+       load at the top.
+
+       Measured AFTER the webfonts settle: fallback metrics run the
+       hero ~30px taller, so a pre-font read made the promotion a coin
+       flip at common ~900px viewports — same visitor, different
+       layout, depending on font arrival. One read, one decision,
+       deterministic. */
+    var promote = function () {
     var acts = document.querySelector('.orbit-copy .actions');
     if (acts && acts.getBoundingClientRect().bottom + window.pageYOffset + 110 >
         window.innerHeight) return;
@@ -492,6 +499,28 @@
         line.classList.toggle('is-hushed', entries[0].isIntersecting);
       }, { threshold: 0 }).observe(mark);
     }
+    };
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(promote, promote);
+    } else {
+      promote();
+    }
+  });
+
+  /* ── The calm caption ───────────────────────────────────────
+     Under reduced motion the billing-runner console is deliberately
+     frozen on its settled all-done frame — so the caption must not
+     promise a loop the visitor never gets. */
+
+  feature('console-cap', function () {
+    var cap = document.querySelector('.console-cap');
+    if (!cap) return;
+    var looping = cap.textContent;
+    var settled = looping.replace(', on loop.', ', settled.');
+    if (settled === looping) return;
+    var word = function (isCalm) { cap.textContent = isCalm ? settled : looping; };
+    word(calm);
+    calmWatchers.push(word);
   });
 
   /* ── The nav flip ───────────────────────────────────────────
@@ -1495,8 +1524,23 @@
        affordance — the media query hides it, but there is no reason to
        build DOM a phone will never show. */
     if (chapters.length < 3 || !('IntersectionObserver' in window)) return;
-    if (!window.matchMedia('(min-width: 1100px)').matches) return;
 
+    /* Build once the viewport is wide enough — including a window that
+       GROWS past the gate after load. The old one-shot check meant a
+       960px load maximized to 1920 silently never got the rail. */
+    var wide = window.matchMedia('(min-width: 1100px)');
+    if (!wide.matches) {
+      if (!wide.addEventListener) return;
+      wide.addEventListener('change', function onWide(e) {
+        if (!e.matches) return;
+        wide.removeEventListener('change', onWide);
+        buildRail();
+      });
+      return;
+    }
+    buildRail();
+
+    function buildRail() {
     var rail = document.createElement('nav');
     rail.className = 'survey-rail';
     rail.setAttribute('aria-label', 'Chapters');
@@ -1517,7 +1561,16 @@
       var item = document.createElement('li');
       var link = document.createElement('a');
       link.href = '#' + section.id;
-      link.innerHTML = '<i aria-hidden="true"></i><span>' + label + '</span>';
+      /* The number and the name are separate spans: on laptop widths
+         the free margin cannot hold "07 / THE LEDGER, IN PRINT", so a
+         media query keeps only the number — the label never reaches
+         into the shell's copy (it overprinted body text at 1440). */
+      var cut = label.indexOf('/');
+      var railNo = cut > -1 ? label.slice(0, cut + 1).trim() : '';
+      var railName = cut > -1 ? label.slice(cut + 1).trim() : label;
+      link.innerHTML = '<i aria-hidden="true"></i><span class="rail-label">'
+        + (railNo ? '<span class="rail-no">' + railNo + '</span> ' : '')
+        + '<span class="rail-name">' + railName + '</span></span>';
       item.appendChild(link);
       list.appendChild(item);
       ticks.push({ link: link, section: section });
@@ -1573,6 +1626,15 @@
       }, { threshold: 0 }).observe(edge);
     }
 
+    /* Full-bleed sheets (the print ledgers) own the whole width, so
+       while one crosses the rail's band the rail retracts rather than
+       printing its ticks and label across live data rows. */
+    each(document.querySelectorAll('.ledger-wrap'), function (sheet) {
+      new IntersectionObserver(function (entries) {
+        rail.classList.toggle('is-over-sheet', entries[0].isIntersecting);
+      }, { rootMargin: '-28% 0px -28% 0px', threshold: 0 }).observe(sheet);
+    });
+
     /* Jumping is human-initiated, so it eases; the browser's own
        smooth scroll respects the calm preference for us. */
     rail.addEventListener('click', function (e) {
@@ -1587,6 +1649,7 @@
       target.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
     });
+    }
   });
 
   /* ── Footer year ────────────────────────────────────────────── */

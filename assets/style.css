@@ -631,6 +631,18 @@ h3 {
 @media (forced-colors: active) {
   .chapter::after { background: CanvasText; }
 }
+/* On a phone a label carrying a sub-annotation has no row to share:
+   "06 / HOW ENGAGEMENTS WORK" was wrapping to three narrow lines
+   beside its note. The sub drops to its own full row; order keeps the
+   hairline beside the label on the first row. */
+@media (max-width: 640px) {
+  .chapter { flex-wrap: wrap; }
+  .chapter-sub {
+    order: 1;
+    flex-basis: 100%;
+    margin-top: 0.4rem;
+  }
+}
 
 /* ── Masked line-rise ──────────────────────────────────────
    The display statement is the strongest thing in the system, so it
@@ -1325,6 +1337,9 @@ h3 {
 }
 .console-hold {
   flex: none;
+  /* the chip stays visually small; the invisible overlay gives a thumb
+     the ~44px it needs (the same treatment the footer beacon got) */
+  position: relative;
   padding: 0.3rem 0.6rem;
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -1336,6 +1351,11 @@ h3 {
   border-radius: 6px;
   cursor: pointer;
   transition: color var(--t-tap) var(--e-out), border-color var(--t-tap) var(--e-out);
+}
+.console-hold::before {
+  content: '';
+  position: absolute;
+  inset: -10px -8px;
 }
 .console-hold:hover { color: var(--ink); border-color: var(--line-2); }
 .console-hold[aria-pressed='true'] { color: var(--ink); border-color: var(--line-2); }
@@ -1905,6 +1925,15 @@ h3 {
   white-space: pre;
 }
 .term .pass { color: var(--live); }
+/* On a phone the dot run butted flush against the box's right border
+   with nothing signalling the horizontal scroll. A terminal wraps its
+   output; so does this one. */
+@media (max-width: 640px) {
+  .term {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+}
 
 /* auto-fit generates explicit tracks, so 1 / -1 resolves at 1, 2 and 3
    columns. The capture wants the whole row, not one track. */
@@ -1953,6 +1982,10 @@ h3 {
 .print :focus-visible { outline-color: var(--accent-ink); }
 .print .chapter { color: var(--accent-ink); }
 .print .chapter::after { background: rgba(8, 9, 11, 0.35); }
+/* the one text element the inversion originally missed: the sub-label
+   kept its dark-theme silver and washed out on the sheet (~1.9:1) —
+   same hush level as .sheet-hint, in ink */
+.print .chapter-sub { color: rgba(8, 9, 11, 0.55); }
 .print h2, .print strong { color: var(--accent-ink); }
 .print p { color: var(--accent-ink); }
 .print .kicker { color: var(--accent-ink); }
@@ -2500,8 +2533,14 @@ h3 {
 .survey-rail a {
   pointer-events: auto;
   display: flex;
+  /* Row-reversed so every TICK pins to the same right-hand rod line —
+     source order stays tick-then-label for the reading order, but the
+     label renders inward. Without this each tick was pushed left by
+     the width of its own hidden label and the resting rail read as a
+     ragged scatter of dashes instead of a level rod. */
+  flex-direction: row-reverse;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 0.6rem;
   min-height: 24px;       /* a real target, not just a hairline */
   text-decoration: none;
@@ -2525,22 +2564,29 @@ h3 {
 }
 /* the label is held back until its own chapter is current, so the rail
    reads as an instrument at rest rather than a table of contents */
-.survey-rail span {
+.survey-rail .rail-label {
   opacity: 0;
   transform: translate3d(4px, 0, 0);
   transition: opacity var(--t-tick) var(--e-machine),
               transform var(--t-tick) var(--e-machine);
 }
+/* On laptop widths the free margin cannot hold the full chapter name
+   without reaching into the shell's copy (it overprinted body text at
+   1440) — the number alone carries the position; the full name waits
+   for a margin that can afford it. */
+@media (max-width: 1599px) {
+  .survey-rail .rail-name { display: none; }
+}
 .survey-rail [aria-current='true'] i { width: 28px; background: var(--accent); }
-.survey-rail [aria-current='true'] span { opacity: 1; transform: none; }
+.survey-rail [aria-current='true'] .rail-label { opacity: 1; transform: none; }
 .survey-rail [aria-current='true'] { color: var(--accent); }
 
 @media (hover: hover) and (pointer: fine) {
   .survey-rail a:hover i { width: 28px; background: var(--accent); }
-  .survey-rail a:hover span { opacity: 1; transform: none; }
+  .survey-rail a:hover .rail-label { opacity: 1; transform: none; }
   .survey-rail a:hover { color: var(--ink); }
 }
-.survey-rail a:focus-visible span { opacity: 1; transform: none; }
+.survey-rail a:focus-visible .rail-label { opacity: 1; transform: none; }
 
 /* over the silver print scene the rod inverts, like the masthead does */
 .survey-rail[data-rail-theme='light'] a { color: rgba(8, 9, 11, 0.55); }
@@ -2550,8 +2596,11 @@ h3 {
 .survey-rail[data-rail-theme='light'] [aria-current='true'],
 .survey-rail[data-rail-theme='light'] a:hover { color: var(--accent-ink); }
 
-/* withdrawn over the footer — the same hush the run-line chip performs */
-.survey-rail.is-hushed {
+/* withdrawn over the footer — the same hush the run-line chip performs —
+   and while a full-bleed ledger sheet crosses its band, so the rod never
+   prints across live data rows */
+.survey-rail.is-hushed,
+.survey-rail.is-over-sheet {
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--t-shift) var(--e-out), visibility 0s var(--t-shift);
@@ -2929,6 +2978,24 @@ html.first-light .sky {
   44%  { opacity: 1; }   /* hold the full dawn for about a second */
   56%  { opacity: 1; }
   100% { opacity: 0; }
+}
+
+/* The pass must be visible where the shared link LANDS: at the top of
+   the page the opaque planet plate covers the sky's bottom-anchored
+   washes entirely, so the nine seconds passed invisibly. This wash
+   rises BEHIND the planet's limb — above the plate, below the copy —
+   on the same clock: dawn breaking behind the planet, which is the
+   scene's own fiction. */
+.orbit-copy { z-index: 1; }
+html.first-light .orbit-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(85% 42% at 50% 74%, rgba(255, 214, 176, 0.28) 0 18%, transparent 62%),
+    radial-gradient(120% 30% at 50% 66%, rgba(255, 240, 228, 0.12) 0 25%, transparent 60%);
+  animation: first-light-pass 9s var(--e-machine) both;
 }
 
 /* Beacon readout: the footer status becomes a control. The button
