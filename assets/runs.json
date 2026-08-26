@@ -1,7 +1,7 @@
 {
  "meta": {
-  "updated": "2026-08-14",
-  "approved": "Published with the client's approval. Counts only \u2014 no shipment, party, or price data leaves the system.",
+  "updated": "2026-08-19",
+  "approved": "Published with the client's approval. Counts only — no shipment, party, or price data leaves the system.",
   "source": "Transcribed from the run's own daily reports; an entry is appended after each cycle."
  },
  "runs": [
@@ -222,6 +222,126 @@
    "problems": 5,
    "to_check": 2,
    "waiting": 7
+  },
+  {
+   "date": "2026-08-14",
+   "time_et": "21:15",
+   "steps_ok": 21,
+   "steps": 21,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 3,
+   "waiting": 7
+  },
+  {
+   "date": "2026-08-15",
+   "time_et": "09:14",
+   "steps_ok": 22,
+   "steps": 22,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 2,
+   "waiting": 9
+  },
+  {
+   "date": "2026-08-15",
+   "time_et": "21:10",
+   "steps_ok": 22,
+   "steps": 22,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 2,
+   "waiting": 9
+  },
+  {
+   "date": "2026-08-16",
+   "time_et": "09:07",
+   "steps_ok": 21,
+   "steps": 21,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 2,
+   "waiting": 9
+  },
+  {
+   "date": "2026-08-16",
+   "time_et": "21:10",
+   "steps_ok": 22,
+   "steps": 22,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 2,
+   "waiting": 9
+  },
+  {
+   "date": "2026-08-17",
+   "time_et": "09:06",
+   "steps_ok": 21,
+   "steps": 21,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 3,
+   "waiting": 11
+  },
+  {
+   "date": "2026-08-17",
+   "time_et": "21:11",
+   "steps_ok": 21,
+   "steps": 21,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 2,
+   "waiting": 13
+  },
+  {
+   "date": "2026-08-18",
+   "time_et": "09:06",
+   "steps_ok": 20,
+   "steps": 21,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 2,
+   "waiting": 7
+  },
+  {
+   "date": "2026-08-18",
+   "time_et": "21:20",
+   "steps_ok": 23,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 4,
+   "waiting": 15
+  },
+  {
+   "date": "2026-08-19",
+   "time_et": "09:11",
+   "steps_ok": 21,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 8,
+   "to_check": 3,
+   "waiting": 1
+  },
+  {
+   "date": "2026-08-19",
+   "time_et": "10:44",
+   "steps_ok": 23,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 6,
+   "to_check": 4,
+   "waiting": 8
+  },
+  {
+   "date": "2026-08-19",
+   "time_et": "21:18",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 7,
+   "to_check": 4,
+   "waiting": 8
   }
  ]
 }

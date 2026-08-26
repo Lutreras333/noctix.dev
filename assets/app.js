@@ -472,15 +472,21 @@
        relative, so a reload deep into the page measures the same as a
        load at the top.
 
-       Measured AFTER the webfonts settle: fallback metrics run the
-       hero ~30px taller, so a pre-font read made the promotion a coin
-       flip at common ~900px viewports — same visitor, different
-       layout, depending on font arrival. One read, one decision,
-       deterministic. */
+       Measured AFTER the webfonts settle (fallback metrics run the
+       hero ~30px taller), and measured with the OFFSET chain rather
+       than a bounding rect: the entrance choreography still has the
+       block translated a few pixels at fonts.ready, and on a phone the
+       margin is ~4px — the rect made calm and motion visitors get
+       different UIs at the same viewport. offsetTop ignores
+       transforms, so the decision reads the settled layout no matter
+       what is mid-flight. One read, one decision, deterministic. */
     var promote = function () {
     var acts = document.querySelector('.orbit-copy .actions');
-    if (acts && acts.getBoundingClientRect().bottom + window.pageYOffset + 110 >
-        window.innerHeight) return;
+    if (acts) {
+      var bottom = acts.offsetHeight;
+      for (var n = acts; n; n = n.offsetParent) bottom += n.offsetTop;
+      if (bottom + 110 > window.innerHeight) return;
+    }
 
     line.classList.remove('enter');
     line.style.removeProperty('--i');
@@ -1566,8 +1572,10 @@
          media query keeps only the number — the label never reaches
          into the shell's copy (it overprinted body text at 1440). */
       var cut = label.indexOf('/');
-      var railNo = cut > -1 ? label.slice(0, cut + 1).trim() : '';
-      var railName = cut > -1 ? label.slice(cut + 1).trim() : label;
+      /* the slash travels WITH the name: when the name hides on laptop
+         widths the number must not trail a dangling "03 /" */
+      var railNo = cut > -1 ? label.slice(0, cut).trim() : '';
+      var railName = cut > -1 ? '/ ' + label.slice(cut + 1).trim() : label;
       link.innerHTML = '<i aria-hidden="true"></i><span class="rail-label">'
         + (railNo ? '<span class="rail-no">' + railNo + '</span> ' : '')
         + '<span class="rail-name">' + railName + '</span></span>';

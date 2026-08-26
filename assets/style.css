@@ -259,22 +259,13 @@ body::after {
     radial-gradient(90% 45% at 50% 104%, rgba(255, 240, 228, 0.16) 0 20%, transparent 55%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: scroll()) {
-    .sky {
-      animation: dawn var(--e-machine) both;
-      animation-timeline: scroll(root);
-      animation-range: 10% 90%;
-    }
-  }
-}
-@keyframes dawn { from { opacity: 0; } to { opacity: 1; } }
-
-/* An inactive scroll timeline applies NO effect at all - not the 0%
-   keyframe, not fill:both - so the resting state must live in the base
-   rule above. And the global reduced-motion blanket reverts scroll
-   timelines to the document timeline, where duration:auto is 0s and
-   fill:both would render the 100% frame; kill it explicitly. */
+/* The scroll-linked ambient dawn is RETIRED (2026-08-26). Four fresh
+   audits and the owner independently read the warm wash as an
+   off-palette stain on the strictly black/white/silver night — it was
+   the un-locatable "the background looks weird". The sky now lights
+   ONLY for the #dawn instrument: a nine-second event a visitor asked
+   for reads as a reward; an ambient drift into peach read as a defect.
+   The reduced-motion kill stays as a belt for the JS-gated pass. */
 @media (prefers-reduced-motion: reduce) {
   .sky { animation: none !important; opacity: 0 !important; }
 }
@@ -1925,15 +1916,11 @@ h3 {
   white-space: pre;
 }
 .term .pass { color: var(--live); }
-/* On a phone the dot run butted flush against the box's right border
-   with nothing signalling the horizontal scroll. A terminal wraps its
-   output; so does this one. */
-@media (max-width: 640px) {
-  .term {
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-}
+/* A terminal does not reflow its transcript: on a phone the output
+   scrolls sideways inside its own region (the pre is already tabbable
+   with a label) and the sheet-hint below it says so — the same
+   affordance the 17-column ledger carries. Wrapping was tried and
+   orphaned every percent marker onto its own ragged line. */
 
 /* auto-fit generates explicit tracks, so 1 / -1 resolves at 1, 2 and 3
    columns. The capture wants the whole row, not one track. */
@@ -2487,7 +2474,9 @@ h3 {
 
 .chapter-sub {
   display: block;
-  margin-top: 0.35rem;
+  /* no top margin: inside the chapter's centered flex row a margin
+     pushed only this item ~5px below the label's line — the two mono
+     runs read as misaligned. The stacked mobile case sets its own. */
   letter-spacing: 0.04em;
   text-transform: none;
   color: var(--ink-3);
@@ -2707,6 +2696,17 @@ h3 {
      frame, so the band can reclaim the dead margins */
   margin-block: clamp(-3rem, -6vw, -1.5rem);
   mix-blend-mode: lighten;
+  /* the frame's own ground measures rgb(42,42,42) at its mid-edges —
+     brighter than the page's rgb(8,9,11), so `lighten` alone printed
+     the whole 16:9 frame as a gray rectangle. The mask fades the frame
+     out and lets the trace decay into the noise floor, which is what
+     a transient does anyway. */
+  -webkit-mask-image: radial-gradient(115% 100% at 50% 50%, #000 58%, transparent 84%);
+  mask-image: radial-gradient(115% 100% at 50% 50%, #000 58%, transparent 84%);
+}
+@media (max-width: 640px) {
+  /* the reclaimed margins were pulling the caption ONTO the frame */
+  .transient-band img { margin-block: -0.75rem; }
 }
 .transient-band figcaption {
   position: relative;
@@ -3263,6 +3263,10 @@ button.status[aria-expanded='true'] { color: var(--ink); }
     margin-inline-start: -0.75rem;
   }
   .mark .wordmark { display: none; }
+  /* with the wordmark gone the mark carries the brand alone — a step
+     larger so the corner doesn't read bare (three audits called the
+     19px mark faint next to full-size nav links) */
+  .mark svg { width: 23px; height: 23px; }
   .foot-slim .shell, .foot-top, .foot-base {
     flex-direction: column;
     align-items: flex-start;
