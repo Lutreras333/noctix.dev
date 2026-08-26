@@ -168,6 +168,12 @@ html {
 @media (min-width: 2000px) { html { font-size: 19px; } }
 @media (min-width: 2400px) { html { font-size: 21px; } }
 
+/* The root carries the night too: with only body painted, every gap
+   the root can show through — overscroll rubber-band, the canvas
+   behind a cross-document view transition, a paint hole — defaults to
+   browser white. On a black site, white is the loudest possible bug. */
+html { background: var(--bg); }
+
 body {
   background: var(--bg);
   color: var(--ink);
