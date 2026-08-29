@@ -1465,8 +1465,14 @@
     var render = function () {
       var now = new Date();
       if (vNow) vNow.textContent = pad(etHourOf(now)) + ':' + pad(now.getUTCMinutes());
+      /* While the run's reports are paused, the hero runline drops its
+         [data-nextrun] countdown — and this readout must not promise a
+         run the record cannot show. One source of truth: the markup. */
+      var paused = !document.querySelector('[data-nextrun]');
       var next = hasTZ ? nextRunFrom(now) : null;
-      if (vNext && next) {
+      if (vNext && paused) {
+        vNext.textContent = 'paused — see the record';
+      } else if (vNext && next) {
         var mins = Math.max(0, Math.round((next - now) / 60000));
         vNext.textContent = pad(etHourOf(next)) + ':00 · in ' +
           Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm';
