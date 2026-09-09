@@ -955,9 +955,13 @@ h3 {
      promise is that the copy stands in the photograph's BLACK lower
      half. The darkness now reaches the copy at every viewport; the
      chip and the plate's upper face stay clean. */
+  /* A sharp knee, not a long ramp: the ramp dimmed the whole plate and
+     the photograph read murky. The plate now stays bright and machined
+     down to ~38%, then falls to true black fast — the photo looks like
+     a photo, the type stands on night. */
   background: linear-gradient(180deg, transparent 0%,
-    rgba(8, 9, 11, 0.26) 28%, rgba(8, 9, 11, 0.62) 46%,
-    rgba(8, 9, 11, 0.9) 64%, var(--bg) 86%);
+    rgba(8, 9, 11, 0.1) 36%, rgba(8, 9, 11, 0.58) 52%,
+    rgba(8, 9, 11, 0.94) 66%, var(--bg) 82%);
 }
 .cut-copy {
   position: relative;
