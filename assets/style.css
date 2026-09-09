@@ -1978,6 +1978,15 @@ h3 {
   color: var(--accent-ink);
   padding-block: clamp(4.5rem, 9vw, 8.5rem);
 }
+/* The seam INTO the sheet stacked two chapter-scale paddings — on a
+   laptop-height screen that is most of a screenful of nothing: a black
+   band, then a blank silver band, before the first word. Short
+   viewports get a tighter seam (the cycle section reads the token via
+   its inline var() fallback); tall screens keep the full ceremony. */
+@media (max-height: 860px) {
+  :root { --seam-below-cycle: clamp(2.5rem, 6vh, 4rem); }
+  .print { padding-block-start: 3rem; }
+}
 .print ::selection { background: var(--accent-ink); color: #e6e9ee; }
 .print :focus-visible { outline-color: var(--accent-ink); }
 .print .chapter { color: var(--accent-ink); }
