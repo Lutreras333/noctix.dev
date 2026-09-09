@@ -949,8 +949,15 @@ h3 {
 .cut-scrim {
   position: absolute;
   inset: 0;
+  /* The ramp used to arrive too late: on 768-900px-tall viewports the
+     headline tops out near 48% where the old gradient was still ~0.3,
+     and white type sat naked on the machined gray — the scene's own
+     promise is that the copy stands in the photograph's BLACK lower
+     half. The darkness now reaches the copy at every viewport; the
+     chip and the plate's upper face stay clean. */
   background: linear-gradient(180deg, transparent 0%,
-    rgba(8, 9, 11, 0.3) 42%, rgba(8, 9, 11, 0.8) 72%, var(--bg) 100%);
+    rgba(8, 9, 11, 0.26) 28%, rgba(8, 9, 11, 0.62) 46%,
+    rgba(8, 9, 11, 0.9) 64%, var(--bg) 86%);
 }
 .cut-copy {
   position: relative;
