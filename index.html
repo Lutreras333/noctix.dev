@@ -86,7 +86,15 @@
               <a class="btn btn-primary" href="/work.html">See the proof <span class="arrow" aria-hidden="true"></span></a>
               <a class="btn btn-quiet" href="/contact.html">Start a conversation</a>
             </div>
-            <p class="runline enter" style="--i:5"><span class="beacon" aria-hidden="true"></span> Runs paused — last recorded <!--nx:latest-entry-->19‑Aug 21:18 ET<!--/nx:latest-entry--></p>
+            <!-- The record ticket, two states, declared by markup alone:
+                 STALE (record behind the runner) is the form below — a
+                 hollow beacon and the record's last entry. LIVE (record
+                 current) swaps BOTH spans for the two below: the key
+                 becomes the next-run label and the reading becomes the
+                 countdown, which the nextrun feature fills and whose
+                 presence lights and pulses the beacon:
+                 <span class="runline-k">Next unattended run</span> <span class="runline-v" data-nextrun>09:00 / 21:00 ET</span> -->
+            <p class="runline enter" style="--i:6"><span class="beacon" aria-hidden="true"></span><span class="runline-k">Run record</span> <span class="runline-v">Last entry <!--nx:latest-entry-->19‑Aug 21:18 ET<!--/nx:latest-entry--></span></p>
           </div>
         </div>
       </div>
@@ -214,7 +222,7 @@
       </div>
     </section>
 
-    <section class="section" id="proof" style="padding-top:0;padding-bottom:var(--space-chapter)">
+    <section class="section" id="proof" style="padding-top:0;padding-bottom:0">
       <div class="shell">
         <p class="chapter">05 / Proof<span class="chapter-sub">the flagship system, in evidence</span></p>
         <div class="panel reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">

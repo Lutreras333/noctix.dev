@@ -69,15 +69,13 @@
     note.textContent = n === FOUND_KEYS.length
       ? 'field note — survey complete'
       : 'field note — ' + n + ' of ' + FOUND_KEYS.length + ' located';
-    /* The run line owns this corner, in either of its two forms: the
-       promoted fixed chip, or — on viewports too short to promote —
-       the in-flow line at the hero's foot, which lands in the same
-       corner at rest. Ask geometry rather than class, so both stack
-       and neither overlaps. Measured at show time: a find is rare, and
-       nothing here is static enough to encode in CSS. */
+    /* The record ticket rides in-flow at the hero's foot, and at rest
+       it often sits in this corner. Ask geometry rather than class, so
+       the two stack and neither overlaps. Measured at show time: a find
+       is rare, and nothing here is static enough to encode in CSS. */
     var clear = 1.25;
     var line = document.querySelector('.runline');
-    if (line && !line.classList.contains('is-hushed')) {
+    if (line) {
       var box = line.getBoundingClientRect();
       var occupiesCorner = box.height &&
         box.bottom > window.innerHeight - 160 &&
@@ -443,76 +441,6 @@
     setInterval(render, 60000);
   });
 
-  /* ── The HUD chip ───────────────────────────────────────────
-     Home only — the element only exists there. The run readout leaves
-     the hero and is pinned to the frame itself, bottom-left, like an
-     exposure note on the glass. It ships in-flow with both run times
-     server-rendered, so no-JS and bailed pages keep a printed line;
-     this feature only promotes it. The move happens BEFORE first
-     paint (deferred script), so nothing jumps. Re-parenting restarts
-     CSS animations, so the entrance choreography comes off first.
-     One IntersectionObserver hides the chip while the footer is in
-     view — the curtain owns the ending. The observer watches a
-     sentinel at the END of main, not the footer itself: the curtain
-     footer is sticky at bottom:0 UNDER the opaque main, so its box
-     geometrically intersects the viewport on every frame of the
-     visit — an observer on it would hush the chip forever. The
-     footer only becomes VISIBLE once main's bottom edge rises into
-     the viewport, which is exactly when the sentinel intersects. */
-
-  feature('hud', function () {
-    var line = document.querySelector('.runline');
-    if (!line) return;
-
-    /* Short viewports have no spare glass to etch: at rest the fixed
-       chip sat ON the hero's own buttons (375x667) or its lede (320).
-       Promote only when the settled composition leaves the corner
-       clear — otherwise the line stays printed in-flow at the hero's
-       foot, countdown and all, exactly like the no-JS page. Document-
-       relative, so a reload deep into the page measures the same as a
-       load at the top.
-
-       Measured AFTER the webfonts settle (fallback metrics run the
-       hero ~30px taller), and measured with the OFFSET chain rather
-       than a bounding rect: the entrance choreography still has the
-       block translated a few pixels at fonts.ready, and on a phone the
-       margin is ~4px — the rect made calm and motion visitors get
-       different UIs at the same viewport. offsetTop ignores
-       transforms, so the decision reads the settled layout no matter
-       what is mid-flight. One read, one decision, deterministic. */
-    var promote = function () {
-    var acts = document.querySelector('.orbit-copy .actions');
-    if (acts) {
-      var bottom = acts.offsetHeight;
-      for (var n = acts; n; n = n.offsetParent) bottom += n.offsetTop;
-      if (bottom + 110 > window.innerHeight) return;
-    }
-
-    line.classList.remove('enter');
-    line.style.removeProperty('--i');
-    line.classList.add('runline-hud');
-    document.body.appendChild(line);
-
-    var main = document.querySelector('main');
-    if (main && 'IntersectionObserver' in window) {
-      var mark = document.createElement('div');
-      mark.setAttribute('aria-hidden', 'true');
-      /* main is position:relative, so this pins to main's last pixel */
-      mark.style.cssText =
-        'position:absolute;left:0;bottom:0;width:1px;height:1px;pointer-events:none';
-      main.appendChild(mark);
-      new IntersectionObserver(function (entries) {
-        line.classList.toggle('is-hushed', entries[0].isIntersecting);
-      }, { threshold: 0 }).observe(mark);
-    }
-    };
-    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
-      document.fonts.ready.then(promote, promote);
-    } else {
-      promote();
-    }
-  });
-
   /* ── The calm caption ───────────────────────────────────────
      Under reduced motion the billing-runner console is deliberately
      frozen on its settled all-done frame — so the caption must not
@@ -530,8 +458,8 @@
   });
 
   /* ── The nav flip ───────────────────────────────────────────
-     Work only — the [data-nav-flip] scene exists only there. While
-     the silver ledger scene runs under the masthead, the header
+     Runs only — the [data-nav-flip] sheet exists only there. While
+     the silver record sheet runs under the masthead, the header
      flips to print: data-nav-theme='light', black ink on the silver
      plate. The observer's root is collapsed to the top 8% of the
      viewport — the masthead's band — so the flip lands as the
@@ -1465,13 +1393,14 @@
     var render = function () {
       var now = new Date();
       if (vNow) vNow.textContent = pad(etHourOf(now)) + ':' + pad(now.getUTCMinutes());
-      /* While the run's reports are paused, the hero runline drops its
-         [data-nextrun] countdown — and this readout must not promise a
-         run the record cannot show. One source of truth: the markup. */
-      var paused = !document.querySelector('[data-nextrun]');
+      /* The countdown exists only where [data-nextrun] does: the home
+         ticket, in its live state. Anywhere else this row must not
+         promise a run the record cannot show, so it points at the
+         record — true in either state. One source of truth: the markup. */
+      var noCountdown = !document.querySelector('[data-nextrun]');
       var next = hasTZ ? nextRunFrom(now) : null;
-      if (vNext && paused) {
-        vNext.textContent = 'paused — see the record';
+      if (vNext && noCountdown) {
+        vNext.textContent = 'see the record';
       } else if (vNext && next) {
         var mins = Math.max(0, Math.round((next - now) / 60000));
         vNext.textContent = pad(etHourOf(next)) + ':00 · in ' +
@@ -1615,19 +1544,9 @@
     }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
     ticks.forEach(function (t) { observer.observe(t.section); });
 
-    /* Over the print scene the rail is dark-on-silver, the same flip
-       the masthead already performs. */
-    var scene = document.querySelector('[data-nav-flip]');
-    if (scene) {
-      new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) rail.setAttribute('data-rail-theme', 'light');
-        else rail.removeAttribute('data-rail-theme');
-      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 }).observe(scene);
-    }
-
     /* At the page foot the footer is the last chapter and the rail has
-       nothing left to index, so it withdraws — the same sentinel the
-       run-line chip uses, for the same reason. */
+       nothing left to index, so it withdraws, on a sentinel pinned to
+       main's last pixel. */
     var main = document.querySelector('main');
     if (main) {
       var edge = document.createElement('div');
@@ -1640,7 +1559,7 @@
       }, { threshold: 0 }).observe(edge);
     }
 
-    /* Full-bleed sheets (the print ledgers) own the whole width, so
+    /* Full-bleed ledgers own the whole width, so
        while one crosses the rail's band the rail retracts rather than
        printing its ticks and label across live data rows. */
     each(document.querySelectorAll('.ledger-wrap'), function (sheet) {

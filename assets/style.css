@@ -380,7 +380,7 @@ p a:hover, .prose a:hover, .lede a:hover { text-decoration-color: var(--accent);
 .masthead.is-stuck {
   border-bottom-color: var(--line);
   /* Fully opaque, deliberately: at 0.96 the section text ghosts through
-     the plate while scrolling — worst over the silver ledger print. */
+     the plate while scrolling — worst over the full-bleed ledger rows. */
   background: #08090b;
 }
 .masthead .shell {
@@ -710,47 +710,69 @@ h3 {
   color: var(--ink-3);
 }
 
-/* ── The live run line ─────────────────────────────────────
-   The next-unattended-run readout, printed in-flow at the foot of the
-   hero like an exposure note on a contact print. Server-rendered with
-   both run times, so a visitor without JS still reads the cadence. */
+/* ── The record ticket ─────────────────────────────────────
+   Two lines at the foot of the hero, printed in-flow like an exposure
+   note on a contact print: a key, then the reading. It belongs to the
+   hero and leaves with it; it never follows the reader, because a
+   fixed chip lands on the copy at nearly every scroll stop. No JS
+   needed to read it.
+
+   State is carried by form, declared by the markup alone. With a
+   [data-nextrun] countdown the record is current and the beacon pulses;
+   without one the record is behind the runner, and the beacon is a
+   still, hollow ring beside the record's last entry. The honest
+   default is still: only a live reading may pulse. */
 
 .runline {
-  display: inline-flex;
-  flex-wrap: wrap;
+  display: inline-grid;
+  grid-template-columns: 7px auto;
+  column-gap: 0.65rem;
+  row-gap: 0.3rem;
   align-items: center;
-  gap: 0.3rem 0.65rem;
-  padding: 0.6rem 0.9rem;
+  max-width: 100%;
+  padding: 0.65rem 0.95rem 0.7rem;
   background: var(--bg);
   border: 1px solid var(--line-2);
   font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  line-height: 1.25;
   text-transform: uppercase;
-  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
 }
-.runline [data-nextrun] { color: var(--ink); }
-
-/* The HUD chip: app.js lifts the run readout out of the hero and pins
-   it to the frame, bottom-left — a live instrument reading etched on
-   the glass, home page only. Without JS (or after a bailout) the line
-   simply stays printed in-flow at the hero's foot with both run times
-   server-rendered. Hidden while the footer is in view: the curtain
-   owns the ending. Forced colors keep the standard border. */
-.runline-hud {
-  position: fixed;
-  left: 1.25rem;
-  bottom: 1.25rem;
-  z-index: 120;
-  margin: 0;
-  transition: opacity var(--t-shift) var(--e-out), visibility 0s;
+.runline .beacon { grid-area: 1 / 1; }
+.runline-k {
+  grid-area: 1 / 2;
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
 }
-.runline-hud.is-hushed {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--t-shift) var(--e-out),
-    visibility 0s var(--t-shift);
+.runline-v {
+  grid-area: 2 / 2;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+/* The still ring is the unconditional default, so an engine without
+   :has() falls back to the honest form. A border, not a box-shadow:
+   forced colors keep a border. */
+.runline .beacon {
+  background: transparent;
+  border: 1px solid var(--ink-3);
+}
+.runline .beacon::after { animation: none; opacity: 0; will-change: auto; }
+.runline:has([data-nextrun]) .beacon {
+  background: var(--live);
+  border: 0;
+}
+.runline:has([data-nextrun]) .beacon::after {
+  animation: beacon var(--t-drift) var(--e-machine) infinite;
+  opacity: 0.55;
+  will-change: transform, opacity;
+}
+/* below the 320px floor (a folded phone) the reading may wrap rather
+   than paint past the ticket's border */
+@media (max-width: 319px) {
+  .runline-v { white-space: normal; }
 }
 
 .section { padding-block: clamp(4rem, 9vw, 7.5rem); }
@@ -865,6 +887,24 @@ h3 {
   inset: 0;
   background: linear-gradient(180deg, transparent 60%, rgba(8, 9, 11, 0.55) 100%);
 }
+/* The frame's floor becomes a scroll-away edge once the descent ends,
+   and overflow:clip slices the planet flat there — so the plate must
+   already be night at that line. Hosted on the scrim, NOT on
+   .orbit-frame::after, which the first-light egg owns. At rest the
+   static melt sits below the fold in every mode: the sticky masthead
+   sits in flow above the frame, so the floor starts one masthead under
+   the fold. Pixels, not rem: the masthead is a fixed 61-69px while the
+   root size steps up on big monitors. Motion visitors get a deeper
+   melt scrubbed in as the descent completes (below, opacity only). */
+.orbit-scrim::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 56px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 9, 11, 0) 0%, rgba(8, 9, 11, 0.35) 40%,
+    rgba(8, 9, 11, 0.8) 75%, var(--bg) 100%);
+}
 .orbit-copy {
   position: relative;
   width: 100%;
@@ -879,6 +919,23 @@ h3 {
 }
 .orbit-copy .actions { margin-top: 2.25rem; }
 .orbit-copy .runline { margin-top: 2.5rem; }
+/* Where the stack outgrows the frame's one-viewport floor, the frame is
+   sized by its content and the plate hangs from the frame's bottom — so
+   the span from the buttons to the ticket's foot decides where the
+   planet's limb crosses the buttons. That span is held at the length
+   the composition was measured at (~80px on a short laptop, ~111px on
+   a short phone), so the limb stays clear of the ghost button's label. */
+@media (max-height: 800px) and (min-width: 700px) {
+  .orbit-copy .runline { margin-top: 1.5rem; }
+}
+/* taller desktop frames sit at the floor, so this only lifts the
+   ticket clear of the fold on common 16:9 laptops */
+@media (min-height: 801px) and (min-width: 700px) {
+  .orbit-copy .runline { margin-top: 2rem; }
+}
+@media (max-height: 800px) and (max-width: 699px) {
+  .orbit-copy .runline { margin-top: 3.5rem; }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
@@ -899,16 +956,24 @@ h3 {
       animation-timeline: --orbit;
       animation-range: contain;
     }
+    .orbit-scrim::after {
+      height: 24vh;
+      opacity: 0;
+      animation: orbit-melt var(--e-machine) both;
+      animation-timeline: --orbit;
+      animation-range: contain 70% contain 100%;
+    }
   }
 }
 @keyframes orbit-plate { to { transform: translate3d(0, -8vh, 0); } }
 @keyframes orbit-copy  { to { transform: translate3d(0, -24vh, 0); opacity: 0; } }
+@keyframes orbit-melt  { from { opacity: 0; } to { opacity: 1; } }
 
 /* Belt for a preference that flips mid-play: the reduced-motion
    blanket reverts timelines to the document clock where fill:both
    would strand the copy at opacity 0. Kill the animations outright. */
 @media (prefers-reduced-motion: reduce) {
-  .orbit-plate, .orbit-copy { animation: none !important; }
+  .orbit-plate, .orbit-copy, .orbit-scrim::after { animation: none !important; }
 }
 
 /* ── Scene: THE CUT (the work hero) ────────────────────────
@@ -1968,41 +2033,32 @@ h3 {
   background: var(--metal);
 }
 
-/* ── Scene: THE LEDGER, IN PRINT (work) ────────────────────
-   The one contrast inversion on the site: the real ledger printed
-   dark-on-silver, a document under a work lamp. Entering and leaving
-   is a hard cut at the section boundary — machine confidence, no
-   transition. All ink is the page black; the rules are the same
-   black at hairline alpha; black on #e6e9ee is ~17:1. Forced colors
-   need no overrides here — plain colors and borders yield to the
-   system palette on their own. */
+/* ── Scene: THE SHEET (runs) ───────────────────────────────
+   The one contrast inversion on the site: the run record printed
+   dark-on-silver, a document under a work lamp, from under the
+   masthead to the footer. It lives on /runs only: a silver slab inside a
+   night page reads as a hole in it however its seams are tuned, so
+   work's ledger prints on the night.
+   All ink is the page black; the rules are the same black at hairline
+   alpha; black on #e6e9ee is ~17:1. Forced colors need no overrides
+   here — plain colors and borders yield to the system palette. */
 
 .print {
   background: #e6e9ee;
   color: var(--accent-ink);
   padding-block: clamp(4.5rem, 9vw, 8.5rem);
 }
-/* The seam INTO the sheet stacked two chapter-scale paddings — on a
-   laptop-height screen that is most of a screenful of nothing: a black
-   band, then a blank silver band, before the first word. Short
-   viewports get a tighter seam (the cycle section reads the token via
-   its inline var() fallback); tall screens keep the full ceremony. */
+/* On a laptop-height screen the sheet's full top padding is most of a
+   screenful of blank silver before the first word. */
 @media (max-height: 860px) {
-  :root { --seam-below-cycle: clamp(2.5rem, 6vh, 4rem); }
   .print { padding-block-start: 3rem; }
 }
 .print ::selection { background: var(--accent-ink); color: #e6e9ee; }
 .print :focus-visible { outline-color: var(--accent-ink); }
 .print .chapter { color: var(--accent-ink); }
 .print .chapter::after { background: rgba(8, 9, 11, 0.35); }
-/* the one text element the inversion originally missed: the sub-label
-   kept its dark-theme silver and washed out on the sheet (~1.9:1) —
-   same hush level as .sheet-hint, in ink */
-.print .chapter-sub { color: rgba(8, 9, 11, 0.55); }
 .print h2, .print strong { color: var(--accent-ink); }
 .print p { color: var(--accent-ink); }
-.print .kicker { color: var(--accent-ink); }
-.print .kicker::before { background: var(--accent-ink); }
 /* links print in ink on the silver sheet — the global near-white link
    color is invisible here */
 .print a {
@@ -2015,28 +2071,40 @@ h3 {
 .print-head { max-width: 46rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
 .print-head p { margin-top: 1rem; }
 
-/* The table sheds its dark card: black rules on the silver sheet. It
-   also sheds the shell — the sheet is wider than the frame, so it runs
+/* The full-bleed ledger, on either ground. The table sheds its card
+   AND the shell — the sheet is wider than the frame, so it runs
    full-bleed and is CROPPED BY THE VIEWPORT edge (the survey's own
    motif), never by an arbitrary mid-page line; the first column stays
-   on the shell's grid and the overflow scrolls sideways as before. */
+   on the shell's grid and the overflow scrolls sideways as before. On
+   the night (work) two hairlines bound it, like the cycle band; on the
+   silver sheet (runs) the sheet itself is the bound. */
+.ledger-wrap.bleed,
 .print .ledger-wrap {
+  --cover: var(--bg);
+  --edge: rgba(214, 219, 228, 0.14);
   margin-top: clamp(2rem, 4.5vw, 3.5rem);
   margin-inline: calc(50% - 50vw);
   padding-inline: max(var(--gutter), calc((100vw - var(--shell)) / 2 + var(--gutter)));
   border: 0;
+  border-block: 1px solid var(--line);
   border-radius: 0;
-  /* Scrolling shadows (Verou): the sheet-coloured covers are attached
-     LOCAL so they travel with the columns; the dark edge shadows are
+  /* Scrolling shadows (Verou): the ground-coloured covers are attached
+     LOCAL so they travel with the columns; the edge shadows are
      attached SCROLL so they pin to the frame. Mid-sheet the shadows
      show past the covers — "there is more" — and at either end the
      cover slides exactly over its shadow and the edge goes clean. */
   background:
-    linear-gradient(90deg, #e6e9ee 30%, rgba(230, 233, 238, 0)) left / 48px 100% no-repeat local,
-    linear-gradient(270deg, #e6e9ee 30%, rgba(230, 233, 238, 0)) right / 48px 100% no-repeat local,
-    linear-gradient(90deg, rgba(8, 9, 11, 0.22), rgba(8, 9, 11, 0)) left / 20px 100% no-repeat scroll,
-    linear-gradient(270deg, rgba(8, 9, 11, 0.22), rgba(8, 9, 11, 0)) right / 20px 100% no-repeat scroll;
+    linear-gradient(90deg, var(--cover) 30%, transparent) left / 48px 100% no-repeat local,
+    linear-gradient(270deg, var(--cover) 30%, transparent) right / 48px 100% no-repeat local,
+    linear-gradient(90deg, var(--edge), transparent) left / 20px 100% no-repeat scroll,
+    linear-gradient(270deg, var(--edge), transparent) right / 20px 100% no-repeat scroll;
 }
+.print .ledger-wrap {
+  --cover: #e6e9ee;
+  --edge: rgba(8, 9, 11, 0.22);
+  border-block: 0;
+}
+.ledger-wrap.bleed .ledger { font-size: 0.8rem; }
 /* the visible affordance the judges asked for; the region's aria-label
    already tells assistive tech the same thing, so this stays hidden */
 .sheet-hint {
@@ -2045,7 +2113,7 @@ h3 {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(8, 9, 11, 0.55);
+  color: var(--ink-3);
 }
 .print .ledger { font-size: 0.8rem; }
 .print .ledger th {
@@ -2066,6 +2134,15 @@ h3 {
    Machine work, so it flips at --t-tick linear and, deliberately, has
    no exit transition: instruments snap both ways. */
 @media (hover: hover) and (pointer: fine) {
+  /* on the night the row takes the console's active-row wash */
+  .ledger-wrap.bleed .ledger tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--ink);
+    transition: background var(--t-tick) var(--e-machine),
+                color var(--t-tick) var(--e-machine);
+  }
+  /* the computed column keeps machine white while the row is read */
+  .ledger-wrap.bleed .ledger tbody tr:hover .charg { color: var(--live); }
   .print .ledger tbody tr:hover td {
     background: var(--accent-ink);
     color: #e6e9ee;
@@ -2075,8 +2152,6 @@ h3 {
   }
   /* the columns that carry their own colour have to be re-stated, or
      they stay dark ink on dark ink */
-  .print .ledger tbody tr:hover .cons,
-  .print .ledger tbody tr:hover .charg,
   .print .ledger tbody tr:hover .rs,
   .print .ledger tbody tr:hover .rf,
   .print .ledger tbody tr:hover .rw { color: #e6e9ee; }
@@ -2088,20 +2163,8 @@ h3 {
   }
   .print .ledger tbody tr .rd { position: relative; }
 }
-.print .ledger .cons { color: var(--accent-ink); }
-/* the computed column carried machine white on black; in print it is
-   carried by weight instead */
-.print .ledger .charg { color: var(--accent-ink); font-weight: 700; }
 .print .fig { color: rgba(8, 9, 11, 0.76); }
-.print .fig code { color: var(--accent-ink); border-color: rgba(8, 9, 11, 0.35); }
 .print-proof { margin-top: clamp(2.5rem, 5vw, 4rem); max-width: 46rem; }
-.print .term {
-  background: transparent;
-  border: 1px solid rgba(8, 9, 11, 0.35);
-  border-radius: 0;
-  color: rgba(8, 9, 11, 0.76);
-}
-.print .term .pass { color: var(--accent-ink); font-weight: 700; }
 /* the sheet's own scrollbars print dark on silver */
 .print ::-webkit-scrollbar-track { background: transparent; }
 .print ::-webkit-scrollbar-thumb {
@@ -2131,11 +2194,7 @@ h3 {
   -webkit-text-fill-color: var(--accent-ink);
 }
 .masthead[data-nav-theme='light'] .nav a { color: rgba(8, 9, 11, 0.72); }
-.masthead[data-nav-theme='light'] .nav a:hover,
-.masthead[data-nav-theme='light'] .nav a[aria-current='page'] { color: var(--accent-ink); }
-.masthead[data-nav-theme='light'] .nav a[aria-current='page']::after {
-  background: linear-gradient(90deg, transparent, var(--accent-ink), transparent);
-}
+.masthead[data-nav-theme='light'] .nav a:hover { color: var(--accent-ink); }
 .masthead[data-nav-theme='light'] :focus-visible { outline-color: var(--accent-ink); }
 
 /* ── Hairline note rows (work: the unglamorous parts) ──────
@@ -2191,7 +2250,6 @@ h3 {
 @media (forced-colors: active) {
   .pull::before,
   .cycle-flow .flow-node.gate::after,
-  .print .kicker::before,
   .print .chapter::after { background: CanvasText; }
 }
 
@@ -2497,6 +2555,30 @@ h3 {
 }
 .hero-proof a { color: var(--ink-2); }
 .hero-proof a:hover { color: var(--ink); }
+/* On 16:9 laptop viewports the planet's crown rises behind the proof
+   line (measured ~1.1:1 at 1366x768). It is printed as a label in the
+   record ticket's own grammar — box edge flush on the column, hairline,
+   ground plate — so the hero carries one system of instrument labels,
+   not a patch. --bg at .86 holds ink-3 at ~5:1 over the brightest limb
+   pixel. Static, so CLS stays 0. */
+.orbit-copy .hero-proof {
+  display: table;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--line-2);
+  background: rgba(8, 9, 11, 0.86);
+  /* Vertically layout-neutral: the box's padding and border are taken
+     back out of the margins, so the line and everything under it sit
+     where they would unboxed. Every pixel added here would push the
+     buttons onto the planet's crown on common laptop screens. The inline
+     inset narrows the line, so in a narrow band of widths (~671-694px)
+     it breaks one row earlier; the limb is far below the buttons there. */
+  margin-top: calc(1.1rem - 0.3rem - 1px);
+  margin-bottom: calc(-0.3rem - 1px);
+}
+/* on a phone the label's inset would cost the line a third row */
+@media (max-width: 400px) {
+  .orbit-copy .hero-proof { padding-inline: 0.5rem; letter-spacing: 0.06em; }
+}
 
 .chapter-sub {
   display: block;
@@ -2603,16 +2685,8 @@ h3 {
 }
 .survey-rail a:focus-visible .rail-label { opacity: 1; transform: none; }
 
-/* over the silver print scene the rod inverts, like the masthead does */
-.survey-rail[data-rail-theme='light'] a { color: rgba(8, 9, 11, 0.55); }
-.survey-rail[data-rail-theme='light'] i { background: rgba(8, 9, 11, 0.3); }
-.survey-rail[data-rail-theme='light'] [aria-current='true'] i,
-.survey-rail[data-rail-theme='light'] a:hover i { background: var(--accent-ink); }
-.survey-rail[data-rail-theme='light'] [aria-current='true'],
-.survey-rail[data-rail-theme='light'] a:hover { color: var(--accent-ink); }
-
-/* withdrawn over the footer — the same hush the run-line chip performs —
-   and while a full-bleed ledger sheet crosses its band, so the rod never
+/* withdrawn over the footer (the last chapter: nothing left to index)
+   and while a full-bleed ledger crosses its band, so the rod never
    prints across live data rows */
 .survey-rail.is-hushed,
 .survey-rail.is-over-sheet {
@@ -2631,14 +2705,15 @@ h3 {
 /* The whisper: the footer counter is the record of the hunt, but it is
    never on screen at the moment a find happens, so the hunt could not
    teach itself. This acknowledges the find where the eye already is,
-   then gets out of the way. Corner grammar borrowed from the HUD chip;
+   then gets out of the way, bottom-left, stacking above the record
+   ticket when the hero leaves it in that corner (app.js measures);
    aria-hidden because the footer line is the accessible copy and a
    live region would interrupt a screen reader mid-sentence. */
 .field-whisper {
   position: fixed;
-  left: 1.25rem;            /* the HUD chip's gutter — one corner grammar */
+  left: 1.25rem;
   bottom: var(--whisper-bottom, 1.25rem);
-  z-index: 119;             /* under the HUD chip (120), never over it */
+  z-index: 119;
   padding: 0.5rem 0.8rem;
   border: 1px solid var(--line);
   background: rgba(8, 9, 11, 0.86);
@@ -2667,10 +2742,10 @@ h3 {
 }
 
 /* ── The record (runs.html) ────────────────────────────────
-   The run log prints in the same silver as the sample ledger. Status
-   is carried by the flagged column's weight, never by hue. Partial
-   step counts print heavy — the record does not whisper its bad
-   nights, that is the point of having one. */
+   The run log prints on the silver sheet, the one inversion on the
+   site. Status is carried by the flagged column's weight, never by
+   hue. Partial step counts print heavy — the record does not whisper
+   its bad nights, that is the point of having one. */
 .ledger.record { min-width: 100%; }
 .ledger.record td, .ledger.record th { text-align: left; }
 .ledger.record .rs { font-weight: 700; }
@@ -3023,6 +3098,27 @@ html.first-light .orbit-frame::after {
     radial-gradient(120% 30% at 50% 66%, rgba(255, 240, 228, 0.12) 0 25%, transparent 60%);
   animation: first-light-pass 9s var(--e-machine) both;
 }
+/* The melt ends in solid --bg at the frame's floor; while dawn lights
+   the sky below, that is a hard line. It stands down for the pass, on
+   the same clock. filter:opacity, not opacity: the scroll timeline
+   already owns the melt's opacity, and the two multiply. */
+html.first-light .orbit-scrim::after {
+  animation: first-light-melt 9s var(--e-machine) both;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    html.first-light .orbit-scrim::after {
+      animation: orbit-melt var(--e-machine) both,
+                 first-light-melt 9s var(--e-machine) both;
+      animation-timeline: --orbit, auto;
+      animation-range: contain 70% contain 100%, normal;
+    }
+  }
+}
+@keyframes first-light-melt {
+  0%, 100% { filter: opacity(1); }
+  44%, 56% { filter: opacity(0); }
+}
 
 /* Beacon readout: the footer status becomes a control. The button
    keeps the span's exact skin — .foot .status still styles it by
@@ -3199,6 +3295,9 @@ button.status[aria-expanded='true'] { color: var(--ink); }
   .step[data-state='done'] .glyph { background: CanvasText; color: Canvas; }
   .step[data-state='active'] .glyph { border-color: CanvasText; color: CanvasText; }
   .beacon { background: Highlight; }
+  /* the ticket's live dot outranks the line above; restate it. The
+     still ring is a border, which forced colors already keep. */
+  .runline:has([data-nextrun]) .beacon { background: Highlight; }
   /* Canvas is the disc's foreground here, so the check reads as a true
      knockout. background-color is forced but background-image is not -
      the asymmetry the gradient-nulling above relies on - so anything
