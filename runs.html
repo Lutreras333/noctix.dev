@@ -48,20 +48,100 @@
     <!-- The whole page is one print scene: the system's own log, a
          document under the work lamp. Rendered static from
          /assets/runs.json so a visitor without JS reads the complete
-         record; an entry is appended after each unattended cycle. -->
+         record; entries are transcribed from the run's own reports, in
+         batches. -->
     <section class="print" data-nav-flip style="min-height:100svh">
       <div class="shell">
         <p class="chapter">The record</p>
         <div class="print-head">
           <h2>The system keeps its own log.</h2>
           <p>Below is the unattended run record of the flagship billing system — every cycle since the night it first ran, transcribed from the reports the run writes for itself. <strong>Counts only, published with the client’s approval:</strong> no shipment, party, or price data leaves the system.</p>
-          <p>Read it the way the system writes it: <code>ok</code> means nothing needed a human. <code>to check</code> is work the run queued for review rather than deciding alone. <code>problems</code> is the run saying something broke — flagged, escalated, and waited on, never guessed at. Steps grew from 12 to 24 as new slices of the operation shipped.</p>
+          <p>Read it the way the system writes it: <code>ok</code> means nothing needed a human. <code>to check</code> is work the run queued for review rather than deciding alone. <code>problems</code> is the run saying something broke — flagged, escalated, and waited on, never guessed at. Steps grew from 12 to as many as 29 as new slices of the operation shipped.</p>
         </div>
 
         <div class="ledger-wrap" tabindex="0" role="region" aria-label="Run record, newest first">
           <table class="ledger record">
             <thead><tr><th>DATE</th><th>RUN</th><th>STEPS OK</th><th>FLAGGED</th><th>QUEUE</th></tr></thead>
             <tbody>
+<tr data-status="flagged"><td class="rd">09‑29</td><td>09:16 ET</td><td class="rs">27/27</td><td class="rf">3 problems</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑28</td><td>21:16 ET</td><td class="rs">27/27</td><td class="rf">5 problems · 1 to check</td><td class="rw">4 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑28</td><td>09:08 ET</td><td class="rs">27/27</td><td class="rf">2 problems</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑27</td><td>21:08 ET</td><td class="rs">27/27</td><td class="rf">2 problems</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑27</td><td>19:53 ET</td><td class="rs">27/27</td><td class="rf">6 problems</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑27</td><td>09:08 ET</td><td class="rs">27/27</td><td class="rf">27 problems · 1 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑26</td><td>21:14 ET</td><td class="rs">28/28</td><td class="rf">26 problems · 4 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑26</td><td>09:07 ET</td><td class="rs">27/27</td><td class="rf">24 problems · 1 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑25</td><td>21:11 ET</td><td class="rs">27/27</td><td class="rf">24 problems · 1 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑25</td><td>12:38 ET</td><td class="rs part">26/27</td><td class="rf">1 problem · 2 to check</td><td class="rw">3 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑25</td><td>09:09 ET</td><td class="rs">27/27</td><td class="rf">1 problem</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑24</td><td>21:16 ET</td><td class="rs">28/28</td><td class="rf">1 problem · 3 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑24</td><td>09:08 ET</td><td class="rs">27/27</td><td class="rf">1 problem · 1 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑23</td><td>21:20 ET</td><td class="rs">29/29</td><td class="rf">1 problem · 3 to check</td><td class="rw">4 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑23</td><td>09:20 ET</td><td class="rs">28/28</td><td class="rf">1 problem</td><td class="rw">4 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑22</td><td>21:18 ET</td><td class="rs">28/28</td><td class="rf">1 problem · 2 to check</td><td class="rw">3 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑22</td><td>09:12 ET</td><td class="rs">26/26</td><td class="rf">2 problems · 1 to check</td><td class="rw">4 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑21</td><td>21:12 ET</td><td class="rs">26/26</td><td class="rf">2 problems</td><td class="rw">3 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑21</td><td>09:12 ET</td><td class="rs">26/26</td><td class="rf">3 problems</td><td class="rw">3 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑20</td><td>21:09 ET</td><td class="rs">26/26</td><td class="rf">3 problems</td><td class="rw">4 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑20</td><td>09:24 ET</td><td class="rs">28/28</td><td class="rf">3 problems · 5 to check</td><td class="rw">4 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑20</td><td>01:11 ET</td><td class="rs">27/27</td><td class="rf">3 problems</td><td class="rw">7 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑19</td><td>21:14 ET</td><td class="rs">27/27</td><td class="rf">3 problems</td><td class="rw">4 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑19</td><td>09:20 ET</td><td class="rs">27/27</td><td class="rf">3 problems · 1 to check</td><td class="rw">6 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑18</td><td>21:19 ET</td><td class="rs">26/26</td><td class="rf">1 problem · 3 to check</td><td class="rw">5 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑18</td><td>09:10 ET</td><td class="rs">26/26</td><td class="rf">1 problem · 2 to check</td><td class="rw">6 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑17</td><td>21:22 ET</td><td class="rs part">26/27</td><td class="rf">3 problems · 4 to check</td><td class="rw">1 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑17</td><td>09:09 ET</td><td class="rs">26/26</td><td class="rf">2 problems</td><td class="rw">6 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑16</td><td>21:19 ET</td><td class="rs">28/28</td><td class="rf">2 problems · 2 to check</td><td class="rw">13 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑16</td><td>09:15 ET</td><td class="rs part">25/26</td><td class="rf">4 problems · 4 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑15</td><td>21:20 ET</td><td class="rs">28/28</td><td class="rf">3 problems · 6 to check</td><td class="rw">32 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑15</td><td>09:08 ET</td><td class="rs">25/25</td><td class="rf">4 problems · 1 to check</td><td class="rw">32 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑14</td><td>21:13 ET</td><td class="rs">25/25</td><td class="rf">4 problems · 10 to check</td><td class="rw">30 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑14</td><td>09:09 ET</td><td class="rs">25/25</td><td class="rf">5 problems · 2 to check</td><td class="rw">31 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑13</td><td>21:06 ET</td><td class="rs part">24/25</td><td class="rf">5 problems · 7 to check</td><td class="rw">31 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑13</td><td>09:11 ET</td><td class="rs">26/26</td><td class="rf">5 problems</td><td class="rw">28 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑12</td><td>21:10 ET</td><td class="rs">26/26</td><td class="rf">3 problems</td><td class="rw">29 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑12</td><td>09:14 ET</td><td class="rs part">24/25</td><td class="rf">2 problems</td><td class="rw">3 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑11</td><td>21:19 ET</td><td class="rs">26/26</td><td class="rf">1 problem · 1 to check</td><td class="rw">34 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑11</td><td>09:09 ET</td><td class="rs">25/25</td><td class="rf">1 problem · 1 to check</td><td class="rw">30 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑10</td><td>21:18 ET</td><td class="rs">26/26</td><td class="rf">1 problem · 2 to check</td><td class="rw">30 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑10</td><td>09:04 ET</td><td class="rs part">24/25</td><td class="rf">2 problems · 1 to check</td><td class="rw">23 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑09</td><td>21:19 ET</td><td class="rs">27/27</td><td class="rf">1 problem · 8 to check</td><td class="rw">29 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑09</td><td>09:20 ET</td><td class="rs part">24/25</td><td class="rf">2 problems · 4 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑08</td><td>21:19 ET</td><td class="rs">25/25</td><td class="rf">9 problems · 10 to check</td><td class="rw">23 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑08</td><td>09:07 ET</td><td class="rs part">23/24</td><td class="rf">2 problems · 2 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑07</td><td>21:09 ET</td><td class="rs">24/24</td><td class="rf">9 problems · 2 to check</td><td class="rw">23 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑07</td><td>09:09 ET</td><td class="rs">23/23</td><td class="rf">8 problems · 2 to check</td><td class="rw">23 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑06</td><td>21:10 ET</td><td class="rs">24/24</td><td class="rf">8 problems · 3 to check</td><td class="rw">24 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑06</td><td>09:09 ET</td><td class="rs part">22/24</td><td class="rf">3 problems · 1 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑05</td><td>21:08 ET</td><td class="rs">23/23</td><td class="rf">6 problems · 4 to check</td><td class="rw">25 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑05</td><td>09:03 ET</td><td class="rs part">22/23</td><td class="rf">7 problems · 1 to check</td><td class="rw">21 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑04</td><td>21:19 ET</td><td class="rs">24/24</td><td class="rf">5 problems · 6 to check</td><td class="rw">22 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑04</td><td>09:06 ET</td><td class="rs">23/23</td><td class="rf">5 problems · 2 to check</td><td class="rw">20 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑03</td><td>21:16 ET</td><td class="rs">24/24</td><td class="rf">4 problems · 6 to check</td><td class="rw">14 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑03</td><td>09:08 ET</td><td class="rs">23/23</td><td class="rf">4 problems · 2 to check</td><td class="rw">10 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑02</td><td>21:17 ET</td><td class="rs">25/25</td><td class="rf">3 problems · 6 to check</td><td class="rw">11 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑02</td><td>09:20 ET</td><td class="rs">25/25</td><td class="rf">5 problems · 6 to check</td><td class="rw">11 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑01</td><td>21:12 ET</td><td class="rs part">21/23</td><td class="rf">6 problems · 4 to check</td><td class="rw">19 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">09‑01</td><td>09:08 ET</td><td class="rs">23/23</td><td class="rf">4 problems · 5 to check</td><td class="rw">19 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑31</td><td>21:07 ET</td><td class="rs">24/24</td><td class="rf">5 problems · 3 to check</td><td class="rw">19 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑31</td><td>09:10 ET</td><td class="rs">24/24</td><td class="rf">4 problems · 3 to check</td><td class="rw">19 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑30</td><td>21:11 ET</td><td class="rs part">24/25</td><td class="rf">2 problems · 2 to check</td><td class="rw">2 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑30</td><td>09:07 ET</td><td class="rs">24/24</td><td class="rf">2 problems · 2 to check</td><td class="rw">21 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑29</td><td>21:17 ET</td><td class="rs">26/26</td><td class="rf">2 problems · 4 to check</td><td class="rw">not preserved</td></tr>
+<tr data-status="flagged"><td class="rd">08‑29</td><td>09:08 ET</td><td class="rs part">24/25</td><td class="rf">3 problems · 2 to check</td><td class="rw">14 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑28</td><td>21:12 ET</td><td class="rs part">23/24</td><td class="rf">2 problems · 3 to check</td><td class="rw">14 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑28</td><td>09:07 ET</td><td class="rs part">23/24</td><td class="rf">2 problems · 2 to check</td><td class="rw">14 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑27</td><td>21:15 ET</td><td class="rs part">24/25</td><td class="rf">2 problems · 2 to check</td><td class="rw">14 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑27</td><td>09:17 ET</td><td class="rs part">24/25</td><td class="rf">4 problems · 2 to check</td><td class="rw">not preserved</td></tr>
+<tr data-status="flagged"><td class="rd">08‑26</td><td>09:23 ET</td><td class="rs">26/26</td><td class="rf">3 problems · 5 to check</td><td class="rw">not preserved</td></tr>
+<tr data-status="flagged"><td class="rd">08‑25</td><td>11:40 ET</td><td class="rs">24/24</td><td class="rf">1 problem · 2 to check</td><td class="rw">13 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑25</td><td>09:12 ET</td><td class="rs part">24/25</td><td class="rf">5 problems · 3 to check</td><td class="rw">13 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑24</td><td>09:09 ET</td><td class="rs">26/26</td><td class="rf">4 problems · 3 to check</td><td class="rw">15 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑23</td><td>21:06 ET</td><td class="rs part">22/23</td><td class="rf">2 problems · 2 to check</td><td class="rw">15 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑23</td><td>09:11 ET</td><td class="rs">25/25</td><td class="rf">3 problems · 2 to check</td><td class="rw">17 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑22</td><td>21:12 ET</td><td class="rs">25/25</td><td class="rf">3 problems · 6 to check</td><td class="rw">17 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑21</td><td>09:13 ET</td><td class="rs part">22/23</td><td class="rf">4 problems · 2 to check</td><td class="rw">10 waiting</td></tr>
+<tr data-status="flagged"><td class="rd">08‑20</td><td>21:14 ET</td><td class="rs">24/24</td><td class="rf">2 problems · 4 to check</td><td class="rw">11 waiting</td></tr>
 <tr data-status="flagged"><td class="rd">08‑19</td><td>21:18 ET</td><td class="rs">24/24</td><td class="rf">7 problems · 4 to check</td><td class="rw">8 waiting</td></tr>
 <tr data-status="flagged"><td class="rd">08‑19</td><td>10:44 ET</td><td class="rs">23/23</td><td class="rf">6 problems · 4 to check</td><td class="rw">8 waiting</td></tr>
 <tr data-status="flagged"><td class="rd">08‑19</td><td>09:11 ET</td><td class="rs part">21/23</td><td class="rf">8 problems · 3 to check</td><td class="rw">1 waiting</td></tr>
@@ -101,9 +181,9 @@
         </div>
         <p class="sheet-hint reveal" aria-hidden="true">Slide — the record runs 5 columns</p>
 
-        <p class="fig reveal">The first three entries are the night the system was brought up — including its 9/12 first attempt, kept here because a record that starts clean is a record that started late. The partial cycles since — two on 11‑Aug, one each on 18‑Aug and 19‑Aug — all resolved the same day; nothing moved without verification.</p>
-        <p class="fig reveal">Last entry <strong><!--nx:latest-entry-->19‑Aug 21:18 ET<!--/nx:latest-entry--></strong>. An entry is appended after each cycle — twice a day. Machine‑readable at <a href="/assets/runs.json">/assets/runs.json</a>.</p>
-        <p class="fig reveal">A note, dated 29‑Aug: the run's daily reports have been silent since 19‑Aug 21:18 ET — flagged, and being chased on the operator's side. The record resumes the moment the system speaks again. Nothing here is ever backfilled or guessed; a gap in the log is the log telling the truth.</p>
+        <p class="fig reveal">The first three entries are the night the system was brought up — including its 9/12 first attempt, kept here because a record that starts clean is a record that started late. A partial cycle is printed as it happened — its report names the step that did not finish — and nothing moved without verification.</p>
+        <p class="fig reveal">Last entry <strong><!--nx:latest-entry-->29‑Sep 09:16 ET<!--/nx:latest-entry--></strong>. Entries are transcribed from the run’s own reports, in batches, so the record can trail the runner by some days; it never runs ahead of it. Machine‑readable at <a href="/assets/runs.json">/assets/runs.json</a>.</p>
+        <p class="fig reveal">A note, dated 29‑Sep, correcting the one dated 29‑Aug: the reports never went silent after 19‑Aug. Their subject line changed and part of them were filtered as spam, so they went unread; every surviving report is now transcribed. Three — 26‑Aug 09:23, 27‑Aug 09:17 and 29‑Aug 21:17 — sat in spam long enough for the mail provider to delete them. Their summary lines survive, so their steps and flags are printed; their queue reads “not preserved”. Nothing here is guessed.</p>
       </div>
     </section>
   </main>
@@ -111,8 +191,8 @@
   <footer class="foot">
     <div class="foot-ticker" aria-hidden="true">
       <div class="foot-ticker-track">
-        <span><!--nx:latest-steps-->24/24<!--/nx:latest-steps--> steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
-        <span><!--nx:latest-steps-->24/24<!--/nx:latest-steps--> steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+        <span><!--nx:latest-steps-->27/27<!--/nx:latest-steps--> steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
+        <span><!--nx:latest-steps-->27/27<!--/nx:latest-steps--> steps / 105 tests / 470/470 shipments / 0 manual steps / runs 2x/day / 09:00 + 21:00 ET / air-cargo logistics, South America to Miami</span>
       </div>
     </div>
     <div class="shell">

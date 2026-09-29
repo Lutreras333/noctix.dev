@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updated": "2026-08-19",
+  "updated": "2026-09-29",
   "approved": "Published with the client's approval. Counts only — no shipment, party, or price data leaves the system.",
   "source": "Transcribed from the run's own daily reports; an entry is appended after each cycle."
  },
@@ -342,6 +342,799 @@
    "problems": 7,
    "to_check": 4,
    "waiting": 8
+  },
+  {
+   "date": "2026-08-20",
+   "time_et": "21:14",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 4,
+   "waiting": 11
+  },
+  {
+   "date": "2026-08-21",
+   "time_et": "09:13",
+   "steps_ok": 22,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 2,
+   "waiting": 10
+  },
+  {
+   "date": "2026-08-22",
+   "time_et": "21:12",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 6,
+   "waiting": 17
+  },
+  {
+   "date": "2026-08-23",
+   "time_et": "09:11",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 2,
+   "waiting": 17
+  },
+  {
+   "date": "2026-08-23",
+   "time_et": "21:06",
+   "steps_ok": 22,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 2,
+   "waiting": 15
+  },
+  {
+   "date": "2026-08-24",
+   "time_et": "09:09",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 3,
+   "waiting": 15
+  },
+  {
+   "date": "2026-08-25",
+   "time_et": "09:12",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 3,
+   "waiting": 13
+  },
+  {
+   "date": "2026-08-25",
+   "time_et": "11:40",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 2,
+   "waiting": 13
+  },
+  {
+   "date": "2026-08-26",
+   "time_et": "09:23",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 5,
+   "waiting": null,
+   "note": "report deleted by the mail provider after 30 days in spam; counts from its preserved summary line, queue not preserved"
+  },
+  {
+   "date": "2026-08-27",
+   "time_et": "09:17",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 2,
+   "waiting": null,
+   "note": "report deleted by the mail provider after 30 days in spam; counts from its preserved summary line, queue not preserved"
+  },
+  {
+   "date": "2026-08-27",
+   "time_et": "21:15",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 2,
+   "waiting": 14
+  },
+  {
+   "date": "2026-08-28",
+   "time_et": "09:07",
+   "steps_ok": 23,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 2,
+   "waiting": 14
+  },
+  {
+   "date": "2026-08-28",
+   "time_et": "21:12",
+   "steps_ok": 23,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 3,
+   "waiting": 14
+  },
+  {
+   "date": "2026-08-29",
+   "time_et": "09:08",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 2,
+   "waiting": 14
+  },
+  {
+   "date": "2026-08-29",
+   "time_et": "21:17",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 4,
+   "waiting": null,
+   "note": "report deleted by the mail provider after 30 days in spam; counts from its preserved summary line, queue not preserved"
+  },
+  {
+   "date": "2026-08-30",
+   "time_et": "09:07",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 2,
+   "waiting": 21
+  },
+  {
+   "date": "2026-08-30",
+   "time_et": "21:11",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 2,
+   "waiting": 2
+  },
+  {
+   "date": "2026-08-31",
+   "time_et": "09:10",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 3,
+   "waiting": 19
+  },
+  {
+   "date": "2026-08-31",
+   "time_et": "21:07",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 3,
+   "waiting": 19
+  },
+  {
+   "date": "2026-09-01",
+   "time_et": "09:08",
+   "steps_ok": 23,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 5,
+   "waiting": 19
+  },
+  {
+   "date": "2026-09-01",
+   "time_et": "21:12",
+   "steps_ok": 21,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 6,
+   "to_check": 4,
+   "waiting": 19
+  },
+  {
+   "date": "2026-09-02",
+   "time_et": "09:20",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 6,
+   "waiting": 11
+  },
+  {
+   "date": "2026-09-02",
+   "time_et": "21:17",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 6,
+   "waiting": 11
+  },
+  {
+   "date": "2026-09-03",
+   "time_et": "09:08",
+   "steps_ok": 23,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 2,
+   "waiting": 10
+  },
+  {
+   "date": "2026-09-03",
+   "time_et": "21:16",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 6,
+   "waiting": 14
+  },
+  {
+   "date": "2026-09-04",
+   "time_et": "09:06",
+   "steps_ok": 23,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 2,
+   "waiting": 20
+  },
+  {
+   "date": "2026-09-04",
+   "time_et": "21:19",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 6,
+   "waiting": 22
+  },
+  {
+   "date": "2026-09-05",
+   "time_et": "09:03",
+   "steps_ok": 22,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 7,
+   "to_check": 1,
+   "waiting": 21
+  },
+  {
+   "date": "2026-09-05",
+   "time_et": "21:08",
+   "steps_ok": 23,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 6,
+   "to_check": 4,
+   "waiting": 25
+  },
+  {
+   "date": "2026-09-06",
+   "time_et": "09:09",
+   "steps_ok": 22,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 1,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-06",
+   "time_et": "21:10",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 8,
+   "to_check": 3,
+   "waiting": 24
+  },
+  {
+   "date": "2026-09-07",
+   "time_et": "09:09",
+   "steps_ok": 23,
+   "steps": 23,
+   "status": "PROBLEMS",
+   "problems": 8,
+   "to_check": 2,
+   "waiting": 23
+  },
+  {
+   "date": "2026-09-07",
+   "time_et": "21:09",
+   "steps_ok": 24,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 9,
+   "to_check": 2,
+   "waiting": 23
+  },
+  {
+   "date": "2026-09-08",
+   "time_et": "09:07",
+   "steps_ok": 23,
+   "steps": 24,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 2,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-08",
+   "time_et": "21:19",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 9,
+   "to_check": 10,
+   "waiting": 23
+  },
+  {
+   "date": "2026-09-09",
+   "time_et": "09:20",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 4,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-09",
+   "time_et": "21:19",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 8,
+   "waiting": 29
+  },
+  {
+   "date": "2026-09-10",
+   "time_et": "09:04",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 1,
+   "waiting": 23
+  },
+  {
+   "date": "2026-09-10",
+   "time_et": "21:18",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 2,
+   "waiting": 30
+  },
+  {
+   "date": "2026-09-11",
+   "time_et": "09:09",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 1,
+   "waiting": 30
+  },
+  {
+   "date": "2026-09-11",
+   "time_et": "21:19",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 1,
+   "waiting": 34
+  },
+  {
+   "date": "2026-09-12",
+   "time_et": "09:14",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 0,
+   "waiting": 3
+  },
+  {
+   "date": "2026-09-12",
+   "time_et": "21:10",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 29
+  },
+  {
+   "date": "2026-09-13",
+   "time_et": "09:11",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 0,
+   "waiting": 28
+  },
+  {
+   "date": "2026-09-13",
+   "time_et": "21:06",
+   "steps_ok": 24,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 7,
+   "waiting": 31
+  },
+  {
+   "date": "2026-09-14",
+   "time_et": "09:09",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 2,
+   "waiting": 31
+  },
+  {
+   "date": "2026-09-14",
+   "time_et": "21:13",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 10,
+   "waiting": 30
+  },
+  {
+   "date": "2026-09-15",
+   "time_et": "09:08",
+   "steps_ok": 25,
+   "steps": 25,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 1,
+   "waiting": 32
+  },
+  {
+   "date": "2026-09-15",
+   "time_et": "21:20",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 6,
+   "waiting": 32
+  },
+  {
+   "date": "2026-09-16",
+   "time_et": "09:15",
+   "steps_ok": 25,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 4,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-16",
+   "time_et": "21:19",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 2,
+   "waiting": 13
+  },
+  {
+   "date": "2026-09-17",
+   "time_et": "09:09",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 0,
+   "waiting": 6
+  },
+  {
+   "date": "2026-09-17",
+   "time_et": "21:22",
+   "steps_ok": 26,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 4,
+   "waiting": 1
+  },
+  {
+   "date": "2026-09-18",
+   "time_et": "09:10",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 2,
+   "waiting": 6
+  },
+  {
+   "date": "2026-09-18",
+   "time_et": "21:19",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 3,
+   "waiting": 5
+  },
+  {
+   "date": "2026-09-19",
+   "time_et": "09:20",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 1,
+   "waiting": 6
+  },
+  {
+   "date": "2026-09-19",
+   "time_et": "21:14",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 4
+  },
+  {
+   "date": "2026-09-20",
+   "time_et": "01:11",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 7
+  },
+  {
+   "date": "2026-09-20",
+   "time_et": "09:24",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 5,
+   "waiting": 4
+  },
+  {
+   "date": "2026-09-20",
+   "time_et": "21:09",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 4
+  },
+  {
+   "date": "2026-09-21",
+   "time_et": "09:12",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 3
+  },
+  {
+   "date": "2026-09-21",
+   "time_et": "21:12",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 0,
+   "waiting": 3
+  },
+  {
+   "date": "2026-09-22",
+   "time_et": "09:12",
+   "steps_ok": 26,
+   "steps": 26,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 1,
+   "waiting": 4
+  },
+  {
+   "date": "2026-09-22",
+   "time_et": "21:18",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 2,
+   "waiting": 3
+  },
+  {
+   "date": "2026-09-23",
+   "time_et": "09:20",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 0,
+   "waiting": 4
+  },
+  {
+   "date": "2026-09-23",
+   "time_et": "21:20",
+   "steps_ok": 29,
+   "steps": 29,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 3,
+   "waiting": 4
+  },
+  {
+   "date": "2026-09-24",
+   "time_et": "09:08",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 1,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-24",
+   "time_et": "21:16",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 3,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-25",
+   "time_et": "09:09",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 0,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-25",
+   "time_et": "12:38",
+   "steps_ok": 26,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 2,
+   "waiting": 3
+  },
+  {
+   "date": "2026-09-25",
+   "time_et": "21:11",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 24,
+   "to_check": 1,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-26",
+   "time_et": "09:07",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 24,
+   "to_check": 1,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-26",
+   "time_et": "21:14",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 26,
+   "to_check": 4,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-27",
+   "time_et": "09:08",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 27,
+   "to_check": 1,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-27",
+   "time_et": "19:53",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 6,
+   "to_check": 0,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-27",
+   "time_et": "21:08",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 0,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-28",
+   "time_et": "09:08",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 0,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-28",
+   "time_et": "21:16",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 1,
+   "waiting": 4
+  },
+  {
+   "date": "2026-09-29",
+   "time_et": "09:16",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 2
   }
  ]
 }
