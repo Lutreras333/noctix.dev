@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updated": "2026-09-29",
+  "updated": "2026-10-05",
   "approved": "Published with the client's approval. Counts only — no shipment, party, or price data leaves the system.",
   "source": "Transcribed from the run's own daily reports; an entry is appended after each cycle."
  },
@@ -1135,6 +1135,126 @@
    "problems": 3,
    "to_check": 0,
    "waiting": 2
+  },
+  {
+   "date": "2026-09-29",
+   "time_et": "21:17",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 1,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-30",
+   "time_et": "09:20",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 2
+  },
+  {
+   "date": "2026-09-30",
+   "time_et": "21:14",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 4,
+   "to_check": 3,
+   "waiting": 2
+  },
+  {
+   "date": "2026-10-01",
+   "time_et": "09:21",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 0,
+   "waiting": 2
+  },
+  {
+   "date": "2026-10-01",
+   "time_et": "21:17",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 5,
+   "to_check": 2,
+   "waiting": 2
+  },
+  {
+   "date": "2026-10-02",
+   "time_et": "09:09",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 1,
+   "to_check": 0,
+   "waiting": 2
+  },
+  {
+   "date": "2026-10-02",
+   "time_et": "21:09",
+   "steps_ok": 26,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 3,
+   "waiting": 4
+  },
+  {
+   "date": "2026-10-03",
+   "time_et": "09:20",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 2,
+   "to_check": 0,
+   "waiting": 3
+  },
+  {
+   "date": "2026-10-03",
+   "time_et": "21:07",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 3,
+   "waiting": 3
+  },
+  {
+   "date": "2026-10-04",
+   "time_et": "09:14",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 1,
+   "waiting": 3
+  },
+  {
+   "date": "2026-10-04",
+   "time_et": "21:10",
+   "steps_ok": 28,
+   "steps": 28,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 3
+  },
+  {
+   "date": "2026-10-05",
+   "time_et": "09:08",
+   "steps_ok": 27,
+   "steps": 27,
+   "status": "PROBLEMS",
+   "problems": 3,
+   "to_check": 0,
+   "waiting": 4
   }
  ]
 }
